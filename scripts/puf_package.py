@@ -33,35 +33,87 @@ def int2bytes(integer):
 	binary = bin(integer)[2:]
 	return str2bytes("0"*(16 - len(binary)) + binary)
 
+class ReturnData:
+    """
+    Parameters
+    ----------
+    - samples : `list`
+    - size : int
+            
+    Properties
+    ----------
+    - samples: `List[np.array[uint8]]`
+    - reference: `list`
+    - uniformity: `float`
+    """
+
+    def __init__(self, samples : list, size : int) -> None:
+        self._samples = samples
+        reference = [0 for _ in range(size)]
+        uniformity = 0
+        for sample in tqdm(samples, desc=f"[ANALYSE]", leave = False, ncols=100):
+            for bit_i in range(size):
+                reference[bit_i] += sample[bit_i]
+        for i,reference_bit in enumerate(reference):
+            reference[i] = round(reference_bit/len(samples))
+            uniformity += reference[i]
+        self._reference = reference
+        self._uniformity = uniformity / size
+        
+    @property
+    def samples(self) -> list:
+        return self._samples
+    
+    @property
+    def reference(self) -> list:
+        return self._reference
+    
+    @property
+    def uniformity(self) -> float:
+        return self._uniformity
 
 
 
 class PUF:
+    """
+    Parameters
+    ----------
+    - port : `str`
+    - baudrate : Optional[`int`], by default `230400`
+    - initial_ref_limit : optional[`int`], by default `200`
+    - uart_port_delay : optional[`float`], by default `0.1`
+    
+    Properties
+    ----------
+    - raw_size: `int`
+    - ecc_size: `int`
+    - syndrome_size: `int`
+    - sha256_size: `int`
+    - default_ref_limit_counter: `int`
+    - ref_limit: `int`
+    - syndrome: `bytes`
+    
+    Methods
+    -------
+    - set_ref_limit
+    - set_syndrome
+    - read_raw
+    - read_ecc
+    - read_sha256
+    """
     
     raw_size = 1023
     ecc_size = 171
     syndrome_size = 84
     sha256_size = 256
+    default_ref_limit_counter = 200
     
-    class ReturnData:
-    
-        def __init__(self, samples : list, size : int) -> None:
-            self.samples = samples
-            self.reference = [0 for _ in range(size)]
-            self.uniformity = 0
-            for sample in tqdm(samples, desc=f"[ANALYSE]", leave = False, ncols=100):
-                for bit_i in range(size):
-                    self.reference[bit_i] += sample[bit_i]
-            for i,reference_bit in enumerate(self.reference):
-                self.reference[i] = round(reference_bit/len(samples))
-                self.uniformity += self.reference[i]
-            self.uniformity = self.uniformity / size
-
     def __init__(self, port: str, baudrate: int = 230400, initial_ref_limit: int = 200, uart_port_delay: float = 0.1):
         self.port = port
         self.baudrate = baudrate
         self.uart_port_delay = uart_port_delay
-        self.set_ref_limit(initial_ref_limit)
+        if initial_ref_limit != self.default_ref_limit_counter:
+            self.set_ref_limit(initial_ref_limit)
         logging.debug("PUF device initialized")
         logging.debug(f"| Port: {port}\n| Baudrate: {baudrate}\n| Ref counter limit: {initial_ref_limit}\n| Uart port delay: {uart_port_delay}")
         
@@ -76,8 +128,7 @@ class PUF:
         else:
             raise SyndromeNotSetException("Attribut 'syndrome' is not set")
         
-        
-    def set_syndrome(self, syndrome: str):
+    def set_syndrome(self, syndrome: str) -> None:
         if not isinstance(syndrome,str):
             raise TypeError("Syndrome argument should be an str.")
         elif not len(syndrome) == self.syndrome_size:
@@ -85,7 +136,7 @@ class PUF:
         self._syndrome = str2bytes(syndrome)
         logging.debug(f"Syndrome set to {syndrome}")
         
-    def set_ref_limit(self, limit: int):
+    def set_ref_limit(self, limit: int) -> None:
         if not isinstance(limit, int):
             raise TypeError("Argument 'limit' of method 'set_ref_limit' should be an int")
         if limit >= 65536 or limit <= 0:
@@ -116,9 +167,9 @@ class PUF:
                 samples.append(data2bits(ser.read(response_Nbytes))[:response_size])
                 
         logging.debug(f"Raw read completed")
-        return PUF.ReturnData(samples, response_size)
+        return ReturnData(samples, response_size)
                 
-    def read_ecc(self, sample_size: int = 1):
+    def read_ecc(self, sample_size: int = 1) -> ReturnData:
         logging.debug(f"Starting ecc read...")
         if not hasattr(self, '_syndrome'):
             raise SyndromeNotSetException("Syndrome need to be set before using the method 'read_ecc'.")
@@ -131,9 +182,9 @@ class PUF:
                 ser.write(self.syndrome)
                 samples.append(data2bits(ser.read(response_Nbytes))[:self.ecc_size])
         logging.debug(f"Ecc read completed")
-        return PUF.ReturnData(samples, self.ecc_size)
+        return ReturnData(samples, self.ecc_size)
         
-    def read_sha256(self, sample_size: int = 1):
+    def read_sha256(self, sample_size: int = 1) -> ReturnData:
         logging.debug(f"Starting sha read...")
         if not hasattr(self, '_syndrome'):
             raise SyndromeNotSetException("Syndrome need to be set before using the method 'read_sha256'.")
@@ -146,7 +197,7 @@ class PUF:
                 ser.write(self.syndrome)
                 samples.append(data2bits(ser.read(response_Nbytes))[:self.sha256_size])
         logging.debug(f"Sha256 read completed")
-        return PUF.ReturnData(samples, self.sha256_size)
+        return ReturnData(samples, self.sha256_size)
     
 if __name__ == "__main__":
     puf = PUF('COM6')
