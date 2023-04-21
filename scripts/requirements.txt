@@ -1,0 +1,4 @@
+
+numpy==1.24.*
+pyserial==3.5
+cryptography==39.0.*

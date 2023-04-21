@@ -1,0 +1,1026 @@
+{
+  "design": {
+    "design_info": {
+      "boundary_crc": "0x76E886CBDEDF4E6D",
+      "device": "xc7a100tcsg324-1",
+      "gen_directory": "../../../../TERO_ECC.gen/sources_1/bd/ro_puf",
+      "name": "ro_puf",
+      "rev_ctrl_bd_flag": "RevCtrlBdOff",
+      "synth_flow_mode": "Hierarchical",
+      "tool_version": "2022.2",
+      "validated": "true"
+    },
+    "design_tree": {
+      "axi_uartlite_0": "",
+      "clk_wiz_0": "",
+      "proc_sys_reset_0": "",
+      "decoder_block_0": "",
+      "sha256_block_0": "",
+      "uart_0": "",
+      "control_0": "",
+      "ro_puf_block_0": "",
+      "debug_leds_sink_0": "",
+      "word_muxer_0": ""
+    },
+    "interface_ports": {
+      "usb_uart": {
+        "mode": "Master",
+        "vlnv_bus_definition": "xilinx.com:interface:uart:1.0",
+        "vlnv": "xilinx.com:interface:uart_rtl:1.0",
+        "port_maps": {
+          "RxD": {
+            "physical_name": "usb_uart_rxd",
+            "direction": "I"
+          },
+          "TxD": {
+            "physical_name": "usb_uart_txd",
+            "direction": "O"
+          }
+        }
+      }
+    },
+    "ports": {
+      "leds": {
+        "type": "data",
+        "direction": "O",
+        "left": "15",
+        "right": "0",
+        "parameters": {
+          "LAYERED_METADATA": {
+            "value": "undef",
+            "value_src": "default"
+          }
+        }
+      },
+      "reset": {
+        "type": "rst",
+        "direction": "I",
+        "parameters": {
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "POLARITY": {
+            "value": "ACTIVE_LOW"
+          }
+        }
+      },
+      "sys_clock": {
+        "type": "clk",
+        "direction": "I",
+        "parameters": {
+          "CLK_DOMAIN": {
+            "value": "ro_puf_sys_clock",
+            "value_src": "default"
+          },
+          "FREQ_HZ": {
+            "value": "100000000"
+          },
+          "FREQ_TOLERANCE_HZ": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "PHASE": {
+            "value": "0.000"
+          }
+        }
+      },
+      "led_0": {
+        "direction": "O",
+        "left": "2",
+        "right": "0"
+      },
+      "led_1": {
+        "direction": "O",
+        "left": "2",
+        "right": "0"
+      },
+      "SW0": {
+        "direction": "I"
+      }
+    },
+    "components": {
+      "axi_uartlite_0": {
+        "vlnv": "xilinx.com:ip:axi_uartlite:2.0",
+        "xci_name": "ro_puf_axi_uartlite_0_0",
+        "xci_path": "ip\\ro_puf_axi_uartlite_0_0\\ro_puf_axi_uartlite_0_0.xci",
+        "inst_hier_path": "axi_uartlite_0",
+        "parameters": {
+          "C_BAUDRATE": {
+            "value": "230400"
+          }
+        }
+      },
+      "clk_wiz_0": {
+        "vlnv": "xilinx.com:ip:clk_wiz:6.0",
+        "xci_name": "ro_puf_clk_wiz_0_0",
+        "xci_path": "ip\\ro_puf_clk_wiz_0_0\\ro_puf_clk_wiz_0_0.xci",
+        "inst_hier_path": "clk_wiz_0",
+        "parameters": {
+          "CLKOUT1_DRIVES": {
+            "value": "BUFG"
+          },
+          "CLKOUT1_JITTER": {
+            "value": "137.681"
+          },
+          "CLKOUT1_PHASE_ERROR": {
+            "value": "105.461"
+          },
+          "CLKOUT2_DRIVES": {
+            "value": "BUFG"
+          },
+          "CLKOUT3_DRIVES": {
+            "value": "BUFG"
+          },
+          "CLKOUT4_DRIVES": {
+            "value": "BUFG"
+          },
+          "CLKOUT5_DRIVES": {
+            "value": "BUFG"
+          },
+          "CLKOUT6_DRIVES": {
+            "value": "BUFG"
+          },
+          "CLKOUT7_DRIVES": {
+            "value": "BUFG"
+          },
+          "MMCM_BANDWIDTH": {
+            "value": "OPTIMIZED"
+          },
+          "MMCM_CLKFBOUT_MULT_F": {
+            "value": "9"
+          },
+          "MMCM_CLKOUT0_DIVIDE_F": {
+            "value": "9"
+          },
+          "MMCM_COMPENSATION": {
+            "value": "ZHOLD"
+          },
+          "PRIMITIVE": {
+            "value": "PLL"
+          }
+        }
+      },
+      "proc_sys_reset_0": {
+        "vlnv": "xilinx.com:ip:proc_sys_reset:5.0",
+        "xci_name": "ro_puf_proc_sys_reset_0_0",
+        "xci_path": "ip\\ro_puf_proc_sys_reset_0_0\\ro_puf_proc_sys_reset_0_0.xci",
+        "inst_hier_path": "proc_sys_reset_0"
+      },
+      "decoder_block_0": {
+        "vlnv": "xilinx.com:module_ref:decoder_block:1.0",
+        "xci_name": "ro_puf_decoder_block_0_0",
+        "xci_path": "ip\\ro_puf_decoder_block_0_0\\ro_puf_decoder_block_0_0.xci",
+        "inst_hier_path": "decoder_block_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "decoder_block",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "pufbit_out": {
+            "direction": "I"
+          },
+          "pufbit_valid": {
+            "direction": "I"
+          },
+          "clock": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "ASSOCIATED_RESET": {
+                "value": "reset",
+                "value_src": "constant"
+              },
+              "FREQ_HZ": {
+                "value": "100000000",
+                "value_src": "ip_prop"
+              },
+              "PHASE": {
+                "value": "0.0",
+                "value_src": "ip_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "/clk_wiz_0_clk_out1",
+                "value_src": "ip_prop"
+              }
+            }
+          },
+          "reset": {
+            "type": "rst",
+            "direction": "I",
+            "parameters": {
+              "POLARITY": {
+                "value": "ACTIVE_LOW",
+                "value_src": "const_prop"
+              }
+            }
+          },
+          "decode_reset": {
+            "type": "rst",
+            "direction": "I"
+          },
+          "syndrome_in": {
+            "direction": "I",
+            "left": "83",
+            "right": "0"
+          },
+          "decoder_valid": {
+            "direction": "O"
+          },
+          "decoder_out": {
+            "direction": "O"
+          }
+        }
+      },
+      "sha256_block_0": {
+        "vlnv": "xilinx.com:module_ref:sha256_block:1.0",
+        "xci_name": "ro_puf_sha256_block_0_0",
+        "xci_path": "ip\\ro_puf_sha256_block_0_0\\ro_puf_sha256_block_0_0.xci",
+        "inst_hier_path": "sha256_block_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "sha256_block",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "clock": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "ASSOCIATED_RESET": {
+                "value": "reset",
+                "value_src": "constant"
+              },
+              "FREQ_HZ": {
+                "value": "100000000",
+                "value_src": "ip_prop"
+              },
+              "PHASE": {
+                "value": "0.0",
+                "value_src": "ip_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "/clk_wiz_0_clk_out1",
+                "value_src": "ip_prop"
+              }
+            }
+          },
+          "reset": {
+            "type": "rst",
+            "direction": "I"
+          },
+          "decoder_out": {
+            "direction": "I"
+          },
+          "decoder_valid": {
+            "direction": "I"
+          },
+          "sha256_out": {
+            "direction": "O",
+            "left": "255",
+            "right": "0"
+          },
+          "sha256_valid": {
+            "direction": "O"
+          },
+          "start": {
+            "direction": "I"
+          }
+        }
+      },
+      "uart_0": {
+        "vlnv": "xilinx.com:module_ref:uart:1.0",
+        "xci_name": "ro_puf_uart_0_0",
+        "xci_path": "ip\\ro_puf_uart_0_0_1\\ro_puf_uart_0_0.xci",
+        "inst_hier_path": "uart_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "uart",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "clock": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "ASSOCIATED_RESET": {
+                "value": "reset",
+                "value_src": "constant"
+              },
+              "FREQ_HZ": {
+                "value": "100000000",
+                "value_src": "ip_prop"
+              },
+              "PHASE": {
+                "value": "0.0",
+                "value_src": "ip_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "/clk_wiz_0_clk_out1",
+                "value_src": "ip_prop"
+              }
+            }
+          },
+          "reset": {
+            "type": "rst",
+            "direction": "I",
+            "parameters": {
+              "POLARITY": {
+                "value": "ACTIVE_LOW",
+                "value_src": "const_prop"
+              }
+            }
+          },
+          "dec_out": {
+            "direction": "I"
+          },
+          "dec_valid": {
+            "direction": "I"
+          },
+          "pufbit_out": {
+            "direction": "I"
+          },
+          "pufbit_valid": {
+            "direction": "I"
+          },
+          "sha256_out": {
+            "direction": "I",
+            "left": "255",
+            "right": "0"
+          },
+          "sha256_valid": {
+            "direction": "I"
+          },
+          "write_out": {
+            "direction": "I"
+          },
+          "wready": {
+            "direction": "I"
+          },
+          "bvalid": {
+            "direction": "I"
+          },
+          "bresp": {
+            "direction": "I",
+            "left": "1",
+            "right": "0"
+          },
+          "arready": {
+            "direction": "I"
+          },
+          "rvalid": {
+            "direction": "I"
+          },
+          "rdata": {
+            "direction": "I",
+            "left": "31",
+            "right": "0"
+          },
+          "rresp": {
+            "direction": "I",
+            "left": "1",
+            "right": "0"
+          },
+          "awvalid": {
+            "direction": "O"
+          },
+          "wvalid": {
+            "direction": "O"
+          },
+          "bready": {
+            "direction": "O"
+          },
+          "awaddr": {
+            "direction": "O",
+            "left": "3",
+            "right": "0"
+          },
+          "wdata": {
+            "direction": "O",
+            "left": "31",
+            "right": "0"
+          },
+          "arvalid": {
+            "direction": "O"
+          },
+          "rready": {
+            "direction": "O"
+          },
+          "araddr": {
+            "direction": "O",
+            "left": "3",
+            "right": "0"
+          },
+          "write_finished": {
+            "direction": "O"
+          },
+          "read_finished": {
+            "direction": "O"
+          },
+          "gen_state_out": {
+            "direction": "O",
+            "left": "1",
+            "right": "0"
+          },
+          "syndrome": {
+            "direction": "O",
+            "left": "83",
+            "right": "0"
+          },
+          "led_0": {
+            "direction": "O",
+            "left": "2",
+            "right": "0"
+          },
+          "refcounter_limit": {
+            "direction": "O",
+            "left": "15",
+            "right": "0"
+          }
+        }
+      },
+      "control_0": {
+        "vlnv": "xilinx.com:module_ref:control:1.0",
+        "xci_name": "ro_puf_control_0_0",
+        "xci_path": "ip\\ro_puf_control_0_0\\ro_puf_control_0_0.xci",
+        "inst_hier_path": "control_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "control",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "clock": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "ASSOCIATED_RESET": {
+                "value": "reset",
+                "value_src": "constant"
+              },
+              "FREQ_HZ": {
+                "value": "100000000",
+                "value_src": "ip_prop"
+              },
+              "PHASE": {
+                "value": "0.0",
+                "value_src": "ip_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "/clk_wiz_0_clk_out1",
+                "value_src": "ip_prop"
+              }
+            }
+          },
+          "reset": {
+            "type": "rst",
+            "direction": "I",
+            "parameters": {
+              "POLARITY": {
+                "value": "ACTIVE_LOW",
+                "value_src": "const_prop"
+              }
+            }
+          },
+          "pufbit_valid": {
+            "direction": "I"
+          },
+          "decode_valid": {
+            "direction": "I"
+          },
+          "sha256_valid": {
+            "direction": "I"
+          },
+          "gen_state": {
+            "direction": "I",
+            "left": "1",
+            "right": "0"
+          },
+          "write_finished": {
+            "direction": "I"
+          },
+          "read_finished": {
+            "direction": "I"
+          },
+          "enable_counting": {
+            "direction": "O"
+          },
+          "number0": {
+            "direction": "O",
+            "left": "4",
+            "right": "0"
+          },
+          "number1": {
+            "direction": "O",
+            "left": "4",
+            "right": "0"
+          },
+          "decode_reset": {
+            "type": "rst",
+            "direction": "O"
+          },
+          "sha256_start": {
+            "direction": "O"
+          },
+          "sha256_reset": {
+            "type": "rst",
+            "direction": "O"
+          },
+          "led_1": {
+            "direction": "O",
+            "left": "2",
+            "right": "0"
+          },
+          "write_out": {
+            "direction": "O"
+          }
+        }
+      },
+      "ro_puf_block_0": {
+        "vlnv": "xilinx.com:module_ref:ro_puf_block:1.0",
+        "xci_name": "ro_puf_ro_puf_block_0_0",
+        "xci_path": "ip\\ro_puf_ro_puf_block_0_0\\ro_puf_ro_puf_block_0_0.xci",
+        "inst_hier_path": "ro_puf_block_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "ro_puf_block",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "clock": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "ASSOCIATED_RESET": {
+                "value": "reset",
+                "value_src": "constant"
+              },
+              "FREQ_HZ": {
+                "value": "100000000",
+                "value_src": "ip_prop"
+              },
+              "PHASE": {
+                "value": "0.0",
+                "value_src": "ip_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "/clk_wiz_0_clk_out1",
+                "value_src": "ip_prop"
+              }
+            }
+          },
+          "enable": {
+            "direction": "I"
+          },
+          "pufbit_out": {
+            "direction": "O"
+          },
+          "pufbit_valid": {
+            "direction": "O"
+          },
+          "ref_counter_limit": {
+            "direction": "I",
+            "left": "15",
+            "right": "0"
+          },
+          "reset": {
+            "type": "rst",
+            "direction": "I",
+            "parameters": {
+              "POLARITY": {
+                "value": "ACTIVE_LOW",
+                "value_src": "const_prop"
+              }
+            }
+          },
+          "selection0": {
+            "direction": "I",
+            "left": "4",
+            "right": "0"
+          },
+          "selection1": {
+            "direction": "I",
+            "left": "4",
+            "right": "0"
+          }
+        }
+      },
+      "debug_leds_sink_0": {
+        "vlnv": "xilinx.com:module_ref:debug_leds_sink:1.0",
+        "xci_name": "ro_puf_debug_leds_sink_0_0",
+        "xci_path": "ip\\ro_puf_debug_leds_sink_0_0\\ro_puf_debug_leds_sink_0_0.xci",
+        "inst_hier_path": "debug_leds_sink_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "debug_leds_sink",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "enable_counting": {
+            "direction": "I"
+          },
+          "pufbit_valid": {
+            "direction": "I"
+          },
+          "decoder_valid": {
+            "direction": "I"
+          },
+          "sha256_valid": {
+            "direction": "I"
+          },
+          "sha256_start": {
+            "direction": "I"
+          },
+          "decoder_reset": {
+            "type": "rst",
+            "direction": "I"
+          },
+          "sha256_reset": {
+            "type": "rst",
+            "direction": "I"
+          },
+          "write_finished": {
+            "direction": "I"
+          },
+          "read_finished": {
+            "direction": "I"
+          },
+          "write_out": {
+            "direction": "I"
+          },
+          "clock": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "ASSOCIATED_RESET": {
+                "value": "reset",
+                "value_src": "constant"
+              },
+              "FREQ_HZ": {
+                "value": "100000000",
+                "value_src": "ip_prop"
+              },
+              "PHASE": {
+                "value": "0.0",
+                "value_src": "ip_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "/clk_wiz_0_clk_out1",
+                "value_src": "ip_prop"
+              }
+            }
+          },
+          "reset": {
+            "type": "rst",
+            "direction": "I",
+            "parameters": {
+              "POLARITY": {
+                "value": "ACTIVE_LOW",
+                "value_src": "const_prop"
+              }
+            }
+          },
+          "output_word": {
+            "direction": "O",
+            "left": "15",
+            "right": "0"
+          }
+        }
+      },
+      "word_muxer_0": {
+        "vlnv": "xilinx.com:module_ref:word_muxer:1.0",
+        "xci_name": "ro_puf_word_muxer_0_0",
+        "xci_path": "ip\\ro_puf_word_muxer_0_0\\ro_puf_word_muxer_0_0.xci",
+        "inst_hier_path": "word_muxer_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "word_muxer",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "input_word_0": {
+            "direction": "I",
+            "left": "15",
+            "right": "0"
+          },
+          "input_word_1": {
+            "direction": "I",
+            "left": "15",
+            "right": "0"
+          },
+          "output_word": {
+            "direction": "O",
+            "left": "15",
+            "right": "0"
+          },
+          "selection": {
+            "direction": "I"
+          }
+        }
+      }
+    },
+    "interface_nets": {
+      "axi_uartlite_2_UART": {
+        "interface_ports": [
+          "usb_uart",
+          "axi_uartlite_0/UART"
+        ]
+      }
+    },
+    "nets": {
+      "SW0_1": {
+        "ports": [
+          "SW0",
+          "word_muxer_0/selection"
+        ]
+      },
+      "axi_uartlite_2_s_axi_arready": {
+        "ports": [
+          "axi_uartlite_0/s_axi_arready",
+          "uart_0/arready"
+        ]
+      },
+      "axi_uartlite_2_s_axi_bresp": {
+        "ports": [
+          "axi_uartlite_0/s_axi_bresp",
+          "uart_0/bresp"
+        ]
+      },
+      "axi_uartlite_2_s_axi_bvalid": {
+        "ports": [
+          "axi_uartlite_0/s_axi_bvalid",
+          "uart_0/bvalid"
+        ]
+      },
+      "axi_uartlite_2_s_axi_rdata": {
+        "ports": [
+          "axi_uartlite_0/s_axi_rdata",
+          "uart_0/rdata"
+        ]
+      },
+      "axi_uartlite_2_s_axi_rresp": {
+        "ports": [
+          "axi_uartlite_0/s_axi_rresp",
+          "uart_0/rresp"
+        ]
+      },
+      "axi_uartlite_2_s_axi_rvalid": {
+        "ports": [
+          "axi_uartlite_0/s_axi_rvalid",
+          "uart_0/rvalid"
+        ]
+      },
+      "axi_uartlite_2_s_axi_wready": {
+        "ports": [
+          "axi_uartlite_0/s_axi_wready",
+          "uart_0/wready"
+        ]
+      },
+      "clk_wiz_1_locked": {
+        "ports": [
+          "clk_wiz_0/locked",
+          "proc_sys_reset_0/dcm_locked"
+        ]
+      },
+      "control_0_decode_reset": {
+        "ports": [
+          "control_0/decode_reset",
+          "decoder_block_0/decode_reset",
+          "debug_leds_sink_0/decoder_reset"
+        ]
+      },
+      "control_0_enable_counting": {
+        "ports": [
+          "control_0/enable_counting",
+          "ro_puf_block_0/enable",
+          "debug_leds_sink_0/enable_counting"
+        ]
+      },
+      "control_0_led_1": {
+        "ports": [
+          "control_0/led_1",
+          "led_1"
+        ]
+      },
+      "control_0_number0": {
+        "ports": [
+          "control_0/number0",
+          "ro_puf_block_0/selection0"
+        ]
+      },
+      "control_0_number1": {
+        "ports": [
+          "control_0/number1",
+          "ro_puf_block_0/selection1"
+        ]
+      },
+      "control_0_sha_reset": {
+        "ports": [
+          "control_0/sha256_reset",
+          "sha256_block_0/reset",
+          "debug_leds_sink_0/sha256_reset"
+        ]
+      },
+      "control_0_sha_start": {
+        "ports": [
+          "control_0/sha256_start",
+          "sha256_block_0/start",
+          "debug_leds_sink_0/sha256_start"
+        ]
+      },
+      "control_0_write_out": {
+        "ports": [
+          "control_0/write_out",
+          "uart_0/write_out",
+          "debug_leds_sink_0/write_out"
+        ]
+      },
+      "debug_leds_sink_0_output_word": {
+        "ports": [
+          "debug_leds_sink_0/output_word",
+          "word_muxer_0/input_word_1"
+        ]
+      },
+      "decoder_block_0_decoder_out": {
+        "ports": [
+          "decoder_block_0/decoder_out",
+          "sha256_block_0/decoder_out",
+          "uart_0/dec_out"
+        ]
+      },
+      "decoder_block_0_decoder_valid": {
+        "ports": [
+          "decoder_block_0/decoder_valid",
+          "sha256_block_0/decoder_valid",
+          "uart_0/dec_valid",
+          "control_0/decode_valid",
+          "debug_leds_sink_0/decoder_valid"
+        ]
+      },
+      "proc_sys_reset_0_peripheral_aresetn": {
+        "ports": [
+          "proc_sys_reset_0/peripheral_aresetn",
+          "axi_uartlite_0/s_axi_aresetn",
+          "decoder_block_0/reset",
+          "uart_0/reset",
+          "control_0/reset",
+          "ro_puf_block_0/reset",
+          "debug_leds_sink_0/reset"
+        ]
+      },
+      "reset_1": {
+        "ports": [
+          "reset",
+          "proc_sys_reset_0/ext_reset_in"
+        ]
+      },
+      "ro_puf_block_0_pufbit_finished": {
+        "ports": [
+          "ro_puf_block_0/pufbit_valid",
+          "decoder_block_0/pufbit_valid",
+          "uart_0/pufbit_valid",
+          "control_0/pufbit_valid",
+          "debug_leds_sink_0/pufbit_valid"
+        ]
+      },
+      "ro_puf_block_0_pufbit_out": {
+        "ports": [
+          "ro_puf_block_0/pufbit_out",
+          "decoder_block_0/pufbit_out",
+          "uart_0/pufbit_out"
+        ]
+      },
+      "sha256_block_0_sha256_out": {
+        "ports": [
+          "sha256_block_0/sha256_out",
+          "uart_0/sha256_out"
+        ]
+      },
+      "sha256_block_0_sha256_valid": {
+        "ports": [
+          "sha256_block_0/sha256_valid",
+          "uart_0/sha256_valid",
+          "control_0/sha256_valid",
+          "debug_leds_sink_0/sha256_valid"
+        ]
+      },
+      "sys_clock_1": {
+        "ports": [
+          "clk_wiz_0/clk_out1",
+          "proc_sys_reset_0/slowest_sync_clk",
+          "axi_uartlite_0/s_axi_aclk",
+          "decoder_block_0/clock",
+          "sha256_block_0/clock",
+          "uart_0/clock",
+          "control_0/clock",
+          "ro_puf_block_0/clock",
+          "debug_leds_sink_0/clock"
+        ]
+      },
+      "sys_clock_2": {
+        "ports": [
+          "sys_clock",
+          "clk_wiz_0/clk_in1"
+        ]
+      },
+      "uart_0_araddr": {
+        "ports": [
+          "uart_0/araddr",
+          "axi_uartlite_0/s_axi_araddr"
+        ]
+      },
+      "uart_0_arvalid": {
+        "ports": [
+          "uart_0/arvalid",
+          "axi_uartlite_0/s_axi_arvalid"
+        ]
+      },
+      "uart_0_awaddr": {
+        "ports": [
+          "uart_0/awaddr",
+          "axi_uartlite_0/s_axi_awaddr"
+        ]
+      },
+      "uart_0_awvalid": {
+        "ports": [
+          "uart_0/awvalid",
+          "axi_uartlite_0/s_axi_awvalid"
+        ]
+      },
+      "uart_0_bready": {
+        "ports": [
+          "uart_0/bready",
+          "axi_uartlite_0/s_axi_bready"
+        ]
+      },
+      "uart_0_led_0": {
+        "ports": [
+          "uart_0/led_0",
+          "led_0"
+        ]
+      },
+      "uart_0_provision_out": {
+        "ports": [
+          "uart_0/gen_state_out",
+          "control_0/gen_state"
+        ]
+      },
+      "uart_0_read_finished": {
+        "ports": [
+          "uart_0/read_finished",
+          "control_0/read_finished",
+          "debug_leds_sink_0/read_finished"
+        ]
+      },
+      "uart_0_refcounter_limit": {
+        "ports": [
+          "uart_0/refcounter_limit",
+          "ro_puf_block_0/ref_counter_limit",
+          "word_muxer_0/input_word_0"
+        ]
+      },
+      "uart_0_rready": {
+        "ports": [
+          "uart_0/rready",
+          "axi_uartlite_0/s_axi_rready"
+        ]
+      },
+      "uart_0_syndrome": {
+        "ports": [
+          "uart_0/syndrome",
+          "decoder_block_0/syndrome_in"
+        ]
+      },
+      "uart_0_wdata": {
+        "ports": [
+          "uart_0/wdata",
+          "axi_uartlite_0/s_axi_wdata"
+        ]
+      },
+      "uart_0_write_finished": {
+        "ports": [
+          "uart_0/write_finished",
+          "control_0/write_finished",
+          "debug_leds_sink_0/write_finished"
+        ]
+      },
+      "uart_0_wvalid": {
+        "ports": [
+          "uart_0/wvalid",
+          "axi_uartlite_0/s_axi_wvalid"
+        ]
+      },
+      "word_muxer_0_output": {
+        "ports": [
+          "word_muxer_0/output_word",
+          "leds"
+        ]
+      }
+    }
+  }
+}
