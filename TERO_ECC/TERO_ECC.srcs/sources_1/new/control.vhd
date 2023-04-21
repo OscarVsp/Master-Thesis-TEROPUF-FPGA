@@ -43,7 +43,8 @@ process(clock, reset) begin
 		enable_counting <= '0';
 		decode_reset <= '1';
 		write_out <= '0';
-
+		sha256_reset <= '1';
+		sha256_start <= '0';
 		state <= AWAIT_INPUT;
 		count <= (others => '0');
 		lfsr <= "0000000001";

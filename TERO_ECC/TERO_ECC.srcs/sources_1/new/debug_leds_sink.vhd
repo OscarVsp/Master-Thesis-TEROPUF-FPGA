@@ -23,6 +23,21 @@ architecture STRUCTURE of debug_leds_sink is
 
 begin
 
-output_word <= enable_counting & pufbit_valid & decoder_valid & sha256_valid & sha256_start & decoder_reset & sha256_reset & write_finished & read_finished & write_out & clock & reset & "0000";
+output_word(0) <= enable_counting;
+output_word(1) <= pufbit_valid;
+output_word(2) <= decoder_valid;
+output_word(3) <= sha256_valid;
+output_word(4) <= sha256_start;
+output_word(5) <= decoder_reset;
+output_word(6) <= sha256_reset;
+output_word(7) <= write_finished;
+output_word(8) <= read_finished;
+output_word(9) <= write_out;
+output_word(10) <= clock;
+output_word(11) <= reset;
+output_word(12) <= '1';
+output_word(13) <= '1';
+output_word(14) <= '1';
+output_word(15) <= '1';
 
 end STRUCTURE;

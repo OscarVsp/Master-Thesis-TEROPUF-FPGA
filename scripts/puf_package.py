@@ -149,7 +149,7 @@ class PUF:
         return PUF.ReturnData(samples, self.sha256_size)
     
 if __name__ == "__main__":
-    puf = PUF('COM4')
+    puf = PUF('COM6')
     print("Setting ref limit to 300.")
     puf.set_ref_limit(300)
     print("Setting ref limit back to 200.")
