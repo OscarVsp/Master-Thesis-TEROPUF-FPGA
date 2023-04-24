@@ -1,6 +1,6 @@
 import time
 from typing import List
-import numpy as np
+import numpy as np 
 import serial
 import hashlib
 from Crypto.Cipher import AES
@@ -224,7 +224,7 @@ class PUF:
         return SamplesReturnData(samples, self.sha256_size)
     
 if __name__ == "__main__":
-    puf = PUF('/dev/ttyACM0')
+    puf = PUF('COM6')
     print("Setting ref limit to 300.")
     puf.set_ref_limit(200)
     print("Reading raw puf...")
@@ -232,12 +232,10 @@ if __name__ == "__main__":
     print(f"RAW PUF 0 :\n{''.join([str(i) for i in returnDataRaw.samples[0]])}")
     print(f"REFERENCE :\n{''.join([str(i) for i in returnDataRaw.reference])}")
     print(f"UNIFORMITY : {returnDataRaw.uniformity}")
-    puf.set_syndrome("0"*84)#puf.set_syndrome(str(input("Syndrome ? ")))
-    returnDataECC = puf.read_ecc_samples()
-    print(f"ECC PUF 0 :\n{''.join([str(i) for i in returnDataECC.samples[0]])}")
-    print(f"REFERENCE :\n{''.join([str(i) for i in returnDataECC.reference])}")
-    print(f"UNIFORMITY : {returnDataECC.uniformity}")
-    returnDataSHA = puf.read_sha256_samples()
-    print(f"SHA PUF 0 :\n{''.join([str(i) for i in returnDataSHA.samples[0]])}")
-    print(f"REFERENCE :\n{''.join([str(i) for i in returnDataSHA.reference])}")
-    print(f"UNIFORMITY : {returnDataSHA.uniformity}")
+    puf.set_syndrome(str(input("Syndrome ? ")))
+    returnDataEcc = puf.read_raw_samples(sample_size=100)
+    print(f"RAW PUF 0 :\n{''.join([str(i) for i in returnDataEcc.samples[0]])}")
+    print(f"REFERENCE :\n{''.join([str(i) for i in returnDataEcc.reference])}")
+    print(f"UNIFORMITY : {returnDataRaw.uniformity}")
+    sha = puf.read_sha256()
+    print(f"SHA PUF 0 :\n{bits2str(sha)}")

@@ -21,8 +21,8 @@ N = 255
 K = 171
 Kp = 1023
 
-response_Nbytes_p = math.ceil(Kp / 8)
-remainer = response_Nbytes_p*8 - Kp
+response_Nbytes_p = math.ceil(K / 8)
+remainer = response_Nbytes_p*8 - K
 
 response_Nbytes = math.ceil(K / 8)
 
