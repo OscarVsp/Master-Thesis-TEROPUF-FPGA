@@ -79,9 +79,7 @@ while True:
 		print('Hashed key:', key.hexdigest())
 		print()
 
-# Message decryption
-"""
 encrypted = input('Input encrypted message: ')
 cipher = algorithms.AES(key.digest())		#AES.MODE_ECB)
 message = Cipher.decryptor(modes.ECB).decrypt(b64decode(encrypted)).rstrip(b'\x00')
-print('Message:', message.decode())"""
+print('Message:', message.decode())
