@@ -15,6 +15,7 @@ entity debug_leds_sink is
            write_out : in STD_LOGIC;
            clock : in STD_LOGIC;
            reset : in STD_LOGIC;
+           gen_state : in std_logic_vector (1 downto 0);
            output_word : out STD_LOGIC_VECTOR(16 - 1 downto 0)
     );
 end debug_leds_sink;
@@ -35,8 +36,8 @@ output_word(8) <= read_finished;
 output_word(9) <= write_out;
 output_word(10) <= clock;
 output_word(11) <= reset;
-output_word(12) <= '1';
-output_word(13) <= '1';
+output_word(12) <= gen_state(1);
+output_word(13) <= gen_state(0);
 output_word(14) <= '1';
 output_word(15) <= '1';
 

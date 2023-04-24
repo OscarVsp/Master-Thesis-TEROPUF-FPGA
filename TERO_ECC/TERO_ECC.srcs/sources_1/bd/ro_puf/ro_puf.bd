@@ -7,19 +7,21 @@
       "name": "ro_puf",
       "rev_ctrl_bd_flag": "RevCtrlBdOff",
       "synth_flow_mode": "Hierarchical",
-      "tool_version": "2022.2"
+      "tool_version": "2022.2",
+      "validated": "true"
     },
     "design_tree": {
       "axi_uartlite_0": "",
-      "clk_wiz_0": "",
       "proc_sys_reset_0": "",
-      "decoder_block_0": "",
       "sha256_block_0": "",
-      "uart_0": "",
       "ro_puf_block_0": "",
       "word_muxer_0": "",
+      "clk_wiz_0": "",
       "debug_leds_sink_0": "",
-      "control_0": ""
+      "control_0": "",
+      "sink_0": "",
+      "dec_0": "",
+      "uart_0": ""
     },
     "interface_ports": {
       "usb_uart": {
@@ -43,12 +45,22 @@
         "type": "data",
         "direction": "O",
         "left": "15",
-        "right": "0"
+        "right": "0",
+        "parameters": {
+          "LAYERED_METADATA": {
+            "value": "undef",
+            "value_src": "default"
+          }
+        }
       },
       "reset": {
         "type": "rst",
         "direction": "I",
         "parameters": {
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
           "POLARITY": {
             "value": "ACTIVE_LOW"
           }
@@ -58,8 +70,20 @@
         "type": "clk",
         "direction": "I",
         "parameters": {
+          "CLK_DOMAIN": {
+            "value": "ro_puf_sys_clock",
+            "value_src": "default"
+          },
           "FREQ_HZ": {
             "value": "100000000"
+          },
+          "FREQ_TOLERANCE_HZ": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
           },
           "PHASE": {
             "value": "0.000"
@@ -92,127 +116,11 @@
           }
         }
       },
-      "clk_wiz_0": {
-        "vlnv": "xilinx.com:ip:clk_wiz:6.0",
-        "xci_name": "ro_puf_clk_wiz_0_0",
-        "xci_path": "ip\\ro_puf_clk_wiz_0_0\\ro_puf_clk_wiz_0_0.xci",
-        "inst_hier_path": "clk_wiz_0",
-        "parameters": {
-          "CLKOUT1_DRIVES": {
-            "value": "BUFG"
-          },
-          "CLKOUT1_JITTER": {
-            "value": "137.681"
-          },
-          "CLKOUT1_PHASE_ERROR": {
-            "value": "105.461"
-          },
-          "CLKOUT2_DRIVES": {
-            "value": "BUFG"
-          },
-          "CLKOUT3_DRIVES": {
-            "value": "BUFG"
-          },
-          "CLKOUT4_DRIVES": {
-            "value": "BUFG"
-          },
-          "CLKOUT5_DRIVES": {
-            "value": "BUFG"
-          },
-          "CLKOUT6_DRIVES": {
-            "value": "BUFG"
-          },
-          "CLKOUT7_DRIVES": {
-            "value": "BUFG"
-          },
-          "MMCM_BANDWIDTH": {
-            "value": "OPTIMIZED"
-          },
-          "MMCM_CLKFBOUT_MULT_F": {
-            "value": "9"
-          },
-          "MMCM_CLKOUT0_DIVIDE_F": {
-            "value": "9"
-          },
-          "MMCM_COMPENSATION": {
-            "value": "ZHOLD"
-          },
-          "PRIMITIVE": {
-            "value": "PLL"
-          }
-        }
-      },
       "proc_sys_reset_0": {
         "vlnv": "xilinx.com:ip:proc_sys_reset:5.0",
         "xci_name": "ro_puf_proc_sys_reset_0_0",
         "xci_path": "ip\\ro_puf_proc_sys_reset_0_0\\ro_puf_proc_sys_reset_0_0.xci",
         "inst_hier_path": "proc_sys_reset_0"
-      },
-      "decoder_block_0": {
-        "vlnv": "xilinx.com:module_ref:decoder_block:1.0",
-        "xci_name": "ro_puf_decoder_block_0_0",
-        "xci_path": "ip\\ro_puf_decoder_block_0_0\\ro_puf_decoder_block_0_0.xci",
-        "inst_hier_path": "decoder_block_0",
-        "reference_info": {
-          "ref_type": "hdl",
-          "ref_name": "decoder_block",
-          "boundary_crc": "0x0"
-        },
-        "ports": {
-          "pufbit_out": {
-            "direction": "I"
-          },
-          "pufbit_valid": {
-            "direction": "I"
-          },
-          "clock": {
-            "type": "clk",
-            "direction": "I",
-            "parameters": {
-              "ASSOCIATED_RESET": {
-                "value": "reset",
-                "value_src": "constant"
-              },
-              "FREQ_HZ": {
-                "value": "100000000",
-                "value_src": "ip_prop"
-              },
-              "PHASE": {
-                "value": "0.0",
-                "value_src": "ip_prop"
-              },
-              "CLK_DOMAIN": {
-                "value": "/clk_wiz_0_clk_out1",
-                "value_src": "ip_prop"
-              }
-            }
-          },
-          "reset": {
-            "type": "rst",
-            "direction": "I",
-            "parameters": {
-              "POLARITY": {
-                "value": "ACTIVE_LOW",
-                "value_src": "const_prop"
-              }
-            }
-          },
-          "decode_reset": {
-            "type": "rst",
-            "direction": "I"
-          },
-          "syndrome_in": {
-            "direction": "I",
-            "left": "83",
-            "right": "0"
-          },
-          "decoder_valid": {
-            "direction": "O"
-          },
-          "decoder_out": {
-            "direction": "O"
-          }
-        }
       },
       "sha256_block_0": {
         "vlnv": "xilinx.com:module_ref:sha256_block:1.0",
@@ -267,6 +175,451 @@
           },
           "start": {
             "direction": "I"
+          }
+        }
+      },
+      "ro_puf_block_0": {
+        "vlnv": "xilinx.com:module_ref:ro_puf_block:1.0",
+        "xci_name": "ro_puf_ro_puf_block_0_0",
+        "xci_path": "ip\\ro_puf_ro_puf_block_0_0\\ro_puf_ro_puf_block_0_0.xci",
+        "inst_hier_path": "ro_puf_block_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "ro_puf_block",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "clock": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "ASSOCIATED_RESET": {
+                "value": "reset",
+                "value_src": "constant"
+              },
+              "FREQ_HZ": {
+                "value": "100000000",
+                "value_src": "ip_prop"
+              },
+              "PHASE": {
+                "value": "0.0",
+                "value_src": "ip_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "/clk_wiz_0_clk_out1",
+                "value_src": "ip_prop"
+              }
+            }
+          },
+          "enable": {
+            "direction": "I"
+          },
+          "pufbit_out": {
+            "direction": "O"
+          },
+          "pufbit_valid": {
+            "direction": "O"
+          },
+          "ref_counter_limit": {
+            "direction": "I",
+            "left": "15",
+            "right": "0"
+          },
+          "reset": {
+            "type": "rst",
+            "direction": "I",
+            "parameters": {
+              "POLARITY": {
+                "value": "ACTIVE_LOW",
+                "value_src": "const_prop"
+              }
+            }
+          },
+          "selection0": {
+            "direction": "I",
+            "left": "4",
+            "right": "0"
+          },
+          "selection1": {
+            "direction": "I",
+            "left": "4",
+            "right": "0"
+          }
+        }
+      },
+      "word_muxer_0": {
+        "vlnv": "xilinx.com:module_ref:word_muxer:1.0",
+        "xci_name": "ro_puf_word_muxer_0_0",
+        "xci_path": "ip\\ro_puf_word_muxer_0_0\\ro_puf_word_muxer_0_0.xci",
+        "inst_hier_path": "word_muxer_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "word_muxer",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "input_word_0": {
+            "direction": "I",
+            "left": "15",
+            "right": "0"
+          },
+          "input_word_1": {
+            "direction": "I",
+            "left": "15",
+            "right": "0"
+          },
+          "output_word": {
+            "direction": "O",
+            "left": "15",
+            "right": "0"
+          },
+          "selection": {
+            "direction": "I"
+          }
+        }
+      },
+      "clk_wiz_0": {
+        "vlnv": "xilinx.com:ip:clk_wiz:6.0",
+        "xci_name": "ro_puf_clk_wiz_0_1",
+        "xci_path": "ip\\ro_puf_clk_wiz_0_1\\ro_puf_clk_wiz_0_1.xci",
+        "inst_hier_path": "clk_wiz_0",
+        "parameters": {
+          "CLKOUT1_DRIVES": {
+            "value": "BUFG"
+          },
+          "CLKOUT1_JITTER": {
+            "value": "137.681"
+          },
+          "CLKOUT1_PHASE_ERROR": {
+            "value": "105.461"
+          },
+          "CLKOUT2_DRIVES": {
+            "value": "BUFG"
+          },
+          "CLKOUT3_DRIVES": {
+            "value": "BUFG"
+          },
+          "CLKOUT4_DRIVES": {
+            "value": "BUFG"
+          },
+          "CLKOUT5_DRIVES": {
+            "value": "BUFG"
+          },
+          "CLKOUT6_DRIVES": {
+            "value": "BUFG"
+          },
+          "CLKOUT7_DRIVES": {
+            "value": "BUFG"
+          },
+          "MMCM_BANDWIDTH": {
+            "value": "OPTIMIZED"
+          },
+          "MMCM_CLKFBOUT_MULT_F": {
+            "value": "9"
+          },
+          "MMCM_CLKOUT0_DIVIDE_F": {
+            "value": "9"
+          },
+          "MMCM_COMPENSATION": {
+            "value": "ZHOLD"
+          },
+          "PRIMITIVE": {
+            "value": "PLL"
+          }
+        }
+      },
+      "debug_leds_sink_0": {
+        "vlnv": "xilinx.com:module_ref:debug_leds_sink:1.0",
+        "xci_name": "ro_puf_debug_leds_sink_0_0",
+        "xci_path": "ip\\ro_puf_debug_leds_sink_0_0\\ro_puf_debug_leds_sink_0_0.xci",
+        "inst_hier_path": "debug_leds_sink_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "debug_leds_sink",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "enable_counting": {
+            "direction": "I"
+          },
+          "pufbit_valid": {
+            "direction": "I"
+          },
+          "decoder_valid": {
+            "direction": "I"
+          },
+          "sha256_valid": {
+            "direction": "I"
+          },
+          "sha256_start": {
+            "direction": "I"
+          },
+          "decoder_reset": {
+            "type": "rst",
+            "direction": "I"
+          },
+          "sha256_reset": {
+            "type": "rst",
+            "direction": "I"
+          },
+          "write_finished": {
+            "direction": "I"
+          },
+          "read_finished": {
+            "direction": "I"
+          },
+          "write_out": {
+            "direction": "I"
+          },
+          "clock": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "ASSOCIATED_RESET": {
+                "value": "reset",
+                "value_src": "constant"
+              },
+              "FREQ_HZ": {
+                "value": "100000000",
+                "value_src": "ip_prop"
+              },
+              "PHASE": {
+                "value": "0.0",
+                "value_src": "ip_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "/clk_wiz_0_clk_out1",
+                "value_src": "ip_prop"
+              }
+            }
+          },
+          "reset": {
+            "type": "rst",
+            "direction": "I",
+            "parameters": {
+              "POLARITY": {
+                "value": "ACTIVE_LOW",
+                "value_src": "const_prop"
+              }
+            }
+          },
+          "gen_state": {
+            "direction": "I",
+            "left": "1",
+            "right": "0"
+          },
+          "output_word": {
+            "direction": "O",
+            "left": "15",
+            "right": "0"
+          }
+        }
+      },
+      "control_0": {
+        "vlnv": "xilinx.com:module_ref:control:1.0",
+        "xci_name": "ro_puf_control_0_0",
+        "xci_path": "ip\\ro_puf_control_0_0\\ro_puf_control_0_0.xci",
+        "inst_hier_path": "control_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "control",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "clock": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "ASSOCIATED_RESET": {
+                "value": "reset",
+                "value_src": "constant"
+              },
+              "FREQ_HZ": {
+                "value": "100000000",
+                "value_src": "ip_prop"
+              },
+              "PHASE": {
+                "value": "0.0",
+                "value_src": "ip_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "/clk_wiz_0_clk_out1",
+                "value_src": "ip_prop"
+              }
+            }
+          },
+          "reset": {
+            "type": "rst",
+            "direction": "I",
+            "parameters": {
+              "POLARITY": {
+                "value": "ACTIVE_LOW",
+                "value_src": "const_prop"
+              }
+            }
+          },
+          "pufbit_valid": {
+            "direction": "I"
+          },
+          "decode_valid": {
+            "direction": "I"
+          },
+          "sha256_valid": {
+            "direction": "I"
+          },
+          "gen_state": {
+            "direction": "I",
+            "left": "1",
+            "right": "0"
+          },
+          "write_finished": {
+            "direction": "I"
+          },
+          "read_finished": {
+            "direction": "I"
+          },
+          "enable_counting": {
+            "direction": "O"
+          },
+          "number0": {
+            "direction": "O",
+            "left": "4",
+            "right": "0"
+          },
+          "number1": {
+            "direction": "O",
+            "left": "4",
+            "right": "0"
+          },
+          "decode_reset": {
+            "type": "rst",
+            "direction": "O"
+          },
+          "sha256_start": {
+            "direction": "O"
+          },
+          "sha256_reset": {
+            "type": "rst",
+            "direction": "O"
+          },
+          "led_1": {
+            "direction": "O",
+            "left": "2",
+            "right": "0"
+          },
+          "write_out": {
+            "direction": "O"
+          }
+        }
+      },
+      "sink_0": {
+        "vlnv": "xilinx.com:module_ref:sink:1.0",
+        "xci_name": "ro_puf_sink_0_0",
+        "xci_path": "ip\\ro_puf_sink_0_0_1\\ro_puf_sink_0_0.xci",
+        "inst_hier_path": "sink_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "sink",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "pufbit": {
+            "direction": "I"
+          },
+          "pufbit_valid": {
+            "direction": "I"
+          },
+          "clock": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "ASSOCIATED_RESET": {
+                "value": "reset",
+                "value_src": "constant"
+              },
+              "FREQ_HZ": {
+                "value": "100000000",
+                "value_src": "ip_prop"
+              },
+              "PHASE": {
+                "value": "0.0",
+                "value_src": "ip_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "/clk_wiz_0_clk_out1",
+                "value_src": "ip_prop"
+              }
+            }
+          },
+          "reset": {
+            "type": "rst",
+            "direction": "I",
+            "parameters": {
+              "POLARITY": {
+                "value": "ACTIVE_LOW",
+                "value_src": "const_prop"
+              }
+            }
+          },
+          "decode_reset": {
+            "type": "rst",
+            "direction": "I"
+          },
+          "syndrome_in": {
+            "direction": "I",
+            "left": "83",
+            "right": "0"
+          },
+          "decode_input": {
+            "direction": "O"
+          }
+        }
+      },
+      "dec_0": {
+        "vlnv": "xilinx.com:module_ref:dec:1.0",
+        "xci_name": "ro_puf_dec_0_0",
+        "xci_path": "ip\\ro_puf_dec_0_0_1\\ro_puf_dec_0_0.xci",
+        "inst_hier_path": "dec_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "dec",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "clk": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "ASSOCIATED_RESET": {
+                "value": "reset",
+                "value_src": "constant"
+              },
+              "FREQ_HZ": {
+                "value": "100000000",
+                "value_src": "ip_prop"
+              },
+              "PHASE": {
+                "value": "0.0",
+                "value_src": "ip_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "/clk_wiz_0_clk_out1",
+                "value_src": "ip_prop"
+              }
+            }
+          },
+          "reset": {
+            "type": "rst",
+            "direction": "I"
+          },
+          "din": {
+            "direction": "I"
+          },
+          "vdout": {
+            "direction": "O"
+          },
+          "dout": {
+            "direction": "O"
           }
         }
       },
@@ -420,267 +773,6 @@
             "right": "0"
           }
         }
-      },
-      "ro_puf_block_0": {
-        "vlnv": "xilinx.com:module_ref:ro_puf_block:1.0",
-        "xci_name": "ro_puf_ro_puf_block_0_0",
-        "xci_path": "ip\\ro_puf_ro_puf_block_0_0\\ro_puf_ro_puf_block_0_0.xci",
-        "inst_hier_path": "ro_puf_block_0",
-        "reference_info": {
-          "ref_type": "hdl",
-          "ref_name": "ro_puf_block",
-          "boundary_crc": "0x0"
-        },
-        "ports": {
-          "clock": {
-            "type": "clk",
-            "direction": "I",
-            "parameters": {
-              "ASSOCIATED_RESET": {
-                "value": "reset",
-                "value_src": "constant"
-              },
-              "FREQ_HZ": {
-                "value": "100000000",
-                "value_src": "ip_prop"
-              },
-              "PHASE": {
-                "value": "0.0",
-                "value_src": "ip_prop"
-              },
-              "CLK_DOMAIN": {
-                "value": "/clk_wiz_0_clk_out1",
-                "value_src": "ip_prop"
-              }
-            }
-          },
-          "enable": {
-            "direction": "I"
-          },
-          "pufbit_out": {
-            "direction": "O"
-          },
-          "pufbit_valid": {
-            "direction": "O"
-          },
-          "ref_counter_limit": {
-            "direction": "I",
-            "left": "15",
-            "right": "0"
-          },
-          "reset": {
-            "type": "rst",
-            "direction": "I",
-            "parameters": {
-              "POLARITY": {
-                "value": "ACTIVE_LOW",
-                "value_src": "const_prop"
-              }
-            }
-          },
-          "selection0": {
-            "direction": "I",
-            "left": "4",
-            "right": "0"
-          },
-          "selection1": {
-            "direction": "I",
-            "left": "4",
-            "right": "0"
-          }
-        }
-      },
-      "word_muxer_0": {
-        "vlnv": "xilinx.com:module_ref:word_muxer:1.0",
-        "xci_name": "ro_puf_word_muxer_0_0",
-        "xci_path": "ip\\ro_puf_word_muxer_0_0\\ro_puf_word_muxer_0_0.xci",
-        "inst_hier_path": "word_muxer_0",
-        "reference_info": {
-          "ref_type": "hdl",
-          "ref_name": "word_muxer",
-          "boundary_crc": "0x0"
-        },
-        "ports": {
-          "input_word_0": {
-            "direction": "I",
-            "left": "15",
-            "right": "0"
-          },
-          "input_word_1": {
-            "direction": "I",
-            "left": "15",
-            "right": "0"
-          },
-          "output_word": {
-            "direction": "O",
-            "left": "15",
-            "right": "0"
-          },
-          "selection": {
-            "direction": "I"
-          }
-        }
-      },
-      "debug_leds_sink_0": {
-        "vlnv": "xilinx.com:module_ref:debug_leds_sink:1.0",
-        "xci_name": "ro_puf_debug_leds_sink_0_0",
-        "xci_path": "ip\\ro_puf_debug_leds_sink_0_0\\ro_puf_debug_leds_sink_0_0.xci",
-        "inst_hier_path": "debug_leds_sink_0",
-        "reference_info": {
-          "ref_type": "hdl",
-          "ref_name": "debug_leds_sink",
-          "boundary_crc": "0x0"
-        },
-        "ports": {
-          "enable_counting": {
-            "direction": "I"
-          },
-          "pufbit_valid": {
-            "direction": "I"
-          },
-          "decoder_valid": {
-            "direction": "I"
-          },
-          "sha256_valid": {
-            "direction": "I"
-          },
-          "sha256_start": {
-            "direction": "I"
-          },
-          "decoder_reset": {
-            "type": "rst",
-            "direction": "I"
-          },
-          "sha256_reset": {
-            "type": "rst",
-            "direction": "I"
-          },
-          "write_finished": {
-            "direction": "I"
-          },
-          "read_finished": {
-            "direction": "I"
-          },
-          "write_out": {
-            "direction": "I"
-          },
-          "clock": {
-            "type": "clk",
-            "direction": "I",
-            "parameters": {
-              "ASSOCIATED_RESET": {
-                "value": "reset",
-                "value_src": "constant"
-              },
-              "FREQ_HZ": {
-                "value": "100000000",
-                "value_src": "ip_prop"
-              },
-              "PHASE": {
-                "value": "0.0",
-                "value_src": "ip_prop"
-              },
-              "CLK_DOMAIN": {
-                "value": "/clk_wiz_0_clk_out1",
-                "value_src": "ip_prop"
-              }
-            }
-          },
-          "reset": {
-            "type": "rst",
-            "direction": "I",
-            "parameters": {
-              "POLARITY": {
-                "value": "ACTIVE_LOW",
-                "value_src": "const_prop"
-              }
-            }
-          },
-          "output_word": {
-            "direction": "O",
-            "left": "15",
-            "right": "0"
-          }
-        }
-      },
-      "control_0": {
-        "vlnv": "xilinx.com:module_ref:control:1.0",
-        "xci_name": "ro_puf_control_0_0",
-        "xci_path": "ip\\ro_puf_control_0_0\\ro_puf_control_0_0.xci",
-        "inst_hier_path": "control_0",
-        "reference_info": {
-          "ref_type": "hdl",
-          "ref_name": "control",
-          "boundary_crc": "0x0"
-        },
-        "ports": {
-          "clock": {
-            "type": "clk",
-            "direction": "I",
-            "parameters": {
-              "ASSOCIATED_RESET": {
-                "value": "reset",
-                "value_src": "constant"
-              }
-            }
-          },
-          "reset": {
-            "type": "rst",
-            "direction": "I"
-          },
-          "pufbit_valid": {
-            "direction": "I"
-          },
-          "decode_valid": {
-            "direction": "I"
-          },
-          "sha256_valid": {
-            "direction": "I"
-          },
-          "gen_state": {
-            "direction": "I",
-            "left": "1",
-            "right": "0"
-          },
-          "write_finished": {
-            "direction": "I"
-          },
-          "read_finished": {
-            "direction": "I"
-          },
-          "enable_counting": {
-            "direction": "O"
-          },
-          "number0": {
-            "direction": "O",
-            "left": "4",
-            "right": "0"
-          },
-          "number1": {
-            "direction": "O",
-            "left": "4",
-            "right": "0"
-          },
-          "decode_reset": {
-            "type": "rst",
-            "direction": "O"
-          },
-          "sha256_start": {
-            "direction": "O"
-          },
-          "sha256_reset": {
-            "type": "rst",
-            "direction": "O"
-          },
-          "led_1": {
-            "direction": "O",
-            "left": "2",
-            "right": "0"
-          },
-          "write_out": {
-            "direction": "O"
-          }
-        }
       }
     },
     "interface_nets": {
@@ -749,8 +841,9 @@
       "control_0_decode_reset": {
         "ports": [
           "control_0/decode_reset",
-          "decoder_block_0/decode_reset",
-          "debug_leds_sink_0/decoder_reset"
+          "debug_leds_sink_0/decoder_reset",
+          "sink_0/decode_reset",
+          "dec_0/reset"
         ]
       },
       "control_0_enable_counting": {
@@ -795,8 +888,8 @@
       "control_0_write_out": {
         "ports": [
           "control_0/write_out",
-          "uart_0/write_out",
-          "debug_leds_sink_0/write_out"
+          "debug_leds_sink_0/write_out",
+          "uart_0/write_out"
         ]
       },
       "debug_leds_sink_0_output_word": {
@@ -807,29 +900,29 @@
       },
       "decoder_block_0_decoder_out": {
         "ports": [
-          "decoder_block_0/decoder_out",
+          "dec_0/dout",
           "sha256_block_0/decoder_out",
           "uart_0/dec_out"
         ]
       },
       "decoder_block_0_decoder_valid": {
         "ports": [
-          "decoder_block_0/decoder_valid",
+          "dec_0/vdout",
           "sha256_block_0/decoder_valid",
-          "uart_0/dec_valid",
           "debug_leds_sink_0/decoder_valid",
-          "control_0/decode_valid"
+          "control_0/decode_valid",
+          "uart_0/dec_valid"
         ]
       },
       "proc_sys_reset_0_peripheral_aresetn": {
         "ports": [
           "proc_sys_reset_0/peripheral_aresetn",
           "axi_uartlite_0/s_axi_aresetn",
-          "decoder_block_0/reset",
-          "uart_0/reset",
           "ro_puf_block_0/reset",
           "debug_leds_sink_0/reset",
-          "control_0/reset"
+          "control_0/reset",
+          "sink_0/reset",
+          "uart_0/reset"
         ]
       },
       "reset_1": {
@@ -841,16 +934,16 @@
       "ro_puf_block_0_pufbit_finished": {
         "ports": [
           "ro_puf_block_0/pufbit_valid",
-          "decoder_block_0/pufbit_valid",
-          "uart_0/pufbit_valid",
           "debug_leds_sink_0/pufbit_valid",
-          "control_0/pufbit_valid"
+          "control_0/pufbit_valid",
+          "sink_0/pufbit_valid",
+          "uart_0/pufbit_valid"
         ]
       },
       "ro_puf_block_0_pufbit_out": {
         "ports": [
           "ro_puf_block_0/pufbit_out",
-          "decoder_block_0/pufbit_out",
+          "sink_0/pufbit",
           "uart_0/pufbit_out"
         ]
       },
@@ -863,9 +956,15 @@
       "sha256_block_0_sha256_valid": {
         "ports": [
           "sha256_block_0/sha256_valid",
-          "uart_0/sha256_valid",
           "debug_leds_sink_0/sha256_valid",
-          "control_0/sha256_valid"
+          "control_0/sha256_valid",
+          "uart_0/sha256_valid"
+        ]
+      },
+      "sink_0_decode_input": {
+        "ports": [
+          "sink_0/decode_input",
+          "dec_0/din"
         ]
       },
       "sys_clock_1": {
@@ -873,12 +972,13 @@
           "clk_wiz_0/clk_out1",
           "proc_sys_reset_0/slowest_sync_clk",
           "axi_uartlite_0/s_axi_aclk",
-          "decoder_block_0/clock",
           "sha256_block_0/clock",
-          "uart_0/clock",
           "ro_puf_block_0/clock",
           "debug_leds_sink_0/clock",
-          "control_0/clock"
+          "control_0/clock",
+          "sink_0/clock",
+          "dec_0/clk",
+          "uart_0/clock"
         ]
       },
       "sys_clock_2": {
@@ -926,6 +1026,7 @@
       "uart_0_provision_out": {
         "ports": [
           "uart_0/gen_state_out",
+          "debug_leds_sink_0/gen_state",
           "control_0/gen_state"
         ]
       },
@@ -952,7 +1053,7 @@
       "uart_0_syndrome": {
         "ports": [
           "uart_0/syndrome",
-          "decoder_block_0/syndrome_in"
+          "sink_0/syndrome_in"
         ]
       },
       "uart_0_wdata": {

@@ -13,7 +13,7 @@ end decoder_block;
 
 architecture STRUCTURE of decoder_block is
 
-signal decoder_in : bit;
+
 signal clock_bit, reset_bit : bit;
 
 COMPONENT sink IS
@@ -27,6 +27,8 @@ Port (
 	decode_input : out bit);
 end COMPONENT;
 
+signal decoder_in : bit;
+
 COMPONENT dec IS
 PORT (
     clk, reset, din: IN BIT;
@@ -34,9 +36,6 @@ PORT (
 END component;
 
 begin
-
-clock_bit <= to_bit(clock);
-reset_bit <= to_bit(reset);
 
 s: sink PORT MAP(
     pufbit_out => pufbit_out,
@@ -55,6 +54,14 @@ d: dec PORT MAP(
     vdout => decoder_valid,
     dout => decoder_out
 );
+
+process (clock) begin
+    clock_bit <= to_bit(clock);
+end process;
+
+process (reset) begin
+    reset_bit <= to_bit(reset);
+end process;
 
 
 end STRUCTURE;

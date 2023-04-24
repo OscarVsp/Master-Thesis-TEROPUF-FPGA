@@ -164,7 +164,7 @@ process (clock, reset) begin
 				 end if;
 			elsif gen_state = "01" then
 			     if dec_valid = '1' then
-				    response <= dec_out & response(1023 - 1 downto 1);
+				    response <= response(1023 - 1 downto k) & dec_out & response(k - 1 downto 1);
 				 end if;
 		    elsif gen_state = "10" then
 		         if sha256_valid = '1' then

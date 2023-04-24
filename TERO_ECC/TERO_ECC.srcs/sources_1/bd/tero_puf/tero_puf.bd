@@ -13,11 +13,11 @@
       "axi_uartlite_0": "",
       "clk_wiz_0": "",
       "proc_sys_reset_0": "",
-      "decoder_block_0": "",
       "sha256_block_0": "",
       "tero_puf_block_0": "",
-      "uart_0": "",
-      "control_0": ""
+      "control_0": "",
+      "decoder_block_0": "",
+      "uart_0": ""
     },
     "interface_ports": {
       "usb_uart": {
@@ -143,54 +143,6 @@
         "xci_path": "ip\\tero_puf_proc_sys_reset_0_0\\tero_puf_proc_sys_reset_0_0.xci",
         "inst_hier_path": "proc_sys_reset_0"
       },
-      "decoder_block_0": {
-        "vlnv": "xilinx.com:module_ref:decoder_block:1.0",
-        "xci_name": "tero_puf_decoder_block_0_0",
-        "xci_path": "ip\\tero_puf_decoder_block_0_0\\tero_puf_decoder_block_0_0.xci",
-        "inst_hier_path": "decoder_block_0",
-        "reference_info": {
-          "ref_type": "hdl",
-          "ref_name": "decoder_block",
-          "boundary_crc": "0x0"
-        },
-        "ports": {
-          "pufbit_out": {
-            "direction": "I"
-          },
-          "pufbit_valid": {
-            "direction": "I"
-          },
-          "clock": {
-            "type": "clk",
-            "direction": "I",
-            "parameters": {
-              "ASSOCIATED_RESET": {
-                "value": "reset",
-                "value_src": "constant"
-              }
-            }
-          },
-          "reset": {
-            "type": "rst",
-            "direction": "I"
-          },
-          "decode_reset": {
-            "type": "rst",
-            "direction": "I"
-          },
-          "syndrome_in": {
-            "direction": "I",
-            "left": "83",
-            "right": "0"
-          },
-          "decoder_valid": {
-            "direction": "O"
-          },
-          "decoder_out": {
-            "direction": "O"
-          }
-        }
-      },
       "sha256_block_0": {
         "vlnv": "xilinx.com:module_ref:sha256_block:1.0",
         "xci_name": "tero_puf_sha256_block_0_0",
@@ -283,6 +235,133 @@
             "direction": "I",
             "left": "4",
             "right": "0"
+          }
+        }
+      },
+      "control_0": {
+        "vlnv": "xilinx.com:module_ref:control:1.0",
+        "xci_name": "tero_puf_control_0_0",
+        "xci_path": "ip\\tero_puf_control_0_0\\tero_puf_control_0_0.xci",
+        "inst_hier_path": "control_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "control",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "clock": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "ASSOCIATED_RESET": {
+                "value": "reset",
+                "value_src": "constant"
+              }
+            }
+          },
+          "reset": {
+            "type": "rst",
+            "direction": "I"
+          },
+          "pufbit_valid": {
+            "direction": "I"
+          },
+          "decode_valid": {
+            "direction": "I"
+          },
+          "sha256_valid": {
+            "direction": "I"
+          },
+          "gen_state": {
+            "direction": "I",
+            "left": "1",
+            "right": "0"
+          },
+          "write_finished": {
+            "direction": "I"
+          },
+          "read_finished": {
+            "direction": "I"
+          },
+          "enable_counting": {
+            "direction": "O"
+          },
+          "number0": {
+            "direction": "O",
+            "left": "4",
+            "right": "0"
+          },
+          "number1": {
+            "direction": "O",
+            "left": "4",
+            "right": "0"
+          },
+          "decode_reset": {
+            "type": "rst",
+            "direction": "O"
+          },
+          "sha256_start": {
+            "direction": "O"
+          },
+          "sha256_reset": {
+            "type": "rst",
+            "direction": "O"
+          },
+          "led_1": {
+            "direction": "O",
+            "left": "2",
+            "right": "0"
+          },
+          "write_out": {
+            "direction": "O"
+          }
+        }
+      },
+      "decoder_block_0": {
+        "vlnv": "xilinx.com:module_ref:decoder_block:1.0",
+        "xci_name": "tero_puf_decoder_block_0_0",
+        "xci_path": "ip\\tero_puf_decoder_block_0_0\\tero_puf_decoder_block_0_0.xci",
+        "inst_hier_path": "decoder_block_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "decoder_block",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "pufbit_out": {
+            "direction": "I"
+          },
+          "pufbit_valid": {
+            "direction": "I"
+          },
+          "clock": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "ASSOCIATED_RESET": {
+                "value": "reset",
+                "value_src": "constant"
+              }
+            }
+          },
+          "reset": {
+            "type": "rst",
+            "direction": "I"
+          },
+          "decode_reset": {
+            "type": "rst",
+            "direction": "I"
+          },
+          "syndrome_in": {
+            "direction": "I",
+            "left": "83",
+            "right": "0"
+          },
+          "decoder_valid": {
+            "direction": "O"
+          },
+          "decoder_out": {
+            "direction": "O"
           }
         }
       },
@@ -418,85 +497,6 @@
             "right": "0"
           }
         }
-      },
-      "control_0": {
-        "vlnv": "xilinx.com:module_ref:control:1.0",
-        "xci_name": "tero_puf_control_0_0",
-        "xci_path": "ip\\tero_puf_control_0_0\\tero_puf_control_0_0.xci",
-        "inst_hier_path": "control_0",
-        "reference_info": {
-          "ref_type": "hdl",
-          "ref_name": "control",
-          "boundary_crc": "0x0"
-        },
-        "ports": {
-          "clock": {
-            "type": "clk",
-            "direction": "I",
-            "parameters": {
-              "ASSOCIATED_RESET": {
-                "value": "reset",
-                "value_src": "constant"
-              }
-            }
-          },
-          "reset": {
-            "type": "rst",
-            "direction": "I"
-          },
-          "pufbit_valid": {
-            "direction": "I"
-          },
-          "decode_valid": {
-            "direction": "I"
-          },
-          "sha256_valid": {
-            "direction": "I"
-          },
-          "gen_state": {
-            "direction": "I",
-            "left": "1",
-            "right": "0"
-          },
-          "write_finished": {
-            "direction": "I"
-          },
-          "read_finished": {
-            "direction": "I"
-          },
-          "enable_counting": {
-            "direction": "O"
-          },
-          "number0": {
-            "direction": "O",
-            "left": "4",
-            "right": "0"
-          },
-          "number1": {
-            "direction": "O",
-            "left": "4",
-            "right": "0"
-          },
-          "decode_reset": {
-            "type": "rst",
-            "direction": "O"
-          },
-          "sha256_start": {
-            "direction": "O"
-          },
-          "sha256_reset": {
-            "type": "rst",
-            "direction": "O"
-          },
-          "led_1": {
-            "direction": "O",
-            "left": "2",
-            "right": "0"
-          },
-          "write_out": {
-            "direction": "O"
-          }
-        }
       }
     },
     "interface_nets": {
@@ -615,18 +615,18 @@
         "ports": [
           "decoder_block_0/decoder_valid",
           "sha256_block_0/decoder_valid",
-          "uart_0/dec_valid",
-          "control_0/decode_valid"
+          "control_0/decode_valid",
+          "uart_0/dec_valid"
         ]
       },
       "proc_sys_reset_0_peripheral_aresetn": {
         "ports": [
           "proc_sys_reset_0/peripheral_aresetn",
           "axi_uartlite_0/s_axi_aresetn",
-          "decoder_block_0/reset",
           "tero_puf_block_0/reset",
-          "uart_0/reset",
-          "control_0/reset"
+          "control_0/reset",
+          "decoder_block_0/reset",
+          "uart_0/reset"
         ]
       },
       "reset_1": {
@@ -638,9 +638,9 @@
       "ro_puf_block_0_pufbit_finished": {
         "ports": [
           "tero_puf_block_0/pufbit_valid",
+          "control_0/pufbit_valid",
           "decoder_block_0/pufbit_valid",
-          "uart_0/pufbit_valid",
-          "control_0/pufbit_valid"
+          "uart_0/pufbit_valid"
         ]
       },
       "ro_puf_block_0_pufbit_out": {
@@ -659,8 +659,8 @@
       "sha256_block_0_sha256_valid": {
         "ports": [
           "sha256_block_0/sha256_valid",
-          "uart_0/sha256_valid",
-          "control_0/sha256_valid"
+          "control_0/sha256_valid",
+          "uart_0/sha256_valid"
         ]
       },
       "sys_clock_1": {
@@ -668,11 +668,11 @@
           "clk_wiz_0/clk_out1",
           "proc_sys_reset_0/slowest_sync_clk",
           "axi_uartlite_0/s_axi_aclk",
-          "decoder_block_0/clock",
           "sha256_block_0/clock",
           "tero_puf_block_0/clock",
-          "uart_0/clock",
-          "control_0/clock"
+          "control_0/clock",
+          "decoder_block_0/clock",
+          "uart_0/clock"
         ]
       },
       "sys_clock_2": {
