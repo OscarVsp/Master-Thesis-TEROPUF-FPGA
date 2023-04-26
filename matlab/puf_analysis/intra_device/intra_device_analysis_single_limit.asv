@@ -1,0 +1,33 @@
+clear all;
+close all;
+
+prefix = "tero_8_raw";
+
+limits = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16, 18, 20, 25, 35, 45, 60, 75, 100, 125, 150, 175, 200, 225, 250, 275, 300, 325, 350, 375, 400, 425, 450, 475, 500];
+
+uniformities = zeros(1, length(limits));
+reliabilities = zeros(1, length(limits));
+
+for i=1:length(limit)
+    data = readmatrix(prefix+'_'+string(limit)+'.csv');
+end
+
+file = "tero_8_raw_200";
+
+data = readmatrix(file+'.csv');
+
+[size_sample, size_response] = size(data);
+[reference, deviations, variances] = intra_device_analysis_fn(data);
+[reference, deviations, variances] = reference_fn(data);
+[average_uniformity, sample_uniformities] = uniformity_fn(data);
+[average_reliability, hd_intra] = reliability_fn(data, reference);
+
+figure;
+plot(1:size_response, variances)
+xlabel("TERO cell index");
+ylabel("Variance");
+
+title("TERO cells reliability distribution.");
+subtitle(string(size_sample)+" samples | avr uniformity="+string(average_uniformity)+" | avr reliability="+string(average_reliability));
+
+

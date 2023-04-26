@@ -96,13 +96,13 @@ muxer_1: component muxer
 
 counter_0: component counter
      port map (
-      clk => clock,
+      clk => selected_output_0,
       count(31 downto 0) => count0(31 downto 0),
       enable => enable
     );
 counter_1: component counter
      port map (
-      clk => clock,
+      clk => selected_output_1,
       count(31 downto 0) => count1(31 downto 0),
       enable => enable
     );

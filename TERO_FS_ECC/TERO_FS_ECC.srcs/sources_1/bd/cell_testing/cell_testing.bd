@@ -1,21 +1,23 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0x91577990FC95D292",
+      "boundary_crc": "0xAB809D385D31D293",
       "device": "xc7a100tcsg324-1",
-      "name": "puf",
+      "gen_directory": "../../../../TERO_FS_ECC.gen/sources_1/bd/cell_testing",
+      "name": "cell_testing",
       "rev_ctrl_bd_flag": "RevCtrlBdOff",
       "synth_flow_mode": "Hierarchical",
-      "tool_version": "2022.2"
+      "tool_version": "2022.2",
+      "validated": "true"
     },
     "design_tree": {
-      "clk_wiz_1": "",
-      "proc_sys_reset_1": "",
-      "axi_uartlite_0": "",
+      "clk_wiz_0": "",
+      "proc_sys_reset_0": "",
       "comparator_0": "",
-      "refcounter": "",
-      "ro_array_0": "",
-      "uart_0": ""
+      "axi_uartlite_0": "",
+      "ref_counter": "",
+      "uart_0": "",
+      "tero_array_0": ""
     },
     "interface_ports": {
       "usb_uart": {
@@ -35,37 +37,55 @@
       }
     },
     "ports": {
+      "reset": {
+        "type": "rst",
+        "direction": "I",
+        "parameters": {
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "POLARITY": {
+            "value": "ACTIVE_LOW"
+          }
+        }
+      },
       "sys_clock": {
         "type": "clk",
         "direction": "I",
         "parameters": {
-          "ASSOCIATED_RESET": {
-            "value": "reset"
+          "CLK_DOMAIN": {
+            "value": "cell_testing_sys_clock",
+            "value_src": "default"
           },
           "FREQ_HZ": {
             "value": "100000000"
+          },
+          "FREQ_TOLERANCE_HZ": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
           },
           "PHASE": {
             "value": "0.000"
           }
         }
       },
-      "reset": {
-        "type": "rst",
-        "direction": "I",
-        "parameters": {
-          "POLARITY": {
-            "value": "ACTIVE_LOW"
-          }
-        }
+      "leds": {
+        "direction": "O",
+        "left": "15",
+        "right": "0"
       }
     },
     "components": {
-      "clk_wiz_1": {
+      "clk_wiz_0": {
         "vlnv": "xilinx.com:ip:clk_wiz:6.0",
-        "xci_name": "puf_clk_wiz_1_0",
-        "xci_path": "ip\\puf_clk_wiz_1_0\\puf_clk_wiz_1_0.xci",
-        "inst_hier_path": "clk_wiz_1",
+        "xci_name": "cell_testing_clk_wiz_0_0",
+        "xci_path": "ip\\cell_testing_clk_wiz_0_0\\cell_testing_clk_wiz_0_0.xci",
+        "inst_hier_path": "clk_wiz_0",
         "parameters": {
           "CLKOUT1_DRIVES": {
             "value": "BUFG"
@@ -111,27 +131,16 @@
           }
         }
       },
-      "proc_sys_reset_1": {
+      "proc_sys_reset_0": {
         "vlnv": "xilinx.com:ip:proc_sys_reset:5.0",
-        "xci_name": "puf_proc_sys_reset_1_0",
-        "xci_path": "ip\\puf_proc_sys_reset_1_0\\puf_proc_sys_reset_1_0.xci",
-        "inst_hier_path": "proc_sys_reset_1"
-      },
-      "axi_uartlite_0": {
-        "vlnv": "xilinx.com:ip:axi_uartlite:2.0",
-        "xci_name": "puf_axi_uartlite_2_0",
-        "xci_path": "ip\\puf_axi_uartlite_2_0\\puf_axi_uartlite_2_0.xci",
-        "inst_hier_path": "axi_uartlite_0",
-        "parameters": {
-          "C_BAUDRATE": {
-            "value": "230400"
-          }
-        }
+        "xci_name": "cell_testing_proc_sys_reset_0_0",
+        "xci_path": "ip\\cell_testing_proc_sys_reset_0_0\\cell_testing_proc_sys_reset_0_0.xci",
+        "inst_hier_path": "proc_sys_reset_0"
       },
       "comparator_0": {
         "vlnv": "xilinx.com:module_ref:comparator:1.0",
-        "xci_name": "puf_comparator_0_1",
-        "xci_path": "ip\\puf_comparator_0_1\\puf_comparator_0_1.xci",
+        "xci_name": "cell_testing_comparator_0_0",
+        "xci_path": "ip\\cell_testing_comparator_0_0\\cell_testing_comparator_0_0.xci",
         "inst_hier_path": "comparator_0",
         "reference_info": {
           "ref_type": "hdl",
@@ -152,7 +161,7 @@
                 "value_src": "ip_prop"
               },
               "CLK_DOMAIN": {
-                "value": "/clk_wiz_1_clk_out1",
+                "value": "/clk_wiz_0_clk_out1",
                 "value_src": "ip_prop"
               }
             }
@@ -175,11 +184,22 @@
           }
         }
       },
-      "refcounter": {
+      "axi_uartlite_0": {
+        "vlnv": "xilinx.com:ip:axi_uartlite:2.0",
+        "xci_name": "cell_testing_axi_uartlite_0_0",
+        "xci_path": "ip\\cell_testing_axi_uartlite_0_0\\cell_testing_axi_uartlite_0_0.xci",
+        "inst_hier_path": "axi_uartlite_0",
+        "parameters": {
+          "C_BAUDRATE": {
+            "value": "230400"
+          }
+        }
+      },
+      "ref_counter": {
         "vlnv": "xilinx.com:module_ref:counter:1.0",
-        "xci_name": "puf_refcounter_2",
-        "xci_path": "ip\\puf_refcounter_2\\puf_refcounter_2.xci",
-        "inst_hier_path": "refcounter",
+        "xci_name": "cell_testing_counter_0_2",
+        "xci_path": "ip\\cell_testing_counter_0_2\\cell_testing_counter_0_2.xci",
+        "inst_hier_path": "ref_counter",
         "parameters": {
           "size": {
             "value": "16"
@@ -193,7 +213,21 @@
         "ports": {
           "clock": {
             "type": "clk",
-            "direction": "I"
+            "direction": "I",
+            "parameters": {
+              "FREQ_HZ": {
+                "value": "100000000",
+                "value_src": "ip_prop"
+              },
+              "PHASE": {
+                "value": "0.0",
+                "value_src": "ip_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "/clk_wiz_0_clk_out1",
+                "value_src": "ip_prop"
+              }
+            }
           },
           "enable": {
             "direction": "I"
@@ -205,45 +239,10 @@
           }
         }
       },
-      "ro_array_0": {
-        "vlnv": "xilinx.com:module_ref:ro_array:1.0",
-        "xci_name": "puf_ro_array_0_0",
-        "xci_path": "ip\\puf_ro_array_0_0\\puf_ro_array_0_0.xci",
-        "inst_hier_path": "ro_array_0",
-        "reference_info": {
-          "ref_type": "hdl",
-          "ref_name": "ro_array",
-          "boundary_crc": "0x0"
-        },
-        "ports": {
-          "clock": {
-            "type": "clk",
-            "direction": "I",
-            "parameters": {
-              "ASSOCIATED_RESET": {
-                "value": "reset",
-                "value_src": "constant"
-              }
-            }
-          },
-          "reset": {
-            "type": "rst",
-            "direction": "I"
-          },
-          "enable": {
-            "direction": "I"
-          },
-          "outputs": {
-            "direction": "O",
-            "left": "1023",
-            "right": "0"
-          }
-        }
-      },
       "uart_0": {
         "vlnv": "xilinx.com:module_ref:uart:1.0",
-        "xci_name": "puf_uart_0_1",
-        "xci_path": "ip\\puf_uart_0_1\\puf_uart_0_1.xci",
+        "xci_name": "cell_testing_uart_0_0",
+        "xci_path": "ip\\cell_testing_uart_0_0\\cell_testing_uart_0_0.xci",
         "inst_hier_path": "uart_0",
         "reference_info": {
           "ref_type": "hdl",
@@ -258,12 +257,30 @@
               "ASSOCIATED_RESET": {
                 "value": "reset",
                 "value_src": "constant"
+              },
+              "FREQ_HZ": {
+                "value": "100000000",
+                "value_src": "ip_prop"
+              },
+              "PHASE": {
+                "value": "0.0",
+                "value_src": "ip_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "/clk_wiz_0_clk_out1",
+                "value_src": "ip_prop"
               }
             }
           },
           "reset": {
             "type": "rst",
-            "direction": "I"
+            "direction": "I",
+            "parameters": {
+              "POLARITY": {
+                "value": "ACTIVE_LOW",
+                "value_src": "const_prop"
+              }
+            }
           },
           "write_out": {
             "direction": "I"
@@ -339,10 +356,63 @@
             "right": "0"
           }
         }
+      },
+      "tero_array_0": {
+        "vlnv": "xilinx.com:module_ref:tero_array:1.0",
+        "xci_name": "cell_testing_tero_array_0_0",
+        "xci_path": "ip\\cell_testing_tero_array_0_0\\cell_testing_tero_array_0_0.xci",
+        "inst_hier_path": "tero_array_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "tero_array",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "clock": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "ASSOCIATED_RESET": {
+                "value": "reset",
+                "value_src": "constant"
+              },
+              "FREQ_HZ": {
+                "value": "100000000",
+                "value_src": "ip_prop"
+              },
+              "PHASE": {
+                "value": "0.0",
+                "value_src": "ip_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "/clk_wiz_0_clk_out1",
+                "value_src": "ip_prop"
+              }
+            }
+          },
+          "reset": {
+            "type": "rst",
+            "direction": "I",
+            "parameters": {
+              "POLARITY": {
+                "value": "ACTIVE_LOW",
+                "value_src": "const_prop"
+              }
+            }
+          },
+          "enable": {
+            "direction": "I"
+          },
+          "outputs": {
+            "direction": "O",
+            "left": "1023",
+            "right": "0"
+          }
+        }
       }
     },
     "interface_nets": {
-      "axi_uartlite_2_UART": {
+      "axi_uartlite_0_UART": {
         "interface_ports": [
           "usb_uart",
           "axi_uartlite_0/UART"
@@ -350,52 +420,71 @@
       }
     },
     "nets": {
-      "axi_uartlite_2_s_axi_arready": {
+      "Net": {
+        "ports": [
+          "uart_0/enable",
+          "comparator_0/enable",
+          "ref_counter/enable",
+          "tero_array_0/enable"
+        ]
+      },
+      "axi_uartlite_0_s_axi_arready": {
         "ports": [
           "axi_uartlite_0/s_axi_arready",
           "uart_0/arready"
         ]
       },
-      "axi_uartlite_2_s_axi_bresp": {
+      "axi_uartlite_0_s_axi_bresp": {
         "ports": [
           "axi_uartlite_0/s_axi_bresp",
           "uart_0/bresp"
         ]
       },
-      "axi_uartlite_2_s_axi_bvalid": {
+      "axi_uartlite_0_s_axi_bvalid": {
         "ports": [
           "axi_uartlite_0/s_axi_bvalid",
           "uart_0/bvalid"
         ]
       },
-      "axi_uartlite_2_s_axi_rdata": {
+      "axi_uartlite_0_s_axi_rdata": {
         "ports": [
           "axi_uartlite_0/s_axi_rdata",
           "uart_0/rdata"
         ]
       },
-      "axi_uartlite_2_s_axi_rresp": {
+      "axi_uartlite_0_s_axi_rresp": {
         "ports": [
           "axi_uartlite_0/s_axi_rresp",
           "uart_0/rresp"
         ]
       },
-      "axi_uartlite_2_s_axi_rvalid": {
+      "axi_uartlite_0_s_axi_rvalid": {
         "ports": [
           "axi_uartlite_0/s_axi_rvalid",
           "uart_0/rvalid"
         ]
       },
-      "axi_uartlite_2_s_axi_wready": {
+      "axi_uartlite_0_s_axi_wready": {
         "ports": [
           "axi_uartlite_0/s_axi_wready",
           "uart_0/wready"
         ]
       },
-      "clk_wiz_1_locked": {
+      "clk_wiz_0_clk_out1": {
         "ports": [
-          "clk_wiz_1/locked",
-          "proc_sys_reset_1/dcm_locked"
+          "clk_wiz_0/clk_out1",
+          "proc_sys_reset_0/slowest_sync_clk",
+          "comparator_0/clock",
+          "axi_uartlite_0/s_axi_aclk",
+          "ref_counter/clock",
+          "uart_0/clock",
+          "tero_array_0/clock"
+        ]
+      },
+      "clk_wiz_0_locked": {
+        "ports": [
+          "clk_wiz_0/locked",
+          "proc_sys_reset_0/dcm_locked"
         ]
       },
       "comparator_0_finished": {
@@ -404,55 +493,36 @@
           "uart_0/write_out"
         ]
       },
-      "control_0_enable_counting": {
-        "ports": [
-          "uart_0/enable",
-          "comparator_0/enable",
-          "refcounter/enable",
-          "ro_array_0/enable"
-        ]
-      },
       "proc_sys_reset_0_peripheral_aresetn": {
         "ports": [
-          "proc_sys_reset_1/peripheral_aresetn",
+          "proc_sys_reset_0/peripheral_aresetn",
           "axi_uartlite_0/s_axi_aresetn",
-          "ro_array_0/reset",
-          "uart_0/reset"
+          "uart_0/reset",
+          "tero_array_0/reset"
         ]
       },
-      "refcounter_count": {
+      "ref_counter_count": {
         "ports": [
-          "refcounter/count",
+          "ref_counter/count",
           "comparator_0/refcount"
         ]
       },
       "reset_1": {
         "ports": [
           "reset",
-          "proc_sys_reset_1/ext_reset_in"
-        ]
-      },
-      "ro_array_0_outputs": {
-        "ports": [
-          "ro_array_0/outputs",
-          "uart_0/cells_count"
+          "proc_sys_reset_0/ext_reset_in"
         ]
       },
       "sys_clock_1": {
         "ports": [
-          "clk_wiz_1/clk_out1",
-          "proc_sys_reset_1/slowest_sync_clk",
-          "axi_uartlite_0/s_axi_aclk",
-          "comparator_0/clock",
-          "refcounter/clock",
-          "ro_array_0/clock",
-          "uart_0/clock"
+          "sys_clock",
+          "clk_wiz_0/clk_in1"
         ]
       },
-      "sys_clock_2": {
+      "tero_array_0_outputs": {
         "ports": [
-          "sys_clock",
-          "clk_wiz_1/clk_in1"
+          "tero_array_0/outputs",
+          "uart_0/cells_count"
         ]
       },
       "uart_0_araddr": {
@@ -488,7 +558,8 @@
       "uart_0_refcounter_limit": {
         "ports": [
           "uart_0/refcounter_limit",
-          "comparator_0/refcount_limit"
+          "comparator_0/refcount_limit",
+          "leds"
         ]
       },
       "uart_0_rready": {

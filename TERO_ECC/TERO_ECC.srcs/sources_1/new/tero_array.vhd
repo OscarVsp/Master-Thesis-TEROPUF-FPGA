@@ -3,7 +3,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
 entity tero_array is
-    generic (select_size : integer := 4);
+    generic (select_size : integer := 5);
 	Port (
 		clock : in std_logic;
 		reset : in std_logic;
@@ -16,12 +16,12 @@ end tero_array;
 
 architecture Behavioral of tero_array is
 
-component tero is
+component tero_8 is
 	Port (
 		enable : in STD_LOGIC;
 		output : out STD_LOGIC
 	);
-end component tero;
+end component tero_8;
 
 signal enables : std_logic_vector (2**select_size - 1 downto 0) := (others => '0');
 
@@ -40,7 +40,7 @@ process (clock, reset) begin
 end process;
 
 gen_tero: for i in 0 to 2**select_size - 1 generate
-	r: tero port map (
+	r: tero_8 port map (
 		enable => enables(i),
 		output => outputs(i)
 	);

@@ -21,7 +21,7 @@ entity uart is
 	wdata : out std_logic_vector(31 downto 0);
 	arvalid, rready : out std_logic;
 	araddr : out std_logic_vector(3 downto 0);
-	tero_responses : in std_logic_vector(255 downto 0);
+	cells_count : in std_logic_vector(1023 downto 0);
 
 	enable : out std_logic;
 	refcounter_limit : out std_logic_vector(15 downto 0)
@@ -33,7 +33,7 @@ architecture Behavioral of uart is
 type DataState is (START_READ, READ_STARTED, AWAIT_RESPONSE, WRITE_STARTED);
 
 signal state : DataState;
-signal response : std_logic_vector(255 downto 0);
+signal response : std_logic_vector(1023 downto 0);
 signal bitcount : unsigned(12 - 1 downto 0);
 signal refcounter_limit_in : std_logic_vector(15 downto 0) := "0000000011001000";
 signal reading_refcounter_limit : std_logic;
@@ -110,7 +110,7 @@ process (clock, reset) begin
 			if write_out = '1' then
 			    enable <= '0';
 				state <= WRITE_STARTED;
-				response <= tero_responses;
+				response <= cells_count;
 				awaddr <= "0100";
 				awvalid <= '1';
 				wdata(7 downto 0) <= response(7 downto 0);
@@ -134,7 +134,7 @@ process (clock, reset) begin
 					bready <= '1';
 				else
 					bready <= '0';
-					if bitcount + 1  >= 2*16 then
+					if bitcount + 8  >= 1024 then
 					    state <= START_READ;
                         bitcount <= (others => '0');
                         response <= (others => '0');
@@ -144,8 +144,8 @@ process (clock, reset) begin
                         wdata(7 downto 0) <= response(15 downto 8);
                         wvalid <= '1';
                         bready <= '1';
-                        response <= "00000000" & response(255 downto 8);
-                        bitcount <= bitcount + 1;
+                        response <= "00000000" & response(1023 downto 8);
+                        bitcount <= bitcount + 8;
                     end if;
 				end if;
 			end if;

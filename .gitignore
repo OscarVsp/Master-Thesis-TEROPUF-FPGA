@@ -16,3 +16,6 @@
 *.xci
 *.ui
 *.bda
+
+*.xml
+*.bxml

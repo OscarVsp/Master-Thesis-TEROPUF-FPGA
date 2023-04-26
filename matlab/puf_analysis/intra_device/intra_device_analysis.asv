@@ -1,0 +1,21 @@
+clear all;
+close all;
+
+file = "tero_8_raw_200";
+
+data = readmatrix(file+'.csv');
+
+[size_sample, size_response] = size(data);
+[reference, deviations, variances] = reference_fn(data);
+[average_uniformity, sample_uniformities] = uniformity_fn(data);
+[average_reliability, hd_intra] = reliability_fn(data, reference);
+
+figure;
+plot(1:size_response, variances)
+xlabel("TERO cell index");
+ylabel("variances");
+
+title("TERO cells reliability distribution.");
+subtitle(string(size_sample)+" samples | avr_uniformity="+string(average_uniformity)+" | avr_reliability="+string(average_reliability));
+
+

@@ -2,7 +2,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
-entity tero_array is
+entity ro_array is
 	generic (
 	    array_size : integer := 64;
 	    counter_size : integer := 16
@@ -13,18 +13,18 @@ entity tero_array is
 		enable : in STD_LOGIC;
 		outputs : out STD_LOGIC_VECTOR (array_size*counter_size - 1 downto 0)
 	);
-end tero_array;
+end ro_array;
 
-architecture Behavioral of tero_array is
+architecture Behavioral of ro_array is
 
 signal enable_r : STD_LOGIC := '0';
 
-component tero_4 is
+component ro is
 	Port (
 		enable : in STD_LOGIC;
 		output : out STD_LOGIC
 	);
-end component tero_4;
+end component ro;
 
 signal intermediate : std_logic_vector(array_size - 1 downto 0) := (others => '0');
 
@@ -48,8 +48,8 @@ process (clock, reset) begin
 	end if;
 end process;
 
-gen_tero: for i in 0 to array_size - 1 generate
-	r: tero_4 port map (
+gen_ro: for i in 0 to array_size - 1 generate
+	r: ro port map (
 		enable => enable,
 		output => intermediate(i)
 	);

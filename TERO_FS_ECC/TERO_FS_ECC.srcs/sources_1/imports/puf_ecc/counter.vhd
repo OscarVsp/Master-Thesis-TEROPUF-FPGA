@@ -4,7 +4,7 @@ USE IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity counter is
     generic (size : integer := 16);
-    Port ( clk : in STD_LOGIC;
+    Port ( clock : in STD_LOGIC;
            enable : in STD_LOGIC;
            count : out std_logic_vector(size-1 downto 0)
     );
@@ -18,11 +18,11 @@ begin
 
 count <= count_internal;
 
-process(clk, enable)
+process(clock, enable)
 begin
     if enable = '0' then
         count_internal <= (others => '0');
-    elsif rising_edge(clk) then
+    elsif rising_edge(clock) then
         count_internal <= count_internal + 1;
     end if;
 end process;

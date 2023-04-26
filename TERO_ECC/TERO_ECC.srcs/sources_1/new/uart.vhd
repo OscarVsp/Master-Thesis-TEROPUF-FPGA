@@ -5,6 +5,7 @@ use IEEE.NUMERIC_STD.ALL;
 use work.const.all;
 
 entity uart is
+    Generic (default_ref_limit_counter : std_logic_vector(15 downto 0) := "0000000011001000");
 	Port (
 	clock : in STD_LOGIC;
 	reset : in STD_LOGIC;
@@ -47,7 +48,7 @@ signal gen_state : std_logic_vector(1 downto 0);    --"00" = provision, "01" = E
 signal reading_syndrome : std_logic;
 signal reading_refcounter_limit : std_logic;
 signal syndrome_in : std_logic_vector(nk - 1 + 7 downto 0); -- +7 for unused bits in the last received byte
-signal refcounter_limit_in : std_logic_vector(15 downto 0) := "0000000011001000";
+signal refcounter_limit_in : std_logic_vector(15 downto 0) := default_ref_limit_counter;
 
 begin
 
@@ -74,6 +75,7 @@ process (clock, reset) begin
 		bitcount <= (others => '0');
 		reading_syndrome <= '0';
 		reading_refcounter_limit <= '0';
+		refcounter_limit_in <= default_ref_limit_counter;
 		led_0 <= "000";
 	elsif rising_edge(clock) then
 		write_finished <= '0';
