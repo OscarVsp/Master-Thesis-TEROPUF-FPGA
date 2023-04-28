@@ -7,20 +7,21 @@
       "name": "ro_puf",
       "rev_ctrl_bd_flag": "RevCtrlBdOff",
       "synth_flow_mode": "Hierarchical",
-      "tool_version": "2022.2"
+      "tool_version": "2022.2",
+      "validated": "true"
     },
     "design_tree": {
       "axi_uartlite_0": "",
       "proc_sys_reset_0": "",
       "sha256_block_0": "",
-      "ro_puf_block_0": "",
       "word_muxer_0": "",
       "clk_wiz_0": "",
       "debug_leds_sink_0": "",
       "control_0": "",
       "sink_0": "",
       "dec_0": "",
-      "uart_0": ""
+      "uart_0": "",
+      "ro_puf_block_0": ""
     },
     "interface_ports": {
       "usb_uart": {
@@ -44,12 +45,22 @@
         "type": "data",
         "direction": "O",
         "left": "15",
-        "right": "0"
+        "right": "0",
+        "parameters": {
+          "LAYERED_METADATA": {
+            "value": "undef",
+            "value_src": "default"
+          }
+        }
       },
       "reset": {
         "type": "rst",
         "direction": "I",
         "parameters": {
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
           "POLARITY": {
             "value": "ACTIVE_LOW"
           }
@@ -59,8 +70,20 @@
         "type": "clk",
         "direction": "I",
         "parameters": {
+          "CLK_DOMAIN": {
+            "value": "ro_puf_sys_clock",
+            "value_src": "default"
+          },
           "FREQ_HZ": {
             "value": "100000000"
+          },
+          "FREQ_TOLERANCE_HZ": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
           },
           "PHASE": {
             "value": "0.000"
@@ -152,75 +175,6 @@
           },
           "start": {
             "direction": "I"
-          }
-        }
-      },
-      "ro_puf_block_0": {
-        "vlnv": "xilinx.com:module_ref:ro_puf_block:1.0",
-        "xci_name": "ro_puf_ro_puf_block_0_0",
-        "xci_path": "ip\\ro_puf_ro_puf_block_0_0\\ro_puf_ro_puf_block_0_0.xci",
-        "inst_hier_path": "ro_puf_block_0",
-        "reference_info": {
-          "ref_type": "hdl",
-          "ref_name": "ro_puf_block",
-          "boundary_crc": "0x0"
-        },
-        "ports": {
-          "clock": {
-            "type": "clk",
-            "direction": "I",
-            "parameters": {
-              "ASSOCIATED_RESET": {
-                "value": "reset",
-                "value_src": "constant"
-              },
-              "FREQ_HZ": {
-                "value": "100000000",
-                "value_src": "ip_prop"
-              },
-              "PHASE": {
-                "value": "0.0",
-                "value_src": "ip_prop"
-              },
-              "CLK_DOMAIN": {
-                "value": "/clk_wiz_0_clk_out1",
-                "value_src": "ip_prop"
-              }
-            }
-          },
-          "enable": {
-            "direction": "I"
-          },
-          "pufbit_out": {
-            "direction": "O"
-          },
-          "pufbit_valid": {
-            "direction": "O"
-          },
-          "ref_counter_limit": {
-            "direction": "I",
-            "left": "15",
-            "right": "0"
-          },
-          "reset": {
-            "type": "rst",
-            "direction": "I",
-            "parameters": {
-              "POLARITY": {
-                "value": "ACTIVE_LOW",
-                "value_src": "const_prop"
-              }
-            }
-          },
-          "selection0": {
-            "direction": "I",
-            "left": "4",
-            "right": "0"
-          },
-          "selection1": {
-            "direction": "I",
-            "left": "4",
-            "right": "0"
           }
         }
       },
@@ -513,12 +467,30 @@
               "ASSOCIATED_RESET": {
                 "value": "reset",
                 "value_src": "constant"
+              },
+              "FREQ_HZ": {
+                "value": "100000000",
+                "value_src": "ip_prop"
+              },
+              "PHASE": {
+                "value": "0.0",
+                "value_src": "ip_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "/clk_wiz_0_clk_out1",
+                "value_src": "ip_prop"
               }
             }
           },
           "reset": {
             "type": "rst",
-            "direction": "I"
+            "direction": "I",
+            "parameters": {
+              "POLARITY": {
+                "value": "ACTIVE_LOW",
+                "value_src": "const_prop"
+              }
+            }
           },
           "decode_reset": {
             "type": "rst",
@@ -552,6 +524,18 @@
               "ASSOCIATED_RESET": {
                 "value": "reset",
                 "value_src": "constant"
+              },
+              "FREQ_HZ": {
+                "value": "100000000",
+                "value_src": "ip_prop"
+              },
+              "PHASE": {
+                "value": "0.0",
+                "value_src": "ip_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "/clk_wiz_0_clk_out1",
+                "value_src": "ip_prop"
               }
             }
           },
@@ -588,12 +572,30 @@
               "ASSOCIATED_RESET": {
                 "value": "reset",
                 "value_src": "constant"
+              },
+              "FREQ_HZ": {
+                "value": "100000000",
+                "value_src": "ip_prop"
+              },
+              "PHASE": {
+                "value": "0.0",
+                "value_src": "ip_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "/clk_wiz_0_clk_out1",
+                "value_src": "ip_prop"
               }
             }
           },
           "reset": {
             "type": "rst",
-            "direction": "I"
+            "direction": "I",
+            "parameters": {
+              "POLARITY": {
+                "value": "ACTIVE_LOW",
+                "value_src": "const_prop"
+              }
+            }
           },
           "dec_out": {
             "direction": "I"
@@ -702,6 +704,75 @@
             "right": "0"
           }
         }
+      },
+      "ro_puf_block_0": {
+        "vlnv": "xilinx.com:module_ref:ro_puf_block:1.0",
+        "xci_name": "ro_puf_ro_puf_block_0_0",
+        "xci_path": "ip\\ro_puf_ro_puf_block_0_0\\ro_puf_ro_puf_block_0_0.xci",
+        "inst_hier_path": "ro_puf_block_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "ro_puf_block",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "clock": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "ASSOCIATED_RESET": {
+                "value": "reset",
+                "value_src": "constant"
+              },
+              "FREQ_HZ": {
+                "value": "100000000",
+                "value_src": "ip_prop"
+              },
+              "PHASE": {
+                "value": "0.0",
+                "value_src": "ip_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "/clk_wiz_0_clk_out1",
+                "value_src": "ip_prop"
+              }
+            }
+          },
+          "enable": {
+            "direction": "I"
+          },
+          "pufbit_out": {
+            "direction": "O"
+          },
+          "pufbit_valid": {
+            "direction": "O"
+          },
+          "ref_counter_limit": {
+            "direction": "I",
+            "left": "15",
+            "right": "0"
+          },
+          "reset": {
+            "type": "rst",
+            "direction": "I",
+            "parameters": {
+              "POLARITY": {
+                "value": "ACTIVE_LOW",
+                "value_src": "const_prop"
+              }
+            }
+          },
+          "selection0": {
+            "direction": "I",
+            "left": "4",
+            "right": "0"
+          },
+          "selection1": {
+            "direction": "I",
+            "left": "4",
+            "right": "0"
+          }
+        }
       }
     },
     "interface_nets": {
@@ -778,8 +849,8 @@
       "control_0_enable_counting": {
         "ports": [
           "control_0/enable_counting",
-          "ro_puf_block_0/enable",
-          "debug_leds_sink_0/enable_counting"
+          "debug_leds_sink_0/enable_counting",
+          "ro_puf_block_0/enable"
         ]
       },
       "control_0_led_1": {
@@ -847,11 +918,11 @@
         "ports": [
           "proc_sys_reset_0/peripheral_aresetn",
           "axi_uartlite_0/s_axi_aresetn",
-          "ro_puf_block_0/reset",
           "debug_leds_sink_0/reset",
           "control_0/reset",
           "sink_0/reset",
-          "uart_0/reset"
+          "uart_0/reset",
+          "ro_puf_block_0/reset"
         ]
       },
       "reset_1": {
@@ -872,7 +943,8 @@
       "ro_puf_block_0_pufbit_out": {
         "ports": [
           "ro_puf_block_0/pufbit_out",
-          "uart_0/pufbit_out"
+          "uart_0/pufbit_out",
+          "sink_0/pufbit_out"
         ]
       },
       "sha256_block_0_sha256_out": {
@@ -901,12 +973,12 @@
           "proc_sys_reset_0/slowest_sync_clk",
           "axi_uartlite_0/s_axi_aclk",
           "sha256_block_0/clock",
-          "ro_puf_block_0/clock",
           "debug_leds_sink_0/clock",
           "control_0/clock",
           "sink_0/clock",
           "dec_0/clk",
-          "uart_0/clock"
+          "uart_0/clock",
+          "ro_puf_block_0/clock"
         ]
       },
       "sys_clock_2": {
@@ -968,8 +1040,8 @@
       "uart_0_refcounter_limit": {
         "ports": [
           "uart_0/refcounter_limit",
-          "ro_puf_block_0/ref_counter_limit",
-          "word_muxer_0/input_word_0"
+          "word_muxer_0/input_word_0",
+          "ro_puf_block_0/ref_counter_limit"
         ]
       },
       "uart_0_rready": {

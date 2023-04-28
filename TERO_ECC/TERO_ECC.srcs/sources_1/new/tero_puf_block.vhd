@@ -48,6 +48,7 @@ end component counter;
 signal count0, count1, refcounter_count : STD_LOGIC_VECTOR ( 31 downto 0 );
   
 component comparator is
+generic(equality : std_logic := '0');
 port (
     clock : in STD_LOGIC;
     enable : in STD_LOGIC;
@@ -116,6 +117,7 @@ refcounter: component counter
 
 
 compa: component comparator
+     generic map(equality => '0')
      port map (
       clock => clock,
       count0(31 downto 0) => count0(31 downto 0),

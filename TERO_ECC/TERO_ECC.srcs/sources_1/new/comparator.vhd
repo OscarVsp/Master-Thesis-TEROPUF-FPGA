@@ -3,6 +3,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 USE ieee.STD_LOGIC_UNSIGNED.ALL;
 
 entity comparator is
+    Generic (equality: std_logic := '0');
     Port (
 		clock : in std_logic;
 		enable : in std_logic;
@@ -27,9 +28,11 @@ process(clock, enable) begin
 		if refcount = refcount_limit then
 			finished <= '1';
 			if count1 > count0 then
-				result <= '1';
-			else
 				result <= '0';
+			elsif count1 < count0 then
+			    result <= '1';
+			else
+				result <= equality;
 			end if;
 		end if;
 	end if;
