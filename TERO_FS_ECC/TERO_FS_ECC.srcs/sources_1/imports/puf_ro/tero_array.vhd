@@ -19,12 +19,12 @@ architecture Behavioral of tero_array is
 
 signal enable_r : STD_LOGIC := '0';
 
-component tero_4 is
+component tero_8_bis is
 	Port (
 		enable : in STD_LOGIC;
 		output : out STD_LOGIC
 	);
-end component tero_4;
+end component tero_8_bis;
 
 signal intermediate : std_logic_vector(array_size - 1 downto 0) := (others => '0');
 
@@ -49,7 +49,7 @@ process (clock, reset) begin
 end process;
 
 gen_tero: for i in 0 to array_size - 1 generate
-	r: tero_4 port map (
+	r: tero_8_bis port map (
 		enable => enable,
 		output => intermediate(i)
 	);

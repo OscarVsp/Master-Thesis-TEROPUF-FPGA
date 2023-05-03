@@ -17,7 +17,7 @@
       "axi_uartlite_0": "",
       "ref_counter": "",
       "uart_0": "",
-      "ro_array_0": ""
+      "tero_array_0": ""
     },
     "interface_ports": {
       "usb_uart": {
@@ -357,14 +357,14 @@
           }
         }
       },
-      "ro_array_0": {
-        "vlnv": "xilinx.com:module_ref:ro_array:1.0",
-        "xci_name": "cell_testing_ro_array_0_0",
-        "xci_path": "ip\\cell_testing_ro_array_0_0\\cell_testing_ro_array_0_0.xci",
-        "inst_hier_path": "ro_array_0",
+      "tero_array_0": {
+        "vlnv": "xilinx.com:module_ref:tero_array:1.0",
+        "xci_name": "cell_testing_tero_array_0_0",
+        "xci_path": "ip\\cell_testing_tero_array_0_0\\cell_testing_tero_array_0_0.xci",
+        "inst_hier_path": "tero_array_0",
         "reference_info": {
           "ref_type": "hdl",
-          "ref_name": "ro_array",
+          "ref_name": "tero_array",
           "boundary_crc": "0x0"
         },
         "ports": {
@@ -425,7 +425,7 @@
           "uart_0/enable",
           "comparator_0/enable",
           "ref_counter/enable",
-          "ro_array_0/enable"
+          "tero_array_0/enable"
         ]
       },
       "axi_uartlite_0_s_axi_arready": {
@@ -478,7 +478,7 @@
           "axi_uartlite_0/s_axi_aclk",
           "ref_counter/clock",
           "uart_0/clock",
-          "ro_array_0/clock"
+          "tero_array_0/clock"
         ]
       },
       "clk_wiz_0_locked": {
@@ -498,7 +498,7 @@
           "proc_sys_reset_0/peripheral_aresetn",
           "axi_uartlite_0/s_axi_aresetn",
           "uart_0/reset",
-          "ro_array_0/reset"
+          "tero_array_0/reset"
         ]
       },
       "ref_counter_count": {
@@ -513,16 +513,16 @@
           "proc_sys_reset_0/ext_reset_in"
         ]
       },
-      "ro_array_0_outputs": {
-        "ports": [
-          "ro_array_0/outputs",
-          "uart_0/cells_count"
-        ]
-      },
       "sys_clock_1": {
         "ports": [
           "sys_clock",
           "clk_wiz_0/clk_in1"
+        ]
+      },
+      "tero_array_0_outputs": {
+        "ports": [
+          "tero_array_0/outputs",
+          "uart_0/cells_count"
         ]
       },
       "uart_0_araddr": {
