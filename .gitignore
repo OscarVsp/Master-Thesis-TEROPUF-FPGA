@@ -23,3 +23,4 @@
 
 !/matlab/nb_oscillations_vs_aquisition_time/*.csv
 !/matlab/nb_oscillations_equality_vs_aquisition_time/*.csv
+!/matlab/intra_device_raw_perf_vs_aquisition_time/*.csv
