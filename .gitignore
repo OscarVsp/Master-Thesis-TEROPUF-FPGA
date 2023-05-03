@@ -20,3 +20,5 @@
 
 *.xml
 *.bxml
+
+!/matlab/nb_oscillations_vs_aquisition_time/*.csv
