@@ -3,9 +3,9 @@ import time
 from typing import List
 import numpy as np 
 import serial
-import hashlib
+"""import hashlib
 from Crypto.Cipher import AES
-from base64 import b64decode, b64encode
+from base64 import b64decode, b64encode"""
 
 import math
 from tqdm import tqdm
@@ -52,7 +52,7 @@ def int2bytes(integer: int, size: int = 2) -> bytes:
 def hamming_dist(a, b) -> int:
 	return int(np.sum((a + b) % 2))
 
-def pad(data: bytes) -> bytes:
+"""def pad(data: bytes) -> bytes:
     L = AES.block_size * math.ceil(len(data) / AES.block_size)
     Nzeros = L - len(data)
     return data + bytes(Nzeros)
@@ -65,7 +65,7 @@ def encryption(msg: bytes, key: bytes) -> bytes:
 def decryption(encrypted_msg: bytes, key: bytes) -> str:
     cipher = AES.new(key, AES.MODE_ECB)
     message = cipher.decrypt(b64decode(encrypted_msg)).rstrip(b'\x00')
-    return message.decode()
+    return message.decode()"""
  
 class SamplesReturnData:
 

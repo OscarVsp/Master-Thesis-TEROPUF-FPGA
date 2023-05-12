@@ -9,19 +9,19 @@ entity tero_array is
 		reset : in std_logic;
 		enable : in STD_LOGIC;
 		outputs : out STD_LOGIC_VECTOR (2**select_size - 1 downto 0);
-		selection : in std_logic_vector (select_size - 1 downto 0)
+		selection : in std_logic_vector (select_size - 1 downto 0) 
 	);
 end tero_array;
 
 
 architecture Behavioral of tero_array is
 
-component tero_8 is
+component tero_4 is 
 	Port (
 		enable : in STD_LOGIC;
 		output : out STD_LOGIC
 	);
-end component tero_8;
+end component tero_4;
 
 signal enables : std_logic_vector (2**select_size - 1 downto 0) := (others => '0');
 
@@ -30,7 +30,7 @@ begin
 process (clock, reset) begin
 	if reset = '0' then
 		enables <= (others => '0');
-	elsif rising_edge(clock) then
+	elsif rising_edge(clock) then 
 		if enable = '1' then
 			enables(to_integer(unsigned(selection))) <= '1';
 		else
@@ -40,7 +40,7 @@ process (clock, reset) begin
 end process;
 
 gen_tero: for i in 0 to 2**select_size - 1 generate
-	r: tero_8 port map (
+	r: tero_4 port map (
 		enable => enables(i),
 		output => outputs(i)
 	);

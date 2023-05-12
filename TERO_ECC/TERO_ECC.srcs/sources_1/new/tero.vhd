@@ -14,6 +14,7 @@ architecture Behavioral of tero_8 is
 attribute DONT_TOUCH : boolean;
 attribute BEL : string;
 attribute RLOC : string;
+attribute LOCK_PINS : string;
 
 attribute DONT_TOUCH of u0 : label is true;
 attribute DONT_TOUCH of u1 : label is true;
@@ -39,35 +40,44 @@ attribute RLOC of u4 : label is "X1Y0";
 attribute RLOC of u5 : label is "X1Y0";
 attribute RLOC of u6 : label is "X1Y0";
 attribute RLOC of u7 : label is "X1Y0";
+attribute LOCK_PINS of u0 : label is "I0:A2,I1:A4";
+attribute LOCK_PINS of u1 : label is "I0:A5";
+attribute LOCK_PINS of u2 : label is "I0:A6";
+attribute LOCK_PINS of u3 : label is "I0:A4";
+attribute LOCK_PINS of u4 : label is "I0:A2,I1:A4";
+attribute LOCK_PINS of u5 : label is "I0:A5";
+attribute LOCK_PINS of u6 : label is "I0:A6";
+attribute LOCK_PINS of u7 : label is "I0:A4";
 
-signal chain : std_logic_vector(7 downto 0);
 
+signal internal_loop : std_logic_vector(7 downto 0);
+ 
 begin
 
 u0 : LUT2 generic map (INIT => "1000") -- and port for enable
-port map (O => chain(0), I0 => chain(7), I1 => enable);
+port map (O => internal_loop(0), I0 => internal_loop(7), I1 => enable);
 
 u1 : LUT1 generic map (INIT => "01") -- inverter
-port map (O => chain(1), I0 => chain(0));
+port map (O => internal_loop(1), I0 => internal_loop(0));
 
 u2 : LUT1 generic map (INIT => "01") -- inverter
-port map (O => chain(2), I0 => chain(1));
+port map (O => internal_loop(2), I0 => internal_loop(1));
 
 u3 : LUT1 generic map (INIT => "01") -- inverter
-port map (O => chain(3), I0 => chain(2));
+port map (O => internal_loop(3), I0 => internal_loop(2));
 
 u4 : LUT2 generic map (INIT => "1000") -- and port for enable
-port map (O => chain(4), I0 => chain(3), I1 => enable);
+port map (O => internal_loop(4), I0 => internal_loop(3), I1 => enable);
 
 u5 : LUT1 generic map (INIT => "01") -- inverter
-port map (O => chain(5), I0 => chain(4));
+port map (O => internal_loop(5), I0 => internal_loop(4));
 
 u6 : LUT1 generic map (INIT => "01") -- inverter
-port map (O => chain(6), I0 => chain(5));
+port map (O => internal_loop(6), I0 => internal_loop(5));
 
 u7 : LUT1 generic map (INIT => "01") -- inverter
-port map (O => chain(7), I0 => chain(6));
+port map (O => internal_loop(7), I0 => internal_loop(6));
 
-output <= chain(3);
+output <= internal_loop(3);
 
 end Behavioral;

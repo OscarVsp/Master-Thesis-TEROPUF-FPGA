@@ -2,13 +2,12 @@
   "design": {
     "design_info": {
       "boundary_crc": "0xAB809D385D31D293",
-      "device": "xc7a100tcsg324-1",
+      "device": "xc7a35tcpg236-1",
       "gen_directory": "../../../../TERO_FS_ECC.gen/sources_1/bd/cell_testing",
       "name": "cell_testing",
       "rev_ctrl_bd_flag": "RevCtrlBdOff",
       "synth_flow_mode": "Hierarchical",
-      "tool_version": "2022.2",
-      "validated": "true"
+      "tool_version": "2022.2"
     },
     "design_tree": {
       "clk_wiz_0": "",
@@ -17,7 +16,7 @@
       "axi_uartlite_0": "",
       "ref_counter": "",
       "uart_0": "",
-      "tero_array_0": ""
+      "tero_8_array_0": ""
     },
     "interface_ports": {
       "usb_uart": {
@@ -41,10 +40,6 @@
         "type": "rst",
         "direction": "I",
         "parameters": {
-          "INSERT_VIP": {
-            "value": "0",
-            "value_src": "default"
-          },
           "POLARITY": {
             "value": "ACTIVE_LOW"
           }
@@ -54,20 +49,8 @@
         "type": "clk",
         "direction": "I",
         "parameters": {
-          "CLK_DOMAIN": {
-            "value": "cell_testing_sys_clock",
-            "value_src": "default"
-          },
           "FREQ_HZ": {
             "value": "100000000"
-          },
-          "FREQ_TOLERANCE_HZ": {
-            "value": "0",
-            "value_src": "default"
-          },
-          "INSERT_VIP": {
-            "value": "0",
-            "value_src": "default"
           },
           "PHASE": {
             "value": "0.000"
@@ -357,14 +340,14 @@
           }
         }
       },
-      "tero_array_0": {
-        "vlnv": "xilinx.com:module_ref:tero_array:1.0",
-        "xci_name": "cell_testing_tero_array_0_0",
-        "xci_path": "ip\\cell_testing_tero_array_0_0\\cell_testing_tero_array_0_0.xci",
-        "inst_hier_path": "tero_array_0",
+      "tero_8_array_0": {
+        "vlnv": "xilinx.com:module_ref:tero_8_array:1.0",
+        "xci_name": "cell_testing_tero_8_array_0_0",
+        "xci_path": "ip\\cell_testing_tero_8_array_0_0\\cell_testing_tero_8_array_0_0.xci",
+        "inst_hier_path": "tero_8_array_0",
         "reference_info": {
           "ref_type": "hdl",
-          "ref_name": "tero_array",
+          "ref_name": "tero_8_array",
           "boundary_crc": "0x0"
         },
         "ports": {
@@ -375,30 +358,12 @@
               "ASSOCIATED_RESET": {
                 "value": "reset",
                 "value_src": "constant"
-              },
-              "FREQ_HZ": {
-                "value": "100000000",
-                "value_src": "ip_prop"
-              },
-              "PHASE": {
-                "value": "0.0",
-                "value_src": "ip_prop"
-              },
-              "CLK_DOMAIN": {
-                "value": "/clk_wiz_0_clk_out1",
-                "value_src": "ip_prop"
               }
             }
           },
           "reset": {
             "type": "rst",
-            "direction": "I",
-            "parameters": {
-              "POLARITY": {
-                "value": "ACTIVE_LOW",
-                "value_src": "const_prop"
-              }
-            }
+            "direction": "I"
           },
           "enable": {
             "direction": "I"
@@ -425,7 +390,7 @@
           "uart_0/enable",
           "comparator_0/enable",
           "ref_counter/enable",
-          "tero_array_0/enable"
+          "tero_8_array_0/enable"
         ]
       },
       "axi_uartlite_0_s_axi_arready": {
@@ -478,7 +443,7 @@
           "axi_uartlite_0/s_axi_aclk",
           "ref_counter/clock",
           "uart_0/clock",
-          "tero_array_0/clock"
+          "tero_8_array_0/clock"
         ]
       },
       "clk_wiz_0_locked": {
@@ -498,7 +463,7 @@
           "proc_sys_reset_0/peripheral_aresetn",
           "axi_uartlite_0/s_axi_aresetn",
           "uart_0/reset",
-          "tero_array_0/reset"
+          "tero_8_array_0/reset"
         ]
       },
       "ref_counter_count": {
@@ -519,9 +484,9 @@
           "clk_wiz_0/clk_in1"
         ]
       },
-      "tero_array_0_outputs": {
+      "tero_8_array_0_outputs": {
         "ports": [
-          "tero_array_0/outputs",
+          "tero_8_array_0/outputs",
           "uart_0/cells_count"
         ]
       },

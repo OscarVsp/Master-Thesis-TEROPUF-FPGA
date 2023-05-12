@@ -5,26 +5,39 @@ import csv
 
 from puf_pkg import *
 
-path = "matlab\\intra_device_raw_and_ecc_perf"
-prefix = "ro"#"tero_8" #"ro"
+path = "matlab\\inter_device_raw_and_ecc"
+model = "basys"
+implementation = "tero_4"#"tero_8" #"ro"
 n_sample = 10000
-limit = 200
+limit = 50
 
-print(f'Starting {prefix} raw & ecc puf reading')
+
+device = str(input("Device index? "))
+port_com = str(int(input("Port COM number? ")))
+
+print(f'Starting raw & ecc puf reading')
 print(f'| {n_sample=}')
 print(f'| {limit=}')
 print(f'| {path=}')
-print(f'| {prefix=}')
+print(f'| {model=}')
+print(f'| {implementation=}')
+print(f'| {device=}')
+print(f'| Port=COM{port_com}')
+input("| Press enter to start")
 
-puf = PUF('COM6', initial_ref_limit=limit)
+puf = PUF(f'COM{port_com}', initial_ref_limit=limit)
 returnDataRaw = puf.read_raw_samples(sample_size=n_sample)
-with open(f"{path}\{prefix}_raw_{limit}.csv", "a", newline="") as f:
+print(f"| Reference: {bits2str(returnDataRaw.reference)}")
+print("| Saving RAW data...")
+with open(f"{path}\{model}_{implementation}_raw_{limit}_device_{device}.csv", "w", newline="") as f:
     writer = csv.writer(f)
     writer.writerows(returnDataRaw.samples)
-print(f"Reference: {bits2str(returnDataRaw.reference)}")
-puf.set_syndrome(str(input("Syndrome: ")))
+""" 
+puf.set_syndrome(str(input("| Syndrome?")))
 returnDataEcc = puf.read_ecc_samples(sample_size=n_sample)
-with open(f"{path}\{prefix}_ecc_{limit}.csv", "a", newline="") as f:
+print("| Saving ECC data...")
+with open(f"{path}\{model}_{implementation}_ecc_{limit}_device_{device}.csv", "w", newline="") as f:
     writer = csv.writer(f)
     writer.writerows(returnDataEcc.samples)
+"""
 print("| Done")

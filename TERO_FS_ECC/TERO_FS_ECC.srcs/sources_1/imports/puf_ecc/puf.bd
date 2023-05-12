@@ -14,8 +14,8 @@
       "axi_uartlite_0": "",
       "comparator_0": "",
       "refcounter": "",
-      "ro_array_0": "",
-      "uart_0": ""
+      "uart_0": "",
+      "ro_array_0": ""
     },
     "interface_ports": {
       "usb_uart": {
@@ -205,41 +205,6 @@
           }
         }
       },
-      "ro_array_0": {
-        "vlnv": "xilinx.com:module_ref:ro_array:1.0",
-        "xci_name": "puf_ro_array_0_0",
-        "xci_path": "ip\\puf_ro_array_0_0\\puf_ro_array_0_0.xci",
-        "inst_hier_path": "ro_array_0",
-        "reference_info": {
-          "ref_type": "hdl",
-          "ref_name": "ro_array",
-          "boundary_crc": "0x0"
-        },
-        "ports": {
-          "clock": {
-            "type": "clk",
-            "direction": "I",
-            "parameters": {
-              "ASSOCIATED_RESET": {
-                "value": "reset",
-                "value_src": "constant"
-              }
-            }
-          },
-          "reset": {
-            "type": "rst",
-            "direction": "I"
-          },
-          "enable": {
-            "direction": "I"
-          },
-          "outputs": {
-            "direction": "O",
-            "left": "1023",
-            "right": "0"
-          }
-        }
-      },
       "uart_0": {
         "vlnv": "xilinx.com:module_ref:uart:1.0",
         "xci_name": "puf_uart_0_1",
@@ -339,6 +304,41 @@
             "right": "0"
           }
         }
+      },
+      "ro_array_0": {
+        "vlnv": "xilinx.com:module_ref:ro_array:1.0",
+        "xci_name": "puf_ro_array_0_0",
+        "xci_path": "ip\\puf_ro_array_0_0\\puf_ro_array_0_0.xci",
+        "inst_hier_path": "ro_array_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "ro_array",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "clock": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "ASSOCIATED_RESET": {
+                "value": "reset",
+                "value_src": "constant"
+              }
+            }
+          },
+          "reset": {
+            "type": "rst",
+            "direction": "I"
+          },
+          "enable": {
+            "direction": "I"
+          },
+          "outputs": {
+            "direction": "O",
+            "left": "1023",
+            "right": "0"
+          }
+        }
       }
     },
     "interface_nets": {
@@ -416,8 +416,8 @@
         "ports": [
           "proc_sys_reset_1/peripheral_aresetn",
           "axi_uartlite_0/s_axi_aresetn",
-          "ro_array_0/reset",
-          "uart_0/reset"
+          "uart_0/reset",
+          "ro_array_0/reset"
         ]
       },
       "refcounter_count": {
@@ -445,8 +445,8 @@
           "axi_uartlite_0/s_axi_aclk",
           "comparator_0/clock",
           "refcounter/clock",
-          "ro_array_0/clock",
-          "uart_0/clock"
+          "uart_0/clock",
+          "ro_array_0/clock"
         ]
       },
       "sys_clock_2": {

@@ -19,3 +19,4 @@
 
 *.xml
 *.bxml
+.vscode/launch.json
