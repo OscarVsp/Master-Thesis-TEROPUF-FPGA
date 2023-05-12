@@ -20,3 +20,4 @@
 *.xml
 *.bxml
 .vscode/launch.json
+*.csv
