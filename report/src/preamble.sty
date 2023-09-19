@@ -1,0 +1,74 @@
+\ProvidesPackage{preamble}
+
+\usepackage{lipsum}
+
+\def\frontmatter{%
+    \pagenumbering{roman}
+    \setcounter{page}{1}
+    \renewcommand{\thechapter}{\Roman{chapter}}
+}%
+
+\def\mainmatter{%
+    \pagenumbering{arabic}
+    \setcounter{page}{1}
+    \setcounter{chapter}{0}
+    \renewcommand{\thechapter}{\arabic{chapter}}
+}%
+
+\def\backmatter{%
+    \setcounter{chapter}{0}
+    \renewcommand{\thechapter}{\Alph{chapter}}
+}%
+
+\usepackage{float}
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+\usepackage{emptypage}
+\usepackage{gensymb}
+\usepackage{lmodern}
+\renewcommand*{\familydefault}{\sfdefault}
+\usepackage[english]{babel}
+\usepackage[colorlinks,urlcolor=black,linkcolor=black]{hyperref}
+\usepackage{url}
+\usepackage{color}
+\definecolor{darkblue}{RGB}{,71,140}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{tabu}
+\usepackage{colortbl}
+\usepackage{wrapfig}
+
+\usepackage{graphicx,caption}
+\usepackage{subcaption}
+\usepackage[english]{babel}
+\usepackage{booktabs}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{calc}
+\usepackage[normalem]{ulem}
+\usepackage[acronym, nopostdot, nogroupskip, style=list, toc, nonumberlist]{glossaries}
+% Load the Bruface standard
+\usepackage{BrufaceTitlepageStyle}
+
+\usepackage[
+backend=biber,
+style=numeric,
+sorting=nyt,
+date=year,
+url=false,
+doi=false,
+isbn=false
+]{biblatex}
+\addbibresource{references.bib}
+\renewenvironment{theglossary}%
+    {\begin{list}{}
+      {%
+        \setlength\labelwidth{0pt}%
+        \setlength\itemindent{-\leftmargin}%
+        \setlength\itemsep{5pt}%
+        \setlength\parsep{0pt}%
+        \let\makelabel\descriptionlabel}%
+      }
+      {\end{list}}
+\makeglossaries

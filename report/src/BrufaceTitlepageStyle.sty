@@ -1,0 +1,81 @@
+% Bruface style page
+% Authors: Stijn Bettens and Adam Cooman
+% 07/05/2014
+
+
+
+\gdef\@promotor{Set promotor}
+\gdef\@advisors{Set advisors}
+\gdef\@reason{Dissertation for the degree of Master of Science in Applied Science and Engineering: Computer Science}
+\gdef\@AcademicYear{2013-2014}
+
+\newenvironment{multiline}{\verbatim}{\verbatim}%
+
+\newlength{\Oldarrayrulewidth}
+\newcommand{\Cline}[2]{%
+	\noalign{\global\setlength{\Oldarrayrulewidth}{\arrayrulewidth}}%
+	\noalign{\global\setlength{\arrayrulewidth}{#1}}\cline{#2}%
+	\noalign{\global\setlength{\arrayrulewidth}{\Oldarrayrulewidth}}}
+
+\def\promotor#1{\gdef\@promotor{#1}}
+\def\advisors#1{\gdef\@advisors{#1}}
+\def\reason#1{\gdef\@reason{#1}}
+\def\AcademicYear#1{\gdef\@AcademicYear{#1}}
+
+\newlength{\MyTitleHeight}
+\newlength{\MyTopWhiteSpace}
+
+\def\maketitlepage{
+\begin{titlepage}
+\enlargethispage*{1000pt}
+
+% Put the logo's on top
+\vspace*{-36.6mm}{
+  \hspace*{-35mm}{
+    \includegraphics[height=4.5cm]{images/BUA-BRUFACE_RGB_Update_DEF.png}
+  }
+}
+
+% Modify the heights of white space
+\settoheight{\MyTitleHeight}{\hbox{\fontsize{32pt}{40pt}\selectfont\parbox[b]{400pt}{{\color{darkblue} \@title } }}}
+		\setlength{\MyTopWhiteSpace}{90mm-\MyTitleHeight}%
+
+\vspace*{\MyTopWhiteSpace}{
+  \hspace*{-30mm}{
+    \begin{tabu}{l|[2pt]l}
+		\arrayrulecolor{darkblue}
+		
+		\rule{0pt}{\MyTitleHeight}
+      
+      & \rule{6pt}{0mm}
+          % Title
+          {\fontsize{32pt}{40pt}\selectfont\parbox[b]{400pt}{{\color{darkblue} \@title } } }\\
+          \rule{0pt}{5mm}\\
+        
+      \Cline{2pt}{2-2}
+      
+      \rule{0pt}{14mm}
+      
+      & \rule{6pt}{0mm}\begin{tabular}{l}
+          % Author
+          \rule{0pt}{7mm}\LARGE{\parbox[t]{400pt}{\textbf{\@author}}}\\
+          \\
+        \end{tabular}\\
+     
+      \multicolumn{2}{c}{   
+      \rule{0pt}{110mm}
+	 \rule{10pt}{0mm}
+	\parbox[b]{100pt}{{\color{darkblue}{Academic year}}\\ \@AcademicYear}  \rule{60pt}{0mm} 
+		\begin{minipage}[b]{235pt}
+		\parbox[b]{300pt}{{\color{darkblue}Master thesis submitted 			under the supervision of} \\ {\large \@promotor}} \\[10pt]
+		\parbox[b]{300pt}{{\color{darkblue}The co-supervision of} 
+		\\ {\large \@advisors}} \\[10pt]
+		\parbox[b]{300pt}{{\color{darkblue}In order to be awarded 			the Master's Degree in} \\ {\large \@reason}}
+		\end{minipage}
+		}
+	\\ 
+    \end{tabu}
+  }
+}
+\end{titlepage}
+}

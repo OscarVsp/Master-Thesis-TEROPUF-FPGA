@@ -1,0 +1,98 @@
+\documentclass[a4paper,12pt]{report}
+\usepackage{preamble}
+
+\author{Oscar Van Slijpe}
+\title{Physical layer security:\\authentication and ciphering using physical unclonable functions on FPGA}
+
+% Promotor, co-promotor, advisors, 
+\promotor{Dr. Pr. Jean-Michel Dricot}
+\advisors{Dr. Pr. Dragomir Milojevic}
+\reason{Electronics and Information Technology \\ Engineering}
+\AcademicYear{2022-2023}
+
+
+\begin{document}
+\frontmatter
+% Title page
+\maketitlepage
+
+\include{autorisation}
+
+\include{abstract}
+
+%Demonstrator motivation
+
+\include{acronyms}
+
+
+\setcounter{tocdepth}{2}
+\tableofcontents
+
+\newpage
+\mainmatter
+
+%Lecteur can read chap 1 -> result and be ok !
+
+
+
+\include{0 intro}
+
+\include{1 puf}
+
+%Separate state of the art and metric/classification
+
+%title: Physical unclownable function, concept, state of the art...
+
+%Focus to show what this study add !
+%Motivate your contribution and explain more precisly the contribution
+
+\include{2 objectives}
+
+\include{3 concepts}
+
+
+%FOCUS HERE !
+
+%REF: Design and caracterization of TERO-PUF and SRAMs
+
+%Only the universal concepts, put implementation in result
+
+%Shows the difference (> contribution) from the other study on TERO-PUF
+
+\include{4 implementation}
+
+%FOCUS HERE !
+
+%TERO-PUF: FPGA implementation and caracterisation
+
+%Implementation (this experiment specific concept also !) > features > PPE > PUF
+
+%Shows the difference (> contribution) from the other study on TERO-PUF
+
+%More on the experimental setup (specify ambiant temp, voltage, ... -> futur work)
+
+%FPGA Usage (PPE)
+
+\include{5 results}
+
+
+\include{6 conclusion}
+
+
+
+
+\backmatter
+
+
+\addcontentsline{toc}{chapter}{Bibliography}
+
+\printbibliography
+
+
+\include{appendix}  
+
+
+
+
+
+\end{document}

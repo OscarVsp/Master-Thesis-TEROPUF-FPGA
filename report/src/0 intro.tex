@@ -1,0 +1,18 @@
+\chapter{Introduction}
+
+%ARCHITECTURE
+%General context and knowledge
+With the advent of new technologies such as \acrfull{iot} or Smart Grid, there is an increasing amount of data being collected and transmitted between devices that could be physically available to anyone, and which sometimes cannot be secured using classical security techniques due to the small computing resources available. Therefore, alternative security methods where a device is able to generate its own security, with a system that has a small footprint compared to its main system, are highly desirable.\\
+
+%Introduce the problem to be solved
+One promising candidate, \acrshort{puf}, are physical systems that cannot be replicated identically even if you know exactly how they were created. This means that the output of the function is determined by some intrinsic properties of the system itself, which either cannot be known or cannot be manufactured with sufficient accuracy to give the same responses. Furthermore, if these unknown properties are random, then the response to a given input will also appear to be completely random. The responses are extracted from the system itself and not stored in some kind of internal memory, making them less accessible.\\
+
+\acrshort{puf}s have been studied in various forms since 2001 \cite{pappu_physical_2001} and there are some applications using them such as \acrfull{ip} protection for \acrshort{fpga} \cite{paillier_fpga_2007}, authentication protocols for \acrshort{iot} \cite{al-meer_physical_2022, ebrahimabadi_attack_2022, bendavid_iot_2018} or security for chiplet devices \cite{deric_know_2022}.\\
+
+%Already mention the contribution of this study (scientific + demonstration)
+In this work, we present an implementation of a \acrfull{teropuf} for the first time on Artix-7, with state-of-the-art performance and the possibility to generate a usable key using \acrshort{sha}. The different design possibilities are discussed and two implementations are tested to compare the effect of the size of the \acrshort{tero} cells.
+
+
+
+
+

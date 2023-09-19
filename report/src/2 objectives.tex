@@ -1,0 +1,11 @@
+\chapter{Objectives}
+
+Different \acrshort{puf}s methods were described in chapter~\ref{ch:1-puf}. In particular, we saw the evolution of delay-based \acrshort{spuf} from \acrshort{apuf} to \acrshort{teropuf}. While \acrshort{apuf} has been studied multiple times, on different devices with diverse variations, \acrshort{teropuf} is more recent and only some devices and variations have been studied until now.\\
+
+Therefore, this thesis proposes a \acrshort{teropuf} implementation on Artix-7 and tested on 33 boards (Basys-3), which, as far as we know, is lacking to this day. Furthermore, we aimed at a design that can easily be used to demonstrate the \acrshort{puf} usage for ciphering.\\
+
+This work follows the one from~\cite{de_weerdt_implementation_2021} in 2021 who studied an \acrshort{ropuf} on the same \acrshort{fpga} and made available the \acrshort{vhdl} implementation including the framework developed to control the \acrshort{puf} and communicate between the device and a computer. We reuse the available framework as a starting point to go further in the characterisation of the implementation and the demonstrative possibilities.\\
+
+The design of the \acrshort{tero} cells and the \acrshort{teropuf} itself is described in the chapter~\ref{ch:concepts}, followed by the \acrshort{vhdl} implementation for Artix-7 on chapter~\ref{ch:impl&chara}.\\
+
+In chapter~\ref{ch:result}, the \acrshort{tero} cell's behaviour will be validated and then used in the \acrshort{teropuf} implementation. Parameters that are not fixed during design or implementation will have their impact on performance studied and the value that appear as the best will be chosen, with a proposition of explanation when needed. The final performance will be computed using the 33 Basys-3 board, and compared to other \acrshort{puf}. Finally, once the implementation is validated, the usage of features like \acrshort{ecc}, \acrfull{sha} 256 and ciphering will be demonstrated.

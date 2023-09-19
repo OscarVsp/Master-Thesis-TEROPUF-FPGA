@@ -1,0 +1,24 @@
+\chapter{Conclusion}
+
+%ARCHITECTURE
+
+
+
+%SUMMARY OF WORK (problem + concept)
+
+\acrshort{teropuf} is a promising technique that needs further research to cover more devices and possible variations. In particular, to our knowledge, there is no existing implementation of \acrshort{teropuf} on Artix-7 documented in the literature, therefore, we have proposed an implementation.\\
+
+During the design of the \acrshort{puf} (Chapter \ref{ch:impl&chara}), two parameters were identified: the size of the \acrshort{tero} cells and the acquisition time. The discussion on the size of the cell led to two implementations: TERO-4, with \acrshort{tero} cells using 4 \acrshort{lut}s, and TERO-8, with 8 \acrshort{lut}s.\\
+
+The acquisition time is not fixed to the design and has been chosen to have the best performance for the experimental result (Chapter \ref{ch:result}).
+The two implementations metrics were studied on a single device, in terms of cell behaviour and performance, for different acquisition times. We found that the TERO-4 implementation produced too many non-oscillating cells and appeared to be unusable (at least on this device), while the TERO-8 worked as expected.\\
+
+Inter-device analysis was performed for TERO-4 and TERO-8 on 33 Basys-3 boards for a $1 \mu s$ acquisition time. The results confirms that the TERO-4 is not usable on most of the devices while the TERO-8 implementation delivers performance in line with other \acrshort{puf} and \acrshort{teropuf} implementations in literature (table~\ref{tab:tero_impls} and table~\ref{tab:artix7_impl}).\\
+ 
+We also demonstrated the use of the \acrshort{sha}-256 and the full demonstration using the Python module.\\
+
+%FUTUR WORK
+A meaningful addition to the demonstration would be to have an \acrfull{aes} block in the implementation and to do text (de)-ciphering on the \acrshort{fpga}. This way, the generated key does not have to leave the device, reducing a potential leak.\\
+\acrshort{puf} are generally sensitive to factors such as temperature or voltage, and it is important to study their impact on performance to characterise the conditions under which they can be used.
+In addition, \cite{tebelmann_side-channel_2019} has studied side-channel possibilities on \acrshort{teropuf} and proposed some countermeasures, that could be added to the design used here.\\
+Finally, we choose in this work to limit the \acrshort{tero} cells to one \acrshort{clb} to simplify the routing and maintain a compact implementation. Larger cells could lead to different performances and should be studied.
