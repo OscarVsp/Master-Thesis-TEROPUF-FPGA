@@ -3,7 +3,7 @@ USE IEEE.STD_LOGIC_1164.ALL;
 USE ieee.numeric_std.ALL;
 USE work.const.ALL;
 
-ENTITY nexys_main_block IS
+ENTITY tero_puf_main_block IS
     GENERIC (
         cell_select_size : INTEGER := 5;
         counter_size : INTEGER := 16;
@@ -14,16 +14,16 @@ ENTITY nexys_main_block IS
         clock, reset : IN STD_LOGIC;
 
         --AXI
-        wready, bvalid : IN STD_LOGIC;
-        bresp : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
-        arready, rvalid : IN STD_LOGIC;
-        rdata : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
-        rresp : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
-        awvalid, wvalid, bready : OUT STD_LOGIC;
-        awaddr : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
-        wdata : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
-        arvalid, rready : OUT STD_LOGIC;
-        araddr : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
+        s_axi_wready, s_axi_bvalid : IN STD_LOGIC;
+        s_axi_bresp : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
+        s_axi_arready, s_axi_rvalid : IN STD_LOGIC;
+        s_axi_rdata : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+        s_axi_rresp : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
+        s_axi_awvalid, s_axi_wvalid, s_axi_bready : OUT STD_LOGIC;
+        s_axi_awaddr : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
+        s_axi_wdata : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
+        s_axi_arvalid, s_axi_rready : OUT STD_LOGIC;
+        s_axi_araddr : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
 
         --DEBUG
         debuging_sw : IN STD_LOGIC;
@@ -31,19 +31,18 @@ ENTITY nexys_main_block IS
         debuging_output_array : OUT STD_LOGIC_VECTOR (15 DOWNTO 0)
 
     );
-END nexys_main_block;
+END tero_puf_main_block;
 
-ARCHITECTURE STRUCTURE OF nexys_main_block IS
+ARCHITECTURE STRUCTURE OF tero_puf_main_block IS
 
     COMPONENT control IS
         GENERIC (cell_select_size : INTEGER := 5);
         PORT (
-            clock, reset, pufbit_valid, decode_valid, sha256_valid : IN STD_LOGIC;
+            clock, reset, pufbit_valid, decoder_valid, sha256_valid : IN STD_LOGIC;
             write_finished, read_finished : IN STD_LOGIC;
             gen_state : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
             select_A, select_B : OUT STD_LOGIC_VECTOR(cell_select_size - 1 DOWNTO 0);
-            enable_counting, sha256_start, sha256_reset, write_out : OUT STD_LOGIC;
-            decoder_reset : OUT BIT
+            enable_counting, sha256_start, sha256_reset, write_out, decoder_reset : OUT STD_LOGIC;
             led_1 : OUT STD_LOGIC_VECTOR(2 DOWNTO 0)
         );
     END COMPONENT control;
@@ -92,16 +91,16 @@ ARCHITECTURE STRUCTURE OF nexys_main_block IS
         PORT (
             clock, enable, reset : IN STD_LOGIC;
             selection_A, selection_B : IN STD_LOGIC_VECTOR (select_size - 1 DOWNTO 0);
-            ref_counter_limit : IN STD_LOGIC_VECTOR (ref_counter_size - 1 DOWNTO 0);
+            refcounter_limit : IN STD_LOGIC_VECTOR (ref_counter_size - 1 DOWNTO 0);
             pufbit_out, pufbit_valid : OUT STD_LOGIC
         );
     END COMPONENT tero_puf_block;
 
     COMPONENT decoder_block IS
         PORT (
-            pufbit_out, pufbit_valid, clock, reset, decode_reset : IN STD_LOGIC;
+            pufbit_out, pufbit_valid, clock, reset, decoder_reset : IN STD_LOGIC;
             syndrome_in : IN STD_LOGIC_VECTOR(nk - 1 DOWNTO 0);
-            decoder_valid, decoder_out : OUT BIT
+            decoder_valid, decoder_out : OUT STD_LOGIC
         );
     END COMPONENT decoder_block;
 
@@ -109,7 +108,7 @@ ARCHITECTURE STRUCTURE OF nexys_main_block IS
         PORT (
             clock, reset, decoder_out, decoder_valid, start : IN STD_LOGIC;
             sha256_out : OUT STD_LOGIC_VECTOR(255 DOWNTO 0);
-            sha256_valid : OUT STD_LOGIC;
+            sha256_valid : OUT STD_LOGIC
         );
     END COMPONENT sha256_block;
 
@@ -118,7 +117,7 @@ ARCHITECTURE STRUCTURE OF nexys_main_block IS
             enable_counting, pufbit_valid, decoder_valid, sha256_valid, sha256_start, decoder_reset, sha256_reset : IN STD_LOGIC;
             clock, reset, debuging_sw, write_finished, read_finished, write_out : IN STD_LOGIC;
             gen_state : IN STD_LOGIC_VECTOR (1 DOWNTO 0);
-            ref_counter_limit : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
+            refcounter_limit : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
             debuging_output : OUT STD_LOGIC_VECTOR(15 DOWNTO 0)
         );
     END COMPONENT debug_block;
@@ -127,21 +126,21 @@ ARCHITECTURE STRUCTURE OF nexys_main_block IS
     SIGNAL dec_out, pufbit_out : STD_LOGIC;
     SIGNAL sha256_out : STD_LOGIC_VECTOR(255 DOWNTO 0);
     SIGNAL gen_state : STD_LOGIC_VECTOR(1 DOWNTO 0);
-    SIGNAL select_A, select_B : OUT STD_LOGIC_VECTOR(cell_select_size - 1 DOWNTO 0);
+    SIGNAL select_A, select_B : STD_LOGIC_VECTOR(cell_select_size - 1 DOWNTO 0);
     SIGNAL syndrome : STD_LOGIC_VECTOR(nk - 1 DOWNTO 0);
     SIGNAL refcounter_limit : STD_LOGIC_VECTOR(ref_counter_size - 1 DOWNTO 0);
-    SIGNAL decoder_reset : BIT;
+    SIGNAL decoder_reset : STD_LOGIC;
 
 
 BEGIN
 
     ctrl : COMPONENT control
         GENERIC MAP(
-            select_size => cell_select_size
+            cell_select_size => cell_select_size
         )
         PORT MAP(
             clock => clock, reset => reset, pufbit_valid => pufbit_valid, decoder_valid => decoder_valid, sha256_valid => sha256_valid,
-            write_finished => write_finished, V => read_finished, gen_state => gen_state,
+            write_finished => write_finished, read_finished => read_finished, gen_state => gen_state,
             select_A => select_A, select_B => select_B, enable_counting => enable_puf,
             sha256_start => sha256_start, decoder_reset => decoder_reset, sha256_reset => sha256_reset, write_out => write_out,
             led_1 => debuging_output_1
@@ -149,14 +148,14 @@ BEGIN
 
     axi_com : COMPONENT axi
         GENERIC MAP(
-            ref_counter_size => ref_counter_size;
+            ref_counter_size => ref_counter_size,
             default_ref_limit_counter => default_ref_limit_counter
         )
         PORT MAP(
-            clock => clock, reset => reset, dec_out => dec_out, dec_valid => decode_valid, pufbit_out => pufbit_out, pufbit_valid => pufbit_valid,
+            clock => clock, reset => reset, dec_out => dec_out, dec_valid => decoder_valid, pufbit_out => pufbit_out, pufbit_valid => pufbit_valid,
             sha256_out => sha256_out, sha256_valid => sha256_valid, write_out => write_out,
-            wready => wready, bvalid => bvalid, bresp => bresp, arready => arready, rvalid => rvalid, rdata => rdata, rresp => rresp,
-            awvalid => awvalid, wvalid => wvalid, bready => bready, awaddr => awaddr, wdata => wdata, arvalid => arvalid, rready => rready, araddr => araddr,
+            wready => s_axi_wready, bvalid => s_axi_bvalid, bresp => s_axi_bresp, arready => s_axi_arready, rvalid => s_axi_rvalid, rdata => s_axi_rdata, rresp => s_axi_rresp,
+            awvalid => s_axi_awvalid, wvalid => s_axi_wvalid, bready => s_axi_bready, awaddr => s_axi_awaddr, wdata => s_axi_wdata, arvalid => s_axi_arvalid, rready => s_axi_rready, araddr => s_axi_araddr,
             write_finished => write_finished, read_finished => read_finished, gen_state_out => gen_state, syndrome => syndrome, refcounter_limit => refcounter_limit,
             led_0 => debuging_output_0
         );
@@ -166,28 +165,28 @@ BEGIN
             select_size => cell_select_size, counter_size => counter_size, ref_counter_size => ref_counter_size
         )
         PORT MAP(
-            clock => clock, reset => reset, enable => enable_puf, selection_A => select_A, selection_B => select_B, ref_counter_limit => ref_counter_limit,
+            clock => clock, reset => reset, enable => enable_puf, selection_A => select_A, selection_B => select_B, refcounter_limit => refcounter_limit,
             pufbit_out => pufbit_out, pufbit_valid => pufbit_valid
-        )
+        );
 
     decoder : COMPONENT decoder_block
         PORT MAP(
             clock => clock, reset => reset, decoder_reset => decoder_reset, pufbit_out => pufbit_out, pufbit_valid => pufbit_valid, syndrome_in => syndrome,
             decoder_valid => decoder_valid, decoder_out => dec_out
-        )
+        );
 
     sha : COMPONENT sha256_block 
         PORT MAP(
             clock => clock, reset => sha256_reset, decoder_out => dec_out, decoder_valid => decoder_valid, start => sha256_start,
             sha256_out => sha256_out, sha256_valid => sha256_valid
-        )
+        );
 
     debug : COMPONENT debug_block
         PORT MAP(
-            clock => clock, reset -> reset, enable_counting => enable_puf, pufbit_valid => pufbit_valid, decoder_valid  => decoder_valid, sha256_valid => sha256_valid,
-            sha256_start => sha256_start, decoder_reset => decoder_reset, sha256_reset => sha256_reset, debuging_sw => debuging_sw, write_finished => write_finished, write_finished => write_finished,
-            write_out => write_out, gen_state => gen_state, ref_counter_limit => ref_counter_limit, debuging_output => debuging_output_array
-        )
+            clock => clock, reset => reset, enable_counting => enable_puf, pufbit_valid => pufbit_valid, decoder_valid  => decoder_valid, sha256_valid => sha256_valid,
+            sha256_start => sha256_start, decoder_reset => decoder_reset, sha256_reset => sha256_reset, debuging_sw => debuging_sw, read_finished => read_finished, write_finished => write_finished,
+            write_out => write_out, gen_state => gen_state, refcounter_limit => refcounter_limit, debuging_output => debuging_output_array
+        );
 
 
     END STRUCTURE;

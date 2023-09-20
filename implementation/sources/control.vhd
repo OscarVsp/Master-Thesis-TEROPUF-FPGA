@@ -1,4 +1,4 @@
-LIBRARY IEEE;select_A
+LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
 USE ieee.STD_LOGIC_UNSIGNED.ALL;
 
@@ -11,7 +11,7 @@ ENTITY control IS
 		write_finished, read_finished : IN STD_LOGIC;
 		gen_state : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
 		select_A, select_B : OUT STD_LOGIC_VECTOR(cell_select_size-1 DOWNTO 0);
-		enable_counting, sha256_start, decoder_reset, sha256_reset, write_out : OUT BIT;
+		enable_counting, sha256_start, decoder_reset, sha256_reset, write_out : OUT STD_LOGIC;
 		led_1 : OUT STD_LOGIC_VECTOR(2 DOWNTO 0)
 	);
 END control;

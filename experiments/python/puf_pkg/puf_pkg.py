@@ -5,8 +5,58 @@ from typing import List
 import numpy as np 
 import serial
 import math
+import glob
 from tqdm import tqdm
-import logging
+
+PORT_PREFIX_WIN = "COM"
+PORT_PREFIX_LINUX = "/dev/ttyUSB"
+
+
+def serial_ports() -> List[str]:
+    """ Lists serial port names
+
+        :raises EnvironmentError:
+            On unsupported or unknown platforms
+        :returns:
+            A list of the serial ports available on the system
+    """
+    if sys.platform.startswith('win'):
+        ports = ['COM%s' % (i + 1) for i in range(256)]
+    elif sys.platform.startswith('linux') or sys.platform.startswith('cygwin'):
+        # this excludes your current terminal "/dev/tty"
+        ports = glob.glob('/dev/tty[A-Za-z]*')
+    elif sys.platform.startswith('darwin'):
+        ports = glob.glob('/dev/tty.*')
+    else:
+        raise EnvironmentError('Unsupported platform')
+
+    result = []
+    for port in ports:
+        try:
+            s = serial.Serial(port)
+            s.close()
+            result.append(port)
+        except (OSError, serial.SerialException):
+            pass
+    return result
+
+def serial_port_menu() -> str:
+    available_ports = serial_ports()
+    while True:
+        print("| Choose a serial port:")
+        for i, port in enumerate(available_ports):
+            print(f"    ({i}) {port}")
+        try:
+            resp = int(input(""))
+        except ValueError:
+            print("| Wrong reponse type, try again !")
+        else:
+            try:
+                port = available_ports[resp]
+                return port
+            except IndexError:
+                print(f"| {resp} is out of range, try again !")
+
 
 class SyndromeNotSetException(Exception):
     """Raise when trying to read to ECC response before setting the syndrome
@@ -110,6 +160,21 @@ class SamplesReturnData:
 
 
 class PUF:
+    """Represent the PUF / UART interface.
+    
+    Parameters
+    ---------
+    port : `str`
+        The serial port of the FPGA. 
+        Leave empty to get a CLI menu with the available options.
+    baudrate : `int`
+        The baudrate of the serial communication.
+    initial_ref_limit : `int`
+        The acquisition time (#clock cycle) of the PUF to be set (Between 1 and 2^(16) = 65536).
+    uart_port_delay : `float`
+        The delay for the establishement of the serial communication, 0.1 by default.
+
+    """
     
     raw_size = 1023
     ecc_size = 171
@@ -118,7 +183,11 @@ class PUF:
     default_ref_limit_counter = 200
     default_baudrate = 230400
     
-    def __init__(self, port: str, baudrate: int = 230400, initial_ref_limit: int = 200, uart_port_delay: float = 0.1):
+    def __init__(self, port: str = None, baudrate: int = 230400, initial_ref_limit: int = 200, uart_port_delay: float = 0.1):
+        
+        if port == None:
+            port = serial_port_menu()
+
         self.port = port
         self.baudrate = baudrate
         self.uart_port_delay = uart_port_delay
@@ -128,8 +197,8 @@ class PUF:
             self._ref_limit = 200
         self._sha256_key = None
         self._syndrome = None
-        logging.debug("PUF device initialized")
-        logging.debug(f"| Port: {port}\n| Baudrate: {baudrate}\n| Ref counter limit: {initial_ref_limit}\n| Uart port delay: {uart_port_delay}")
+        print("\nPUF device initialized")
+        print(f"| Port: {self.port}\n| Baudrate: {baudrate}\n| Ref counter limit: {initial_ref_limit}\n| Uart port delay: {uart_port_delay}\n")
         
     @property
     def ref_limit(self) -> int:
@@ -158,12 +227,12 @@ class PUF:
         elif not len(syndrome) == self.syndrome_size:
             raise ValueError(f"Syndrome size should be {self.syndrome_size}")
         self._syndrome = str2bytes(syndrome)
-        logging.debug(f"Syndrome set to {syndrome}")
+        print(f"Syndrome set to {syndrome}")
         
     def set_ref_limit(self, limit: int) -> None:
         """Set the acquisition time (#clock cycle) of the PUF.
         
-        The PUF main clock speed is 200MHz.
+        The PUF main clock speed is 100MHz.
 
         Parameters
         ----------
@@ -180,7 +249,7 @@ class PUF:
             ser.write(b'c')
             ser.write(int2bytes(limit))
             self._ref_limit = limit
-        logging.debug(f"Ref counter limit set to {limit}")
+        print(f"Ref counter limit set to {limit}")
         
     def read_raw(self) -> np.ndarray[np.uint8]:
         """Read a RAW reponse from the PUF
@@ -316,7 +385,7 @@ class PUF:
         ------
         `SyndromeNotSetException`
         """
-        logging.debug(f"Starting sha read...")
+        print(f"Starting sha read...")
         if self.syndrome == None:
             raise SyndromeNotSetException("Syndrome need to be set before using the method 'read_sha256'.")
         samples = []
@@ -327,7 +396,7 @@ class PUF:
                 ser.write(b'k')
                 ser.write(self.syndrome)
                 samples.append(bytes2bits(ser.read(response_Nbytes))[:self.sha256_size])
-        logging.debug(f"Sha256 read completed")
+        print(f"Sha256 read completed")
         return SamplesReturnData(samples, self.sha256_size)
     
 if __name__ == "__main__":

@@ -9,7 +9,7 @@ ENTITY debug_block IS
         enable_counting, pufbit_valid, decoder_valid, sha256_valid, sha256_start, decoder_reset, sha256_reset : IN STD_LOGIC;
         clock, reset, debuging_sw, write_finished, read_finished, write_out : IN STD_LOGIC;
         gen_state : IN STD_LOGIC_VECTOR (1 DOWNTO 0);
-        ref_counter_limit : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
+        refcounter_limit : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
         debuging_output : OUT STD_LOGIC_VECTOR(15 DOWNTO 0)
     );
 END debug_block;
@@ -27,7 +27,7 @@ PORT (
 );
 END COMPONENT dual_word_mux;
 
-SIGNAL debug_array : STD_LOGIC_VECTOR(15 DOWNTO 0)
+SIGNAL debug_array : STD_LOGIC_VECTOR(15 DOWNTO 0);
 
 BEGIN
 
@@ -52,9 +52,9 @@ BEGIN
         GENERIC MAP (word_size => 16)
         PORT MAP(
             input_word_A => debug_array,
-            input_word_B => ref_counter_limit,
+            input_word_B => refcounter_limit,
             selection => debuging_sw, 
             output_word => debuging_output
-        )
+        );
 
 END STRUCTURE;

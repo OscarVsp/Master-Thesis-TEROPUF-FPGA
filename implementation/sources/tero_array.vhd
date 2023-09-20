@@ -14,12 +14,12 @@ ENTITY tero_array IS
 END tero_array;
 ARCHITECTURE Behavioral OF tero_array IS
 
-	COMPONENT tero_4 IS -- tero_4 or tero_8
+	COMPONENT tero_8 IS -- tero_4 or tero_8
 		PORT (
 			enable : IN STD_LOGIC;
 			output : OUT STD_LOGIC
 		);
-	END COMPONENT tero_4;
+	END COMPONENT tero_8;
 
 	SIGNAL enables : STD_LOGIC_VECTOR (2 ** select_size - 1 DOWNTO 0) := (OTHERS => '0');
 
@@ -38,7 +38,7 @@ BEGIN
 	END PROCESS;
 
 	gen_tero : FOR i IN 0 TO 2 ** select_size - 1 GENERATE
-		r : tero_4 PORT MAP(-- tero_4 or tero_8
+		r : tero_8 PORT MAP(-- tero_4 or tero_8
 			enable => enables(i),
 			output => outputs(i)
 		);

@@ -10,7 +10,7 @@ ENTITY tero_puf_block IS
 	PORT (
 		clock, enable, reset : IN STD_LOGIC;
 		selection_A, selection_B : IN STD_LOGIC_VECTOR (select_size - 1 DOWNTO 0);
-		ref_counter_limit : IN STD_LOGIC_VECTOR (ref_counter_size - 1 DOWNTO 0);
+		refcounter_limit : IN STD_LOGIC_VECTOR (ref_counter_size - 1 DOWNTO 0);
 		pufbit_out, pufbit_valid : OUT STD_LOGIC
 	);
 END tero_puf_block;
@@ -49,7 +49,8 @@ ARCHITECTURE STRUCTURE OF tero_puf_block IS
 	COMPONENT comparator IS
 		GENERIC (
 			equality : STD_LOGIC := '0';
-			select_size : STD_LOGIC := 5
+			counter_size : INTEGER := 16;
+		    ref_counter_size : INTEGER := 16
 		);
 		PORT (
 			clock : IN STD_LOGIC;
@@ -128,8 +129,8 @@ BEGIN
 		);
 	compa : COMPONENT comparator
 		GENERIC MAP(
-			equality => '0';
-			counter_size => counter_size;
+			equality => '0',
+			counter_size => counter_size,
 			ref_counter_size => ref_counter_size
 		)
 		PORT MAP(
@@ -138,7 +139,7 @@ BEGIN
 			count_A(counter_size - 1 DOWNTO 0) => count_A(counter_size - 1 DOWNTO 0),
 			count_B(counter_size - 1 DOWNTO 0) => count_B(counter_size - 1 DOWNTO 0),
 			refcount(ref_counter_size - 1 DOWNTO 0) => refcounter_count(ref_counter_size - 1 DOWNTO 0),
-			refcount_limit(ref_counter_size - 1 DOWNTO 0) => ref_counter_limit(ref_counter_size - 1 DOWNTO 0),
+			refcount_limit(ref_counter_size - 1 DOWNTO 0) => refcounter_limit(ref_counter_size - 1 DOWNTO 0),
 			finished => pufbit_valid,
 			result => pufbit_out
 		);

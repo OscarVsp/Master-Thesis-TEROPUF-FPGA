@@ -112,7 +112,7 @@ BEGIN
 								END IF;
 							ELSIF reading_refcounter_limit = '1' THEN	--If reading counter limit state -> read refcounter limit
 								refcounter_limit_in(to_integer(bitcount) + 7 DOWNTO to_integer(bitcount)) <= rdata(7 DOWNTO 0);
-								IF bitcount + 8 >= to_integer(ref_counter_size) THEN
+								IF bitcount + 8 >= ref_counter_size THEN
 									bitcount <= (OTHERS => '0');
 									reading_refcounter_limit <= '0';
 									state <= START_READ;					--Restart the reading loop

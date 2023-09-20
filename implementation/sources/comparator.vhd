@@ -10,7 +10,7 @@ ENTITY comparator IS
 	);
 	PORT (
 		clock, enable : IN STD_LOGIC;
-		count0, count1 : IN STD_LOGIC_VECTOR (counter_size - 1 DOWNTO 0);
+		count_A, count_B : IN STD_LOGIC_VECTOR (counter_size - 1 DOWNTO 0);
 		refcount, refcount_limit : IN STD_LOGIC_VECTOR (ref_counter_size - 1 DOWNTO 0);
 		finished, result : OUT STD_LOGIC
 	);
@@ -27,9 +27,9 @@ BEGIN
 		ELSIF rising_edge(clock) THEN
 			IF refcount = refcount_limit THEN
 				finished <= '1';
-				IF count1 > count0 THEN
+				IF count_B > count_A THEN
 					result <= '0';
-				ELSIF count1 < count0 THEN
+				ELSIF count_B < count_A THEN
 					result <= '1';
 				ELSE
 					result <= equality;

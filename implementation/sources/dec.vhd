@@ -6,12 +6,14 @@
 
 -------------------------------------------------------------------
 -- 2-1 multiplexer
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+USE WORK.const.ALL;
 
-	USE WORK.const.ALL;
 ENTITY dmul21 IS
-PORT ( sel: IN BIT;
-	d0, d1: IN BIT_VECTOR(0 TO m-1);
-	dout: OUT BIT_VECTOR(0 TO m-1));
+PORT ( sel: IN STD_LOGIC;
+	d0, d1: IN STD_LOGIC_VECTOR(0 TO m-1);
+	dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END dmul21;
 
 ARCHITECTURE dmul21a OF dmul21 IS
@@ -25,13 +27,15 @@ END dmul21a;
 --------------------------------------------------------------------
 -- single register with clock enable
 
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY drd1ce IS
-PORT ( clk, ce, din: IN BIT;
-	dout: OUT BIT);
+PORT ( clk, ce, din: IN STD_LOGIC;
+	dout: OUT STD_LOGIC);
 END drd1ce;
 
 ARCHITECTURE drd1cea OF drd1ce IS
-	SIGNAL q: BIT;
+	SIGNAL q: STD_LOGIC;
   BEGIN
 	dout<= q;
   PROCESS BEGIN
@@ -47,15 +51,17 @@ END drd1cea;
 --------------------------------------------------------------------
 -- PIPO registers m bits wide with clock enable and reset
 
-	USE WORK.const.ALL;
+USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY drdcer IS
-PORT ( clk, ce, reset: IN BIT;
-	din: IN BIT_VECTOR(0 TO m-1);
-	dout: OUT BIT_VECTOR(0 TO m-1));
+PORT ( clk, ce, reset: IN STD_LOGIC;
+	din: IN STD_LOGIC_VECTOR(0 TO m-1);
+	dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END drdcer;
 
 ARCHITECTURE drdcera OF drdcer IS
-	SIGNAL q: BIT_VECTOR(0 TO m-1);
+	SIGNAL q: STD_LOGIC_VECTOR(0 TO m-1);
   BEGIN
 	dout<= q;
   PROCESS BEGIN
@@ -75,15 +81,17 @@ END drdcera;
 --------------------------------------------------------------------
 -- PIPO registers m bits wide with clock enable and set to one
 
-	USE WORK.const.ALL;
+USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY drdceSOne IS
-PORT ( clk, ce, set, dinone: IN BIT;
-	din: IN BIT_VECTOR(0 TO m-1);
-	dout: OUT BIT_VECTOR(0 TO m-1));
+PORT ( clk, ce, set, dinone: IN STD_LOGIC;
+	din: IN STD_LOGIC_VECTOR(0 TO m-1);
+	dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END drdcesone;
 
 ARCHITECTURE drdcesonea OF drdcesone IS
-	SIGNAL q: BIT_VECTOR(0 TO m-1);
+	SIGNAL q: STD_LOGIC_VECTOR(0 TO m-1);
   BEGIN
 	dout<= q;
   PROCESS BEGIN
@@ -113,14 +121,17 @@ END drdcesonea;
 -- m registers with clock enable
 
 	USE WORK.const.ALL;
+	
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY drdce IS
-PORT ( clk, ce: IN BIT;
-	din: IN BIT_VECTOR(0 TO m-1);
-	dout: OUT BIT_VECTOR(0 TO m-1));
+PORT ( clk, ce: IN STD_LOGIC;
+	din: IN STD_LOGIC_VECTOR(0 TO m-1);
+	dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END drdce;
 
 ARCHITECTURE drdcea OF drdce IS
-	SIGNAL q: BIT_VECTOR(0 TO m-1);
+	SIGNAL q: STD_LOGIC_VECTOR(0 TO m-1);
   BEGIN
 	dout<= q;
   PROCESS BEGIN
@@ -136,14 +147,17 @@ END drdcea;
 -- PIPO registers m bits wide
 
 	USE WORK.const.ALL;
+	
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY drd IS
-PORT (clk: IN BIT;
-	din: IN BIT_VECTOR(0 TO m-1);
-	dout: OUT BIT_VECTOR(0 TO m-1));
+PORT (clk: IN STD_LOGIC;
+	din: IN STD_LOGIC_VECTOR(0 TO m-1);
+	dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END drd;
 
 ARCHITECTURE drda OF drd IS
-	SIGNAL q: BIT_VECTOR(0 TO m-1);
+	SIGNAL q: STD_LOGIC_VECTOR(0 TO m-1);
   BEGIN
 	dout<= q;
   PROCESS BEGIN
@@ -155,9 +169,11 @@ END drda;
 -- sum m * XOR; dout<= din0 XOR din1
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dxorm IS
-PORT (din0, din1: IN BIT_VECTOR(0 TO m-1);
-	dout: OUT BIT_VECTOR(0 TO m-1));
+PORT (din0, din1: IN STD_LOGIC_VECTOR(0 TO m-1);
+	dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END dxorm;
 
 ARCHITECTURE dxorma OF dxorm IS
@@ -172,13 +188,15 @@ END dxorma;
 -- Serial In Parallel Out m bits shift register
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dsipo IS
-PORT (clk, din: IN BIT;
-	dout: OUT BIT_VECTOR(0 TO m-1));
+PORT (clk, din: IN STD_LOGIC;
+	dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END dsipo;
 
 ARCHITECTURE dsipoa OF dsipo IS
-	SIGNAL q: BIT_VECTOR(0 TO m-1);
+	SIGNAL q: STD_LOGIC_VECTOR(0 TO m-1);
   BEGIN
 	dout<= q;
   PROCESS BEGIN
@@ -191,14 +209,16 @@ END dsipoa;
 -- Shift register with serial XOR, and parallel in
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dshpe IS
-PORT (clk, ce, pe: IN BIT;
-	din: IN BIT_VECTOR(0 TO m-1); -- parallel in
-	dout: OUT BIT_VECTOR(0 TO m-1));
+PORT (clk, ce, pe: IN STD_LOGIC;
+	din: IN STD_LOGIC_VECTOR(0 TO m-1); -- parallel in
+	dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END dshpe;
 
 ARCHITECTURE dshpea OF dshpe IS
-	SIGNAL ring: BIT_VECTOR(0 TO m-1);
+	SIGNAL ring: STD_LOGIC_VECTOR(0 TO m-1);
   BEGIN
 	dout<= ring;
   PROCESS BEGIN
@@ -215,14 +235,16 @@ END dshpea;
 -- Shift register with serial XOR, and reset
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dshr IS
-PORT (clk, ce, reset, din: IN BIT;
-	dout: OUT BIT_VECTOR(0 TO m-1));
+PORT (clk, ce, reset, din: IN STD_LOGIC;
+	dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END dshr;
 
 ARCHITECTURE dshra OF dshr IS
-	SIGNAL ring: BIT_VECTOR(0 TO m-1);
-	SIGNAL dmul1: BIT;
+	SIGNAL ring: STD_LOGIC_VECTOR(0 TO m-1);
+	SIGNAL dmul1: STD_LOGIC;
   BEGIN
 	dout<= ring;
 	dmul1<= ring(m-1) XOR din;
@@ -248,10 +270,12 @@ END dshra;
 -- dout<= en And din
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dandm IS
-PORT (en: IN BIT;
-	din: IN BIT_VECTOR(0 TO m-1);
-	dout: OUT BIT_VECTOR(0 TO m-1));
+PORT (en: IN STD_LOGIC;
+	din: IN STD_LOGIC_VECTOR(0 TO m-1);
+	dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END dandm;
 
 ARCHITECTURE dandma OF dandm IS
@@ -268,17 +292,19 @@ END dandma;
 -- buffer circuit
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dbuf IS
-PORT (clk, bufCe, bufkCe, err, vdout1, din: IN BIT;
-	dout: OUT BIT);
+PORT (clk, bufCe, bufkCe, err, vdout1, din: IN STD_LOGIC;
+	dout: OUT STD_LOGIC);
 END dbuf;
 
 ARCHITECTURE dbufa OF dbuf IS
 	CONSTANT buf_size: INTEGER:= 110;
 	-- buf_size= chpe/interleave + 2 if buf_size<k+1; else buf_size= k
-	SIGNAL bufk: BIT_VECTOR(0 TO k-1);
+	SIGNAL bufk: STD_LOGIC_VECTOR(0 TO k-1);
 	-- bufk - first buffer for storing only first k bits
-	SIGNAL buf: BIT_VECTOR(0 TO buf_size-1); -- second buffer
+	SIGNAL buf: STD_LOGIC_VECTOR(0 TO buf_size-1); -- second buffer
   BEGIN
   PROCESS BEGIN
 	WAIT UNTIL clk'EVENT AND clk='1';
@@ -296,13 +322,15 @@ END dbufa;
 -- Bit-Serial Berlekamp (Dual Basis) Multiplier without registers
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dsdbm IS
-PORT (dbin, sbin: IN BIT_VECTOR(0 TO m-1); -- standard & dual basis input
-	dout: OUT BIT); -- serial output
+PORT (dbin, sbin: IN STD_LOGIC_VECTOR(0 TO m-1); -- standard & dual basis input
+	dout: OUT STD_LOGIC); -- serial output
 END dsdbm;
 
 ARCHITECTURE dsdbma OF dsdbm IS
-	SIGNAL dxor: BIT_VECTOR(0 TO m-1); -- xor gates signals
+	SIGNAL dxor: STD_LOGIC_VECTOR(0 TO m-1); -- xor gates signals
   BEGIN
 	dout<= dxor(m-1);
 	dxor(0)<= sbin(0) AND dbin(0);
@@ -316,14 +344,16 @@ END dsdbma;
 --  Bit-Serial Berlekamp (Dual Basis) Multiplier LFSR
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dsdbmRing IS
-PORT (clk, pe: IN BIT;   -- pe- parallel enable
-	din: IN BIT_VECTOR(0 TO m-1); -- dual basis input
-	dout: OUT BIT_VECTOR(0 TO m-1));
+PORT (clk, pe: IN STD_LOGIC;   -- pe- parallel enable
+	din: IN STD_LOGIC_VECTOR(0 TO m-1); -- dual basis input
+	dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END dsdbmRing;
 
 ARCHITECTURE dsdbmRinga OF dsdbmRing IS
-	SIGNAL ring: BIT_VECTOR(0 TO m-1);
+	SIGNAL ring: STD_LOGIC_VECTOR(0 TO m-1);
   BEGIN
 	dout<= ring;
   PROCESS BEGIN
@@ -341,21 +371,23 @@ END dsdbmRinga;
 -- Bit-Parallel Dual-Basis Multiplier
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dpdbm IS
-PORT (ddin, dsin: IN BIT_VECTOR(0 TO m-1);
-	dout: OUT BIT_VECTOR(0 TO m-1));
+PORT (ddin, dsin: IN STD_LOGIC_VECTOR(0 TO m-1);
+	dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END dpdbm;
 
 ARCHITECTURE dpdbma OF dpdbm IS
 	COMPONENT dsdbm -- Serial Dual Basis Multiplier without registers
-	  PORT (dbin, sbin: IN BIT_VECTOR(0 TO m-1);
+	  PORT (dbin, sbin: IN STD_LOGIC_VECTOR(0 TO m-1);
 		  -- dual & standard basis in
-		dout: OUT BIT);
+		dout: OUT STD_LOGIC);
 	  END COMPONENT;
 	  FOR ALL: dsdbm USE ENTITY WORK.dsdbm (dsdbma);
 
-	SIGNAL aux: BIT_VECTOR(0 TO m-2); -- auxiliary signals
-	SIGNAL m0in, m1in, m2in, m3in, m4in, m5in, m6in, m7in: BIT_VECTOR(0 TO m-1);
+	SIGNAL aux: STD_LOGIC_VECTOR(0 TO m-2); -- auxiliary signals
+	SIGNAL m0in, m1in, m2in, m3in, m4in, m5in, m6in, m7in: STD_LOGIC_VECTOR(0 TO m-1);
   BEGIN
 	aux(0)<= ddin(0) XOR ddin(2) XOR ddin(3) XOR ddin(4);
 	aux(1)<= ddin(1) XOR ddin(3) XOR ddin(4) XOR ddin(5);
@@ -395,21 +427,23 @@ END dpdbma;
 -- Bit-Parallel Multiplier
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dpm IS
-PORT (din1, din2: IN BIT_VECTOR(0 TO m-1);
-	dout: OUT BIT_VECTOR(0 TO m-1));
+PORT (din1, din2: IN STD_LOGIC_VECTOR(0 TO m-1);
+	dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END dpm;
 
 ARCHITECTURE dpma OF dpm IS
 	COMPONENT dsdbm -- Serial Dual Basis Multiplier without registers
-	  PORT (dbin, sbin: IN BIT_VECTOR(0 TO m-1);
+	  PORT (dbin, sbin: IN STD_LOGIC_VECTOR(0 TO m-1);
 		  -- dual & standard basis in
-		dout: OUT BIT);
+		dout: OUT STD_LOGIC);
 	  END COMPONENT;
 	  FOR ALL: dsdbm USE ENTITY WORK.dsdbm (dsdbma);
 
-	SIGNAL b: BIT_VECTOR(0 TO 28);
-	SIGNAL c0, c1, c2, c3, c4, c5, c6, c7: BIT_VECTOR(0 TO m-1);
+	SIGNAL b: STD_LOGIC_VECTOR(0 TO 28);
+	SIGNAL c0, c1, c2, c3, c4, c5, c6, c7: STD_LOGIC_VECTOR(0 TO m-1);
   BEGIN
 	b(0 TO m-1)<= din1;
 	b(8)<= b(1) XOR b(7);
@@ -464,14 +498,16 @@ END dpma;
 -- Bit-Serial Standard Basis Multiplier for syn*c=dr module2 - ring
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dssbm IS
-PORT (clk, ce, pe : IN BIT;
-	din: IN BIT_VECTOR(0 TO m-1);
-	dout: OUT BIT_VECTOR(0 TO m-1));
+PORT (clk, ce, pe : IN STD_LOGIC;
+	din: IN STD_LOGIC_VECTOR(0 TO m-1);
+	dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END dssbm;
 
 ARCHITECTURE dssbma OF dssbm IS
-	SIGNAL ring: BIT_VECTOR(0 TO m-1);
+	SIGNAL ring: STD_LOGIC_VECTOR(0 TO m-1);
   BEGIN
 	dout<= ring;
   PROCESS BEGIN
@@ -495,9 +531,11 @@ END dssbma;
 -- sum t* XOR - dout= din(0) xor din(1) .... xor din(t)
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dxort IS
-PORT (din0, din1, din2, din3, din4, din5, din6, din7, din8, din9, din10, din11: IN BIT;
-	dout: OUT BIT);
+PORT (din0, din1, din2, din3, din4, din5, din6, din7, din8, din9, din10, din11: IN STD_LOGIC;
+	dout: OUT STD_LOGIC);
 END dxort;
 
 ARCHITECTURE dxorta OF dxort IS
@@ -511,9 +549,11 @@ END dxorta;
 -- Multiply by L^i, where gen. polynomial = 1+ x^i + x^m (for m!=8)
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dmli IS
-PORT (din: IN BIT_VECTOR(0 TO m-1);
-	dout: OUT BIT_VECTOR(0 TO m-1));
+PORT (din: IN STD_LOGIC_VECTOR(0 TO m-1);
+	dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END dmli;
 
 ARCHITECTURE dmlia OF dmli IS
@@ -532,13 +572,15 @@ END dmlia;
 -- squaring dout<= (din)^2 in standard basis -- for inverse calculator
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dsq IS
-PORT ( din: IN BIT_VECTOR(0 TO m-1);
-	dout: OUT BIT_VECTOR(0 TO m-1)); -- serial output
+PORT ( din: IN STD_LOGIC_VECTOR(0 TO m-1);
+	dout: OUT STD_LOGIC_VECTOR(0 TO m-1)); -- serial output
 END dsq;
 
 ARCHITECTURE dsqa OF dsq IS
-	SIGNAL dxor: BIT_VECTOR(0 TO 8);
+	SIGNAL dxor: STD_LOGIC_VECTOR(0 TO 8);
   BEGIN
 	dxor(0 TO m-1)<= din;
 	dxor(8)<= dxor(4) XOR dxor(6); -- 2
@@ -559,14 +601,16 @@ END dsqa;
 -- m* registers with reset to dual basis one
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY drdrDualOne IS
-PORT (clk, ce, reset: BIT;
-	din: IN BIT_VECTOR(0 TO m-1);
-	dout: OUT BIT_VECTOR(0 TO m-1)); -- serial output
+PORT (clk, ce, reset: STD_LOGIC;
+	din: IN STD_LOGIC_VECTOR(0 TO m-1);
+	dout: OUT STD_LOGIC_VECTOR(0 TO m-1)); -- serial output
 END drdrDualOne;
 
 ARCHITECTURE drdrDualOnea OF drdrDualOne IS
-	SIGNAL q: BIT_VECTOR(0 TO m-1);
+	SIGNAL q: STD_LOGIC_VECTOR(0 TO m-1);
   BEGIN
 	dout<= q;
   PROCESS BEGIN
@@ -585,40 +629,42 @@ END drdrDualOnea;
 -- Inverter dout<= din^(-1)<= din^(2)*din^(4)*...*din^(2^(m-1))
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dinv IS
-PORT (clk, cbBeg, bsel, caLast, cce, drnzero, snce, synpe: IN BIT;
-	din: IN BIT_VECTOR(0 TO m-1); --input data selected by sel_in
-	dout: OUT BIT_VECTOR(0 TO m-1));
+PORT (clk, cbBeg, bsel, caLast, cce, drnzero, snce, synpe: IN STD_LOGIC;
+	din: IN STD_LOGIC_VECTOR(0 TO m-1); --input data selected by sel_in
+	dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END dinv;
 
 ARCHITECTURE dinva OF dinv IS
-	SIGNAL qsq, sq, msin, mdin, mout: BIT_VECTOR(0 TO m-1);
+	SIGNAL qsq, sq, msin, mdin, mout: STD_LOGIC_VECTOR(0 TO m-1);
 	-- sq- square, q??- RD out, m??? - parallel multiplier, ?d/s -dual standard basis
-	SIGNAL ce1, ce2a, ce2b, ce2, reset, sel: BIT;
+	SIGNAL ce1, ce2a, ce2b, ce2, reset, sel: STD_LOGIC;
 
 	COMPONENT dmul21   -- 2-1 multiplexer
-		PORT ( sel: IN BIT; d0, d1: IN BIT_VECTOR(0 TO m-1);
-			dout: OUT BIT_VECTOR(0 TO m-1));
+		PORT ( sel: IN STD_LOGIC; d0, d1: IN STD_LOGIC_VECTOR(0 TO m-1);
+			dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: dmul21 USE ENTITY WORK.dmul21 (dmul21a);
 	COMPONENT drdce     -- PIPO register
-		PORT (clk, ce: IN BIT; din: IN BIT_VECTOR(0 TO m-1);
-			dout: OUT BIT_VECTOR(0 TO m-1));
+		PORT (clk, ce: IN STD_LOGIC; din: IN STD_LOGIC_VECTOR(0 TO m-1);
+			dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: drdce USE ENTITY WORK.drdce (drdcea);
 	COMPONENT drdrDualOne -- registers with and reset to dual basis one
-		PORT (clk, ce, reset: IN BIT; din: IN BIT_VECTOR(0 TO m-1);
-			dout: OUT BIT_VECTOR(0 TO m-1));
+		PORT (clk, ce, reset: IN STD_LOGIC; din: IN STD_LOGIC_VECTOR(0 TO m-1);
+			dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: drdrDualOne USE ENTITY WORK.drdrDualOne (drdrDualOnea);
 	COMPONENT dsq    -- dout<= (din)^2
-		PORT ( din: IN BIT_VECTOR(0 TO m-1);
-			dout: OUT BIT_VECTOR(0 TO m-1));
+		PORT ( din: IN STD_LOGIC_VECTOR(0 TO m-1);
+			dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: dsq USE ENTITY WORK.dsq (dsqa);
 	COMPONENT dpdbm    -- Parallel dual basis multiplier
-		PORT (ddin, dsin: IN BIT_VECTOR(0 TO m-1);
-			dout: OUT BIT_VECTOR(0 TO m-1));
+		PORT (ddin, dsin: IN STD_LOGIC_VECTOR(0 TO m-1);
+			dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: dpdbm USE ENTITY WORK.dpdbm (dpdbma);
   BEGIN
@@ -646,13 +692,15 @@ END dinva;
 -- Find if chien search circuit is equal 0
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dcheq IS
-PORT (din1, din2, din3, din4, din5, din6, din7, din8, din9, din10, din11: IN BIT_VECTOR(0 TO m-1);
-	dout: OUT BIT); -- dout=1 if equal
+PORT (din1, din2, din3, din4, din5, din6, din7, din8, din9, din10, din11: IN STD_LOGIC_VECTOR(0 TO m-1);
+	dout: OUT STD_LOGIC); -- dout=1 if equal
 END dcheq;
 
 ARCHITECTURE dcheqa OF dcheq IS
-	SIGNAL eq: BIT_VECTOR(0 TO m-1);
+	SIGNAL eq: STD_LOGIC_VECTOR(0 TO m-1);
   BEGIN
 	eq(0)<= NOT din1(0) XOR din2(0) XOR din3(0) XOR din4(0) XOR din5(0) XOR din6(0) XOR din7(0) XOR din8(0) XOR din9(0) XOR din10(0) XOR din11(0);
 	eq(1)<= din1(1) XOR din2(1) XOR din3(1) XOR din4(1) XOR din5(1) XOR din6(1) XOR din7(1) XOR din8(1) XOR din9(1) XOR din10(1) XOR din11(1);
@@ -670,13 +718,15 @@ END dcheqa;
 -- Syndromes calculation circuits
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dsyn1 IS
-PORT (clk, pe ,din: IN BIT;
-	dout1, dout2, dout4, dout8, dout16: OUT BIT_VECTOR(0 TO m-1));
+PORT (clk, pe ,din: IN STD_LOGIC;
+	dout1, dout2, dout4, dout8, dout16: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END dsyn1;
 
 ARCHITECTURE dsyn1a OF dsyn1 IS
-	SIGNAL syn: BIT_VECTOR(0 TO 19);
+	SIGNAL syn: STD_LOGIC_VECTOR(0 TO 19);
   BEGIN
 	syn(8)<= syn(5) XOR syn(6); -- 10
 	syn(9)<= syn(3) XOR syn(4); -- 9
@@ -744,13 +794,15 @@ END dsyn1a;
 
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dsyn3 IS
-PORT (clk, pe ,din: IN BIT;
-	dout3, dout6, dout12: OUT BIT_VECTOR(0 TO m-1));
+PORT (clk, pe ,din: IN STD_LOGIC;
+	dout3, dout6, dout12: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END dsyn3;
 
 ARCHITECTURE dsyn3a OF dsyn3 IS
-	SIGNAL syn: BIT_VECTOR(0 TO 18);
+	SIGNAL syn: STD_LOGIC_VECTOR(0 TO 18);
   BEGIN
 	syn(8)<= syn(4) XOR syn(7); -- 8
 	syn(9)<= syn(3) XOR syn(6); -- 7
@@ -808,13 +860,15 @@ END dsyn3a;
 
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dsyn5 IS
-PORT (clk, pe ,din: IN BIT;
-	dout5, dout10, dout20: OUT BIT_VECTOR(0 TO m-1));
+PORT (clk, pe ,din: IN STD_LOGIC;
+	dout5, dout10, dout20: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END dsyn5;
 
 ARCHITECTURE dsyn5a OF dsyn5 IS
-	SIGNAL syn: BIT_VECTOR(0 TO 16);
+	SIGNAL syn: STD_LOGIC_VECTOR(0 TO 16);
   BEGIN
 	syn(8)<= syn(3) XOR syn(4); -- 8
 	syn(9)<= syn(2) XOR syn(6); -- 7
@@ -870,13 +924,15 @@ END dsyn5a;
 
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dsyn7 IS
-PORT (clk, pe ,din: IN BIT;
-	dout7, dout14: OUT BIT_VECTOR(0 TO m-1));
+PORT (clk, pe ,din: IN STD_LOGIC;
+	dout7, dout14: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END dsyn7;
 
 ARCHITECTURE dsyn7a OF dsyn7 IS
-	SIGNAL syn: BIT_VECTOR(0 TO 16);
+	SIGNAL syn: STD_LOGIC_VECTOR(0 TO 16);
   BEGIN
 	syn(8)<= syn(3) XOR syn(6); -- 5
 	syn(9)<= syn(4) XOR syn(5); -- 5
@@ -924,13 +980,15 @@ END dsyn7a;
 
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dsyn9 IS
-PORT (clk, pe ,din: IN BIT;
-	dout9, dout18: OUT BIT_VECTOR(0 TO m-1));
+PORT (clk, pe ,din: IN STD_LOGIC;
+	dout9, dout18: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END dsyn9;
 
 ARCHITECTURE dsyn9a OF dsyn9 IS
-	SIGNAL syn: BIT_VECTOR(0 TO 12);
+	SIGNAL syn: STD_LOGIC_VECTOR(0 TO 12);
   BEGIN
 	syn(8)<= syn(2) XOR syn(4); -- 5
 	syn(9)<= syn(5) XOR syn(7); -- 4
@@ -974,13 +1032,15 @@ END dsyn9a;
 
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dsyn11 IS
-PORT (clk, pe ,din: IN BIT;
-	dout11: OUT BIT_VECTOR(0 TO m-1));
+PORT (clk, pe ,din: IN STD_LOGIC;
+	dout11: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END dsyn11;
 
 ARCHITECTURE dsyn11a OF dsyn11 IS
-	SIGNAL syn: BIT_VECTOR(0 TO 7);
+	SIGNAL syn: STD_LOGIC_VECTOR(0 TO 7);
   BEGIN
 	dout11<= syn;
   PROCESS BEGIN
@@ -1003,13 +1063,15 @@ END dsyn11a;
 
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dsyn13 IS
-PORT (clk, pe ,din: IN BIT;
-	dout13: OUT BIT_VECTOR(0 TO m-1));
+PORT (clk, pe ,din: IN STD_LOGIC;
+	dout13: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END dsyn13;
 
 ARCHITECTURE dsyn13a OF dsyn13 IS
-	SIGNAL syn: BIT_VECTOR(0 TO 7);
+	SIGNAL syn: STD_LOGIC_VECTOR(0 TO 7);
   BEGIN
 	dout13<= syn;
   PROCESS BEGIN
@@ -1032,13 +1094,15 @@ END dsyn13a;
 
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dsyn15 IS
-PORT (clk, pe ,din: IN BIT;
-	dout15: OUT BIT_VECTOR(0 TO m-1));
+PORT (clk, pe ,din: IN STD_LOGIC;
+	dout15: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END dsyn15;
 
 ARCHITECTURE dsyn15a OF dsyn15 IS
-	SIGNAL syn: BIT_VECTOR(0 TO 7);
+	SIGNAL syn: STD_LOGIC_VECTOR(0 TO 7);
   BEGIN
 	dout15<= syn;
   PROCESS BEGIN
@@ -1061,13 +1125,15 @@ END dsyn15a;
 
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dsyn17 IS
-PORT (clk, pe ,din: IN BIT;
-	dout17: OUT BIT_VECTOR(0 TO m-1));
+PORT (clk, pe ,din: IN STD_LOGIC;
+	dout17: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END dsyn17;
 
 ARCHITECTURE dsyn17a OF dsyn17 IS
-	SIGNAL syn: BIT_VECTOR(0 TO 4);
+	SIGNAL syn: STD_LOGIC_VECTOR(0 TO 4);
   BEGIN
 	syn(4)<= syn(2) XOR syn(3); -- 1
 		-- Saving due to optimization = 1
@@ -1095,13 +1161,15 @@ END dsyn17a;
 
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dsyn19 IS
-PORT (clk, pe ,din: IN BIT;
-	dout19: OUT BIT_VECTOR(0 TO m-1));
+PORT (clk, pe ,din: IN STD_LOGIC;
+	dout19: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END dsyn19;
 
 ARCHITECTURE dsyn19a OF dsyn19 IS
-	SIGNAL syn: BIT_VECTOR(0 TO 7);
+	SIGNAL syn: STD_LOGIC_VECTOR(0 TO 7);
   BEGIN
 	dout19<= syn;
   PROCESS BEGIN
@@ -1124,13 +1192,15 @@ END dsyn19a;
 
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dsyn21 IS
-PORT (clk, pe ,din: IN BIT;
-	dout21: OUT BIT_VECTOR(0 TO m-1));
+PORT (clk, pe ,din: IN STD_LOGIC;
+	dout21: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END dsyn21;
 
 ARCHITECTURE dsyn21a OF dsyn21 IS
-	SIGNAL syn: BIT_VECTOR(0 TO 7);
+	SIGNAL syn: STD_LOGIC_VECTOR(0 TO 7);
   BEGIN
 	dout21<= syn;
   PROCESS BEGIN
@@ -1156,15 +1226,17 @@ END dsyn21a;
 -- Chien search circuits
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dch1 IS
-PORT (clk, pe: IN BIT;
-	din: IN BIT_VECTOR(0 TO m-1);
-	dout: OUT BIT_VECTOR(0 TO m-1));
+PORT (clk, pe: IN STD_LOGIC;
+	din: IN STD_LOGIC_VECTOR(0 TO m-1);
+	dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END dch1;
 
 ARCHITECTURE dch1a OF dch1 IS
-	SIGNAL chin: BIT_VECTOR(0 TO m-1); -- registers input
-	SIGNAL ch: BIT_VECTOR(0 TO 7); -- ch registers and optimization
+	SIGNAL chin: STD_LOGIC_VECTOR(0 TO m-1); -- registers input
+	SIGNAL ch: STD_LOGIC_VECTOR(0 TO 7); -- ch registers and optimization
   BEGIN
 	dout<= ch(0 TO m-1);
 	chin(0)<= ch(7);
@@ -1188,15 +1260,17 @@ END dch1a;
 
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dch2 IS
-PORT (clk, pe: IN BIT;
-	din: IN BIT_VECTOR(0 TO m-1);
-	dout: OUT BIT_VECTOR(0 TO m-1));
+PORT (clk, pe: IN STD_LOGIC;
+	din: IN STD_LOGIC_VECTOR(0 TO m-1);
+	dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END dch2;
 
 ARCHITECTURE dch2a OF dch2 IS
-	SIGNAL chin: BIT_VECTOR(0 TO m-1); -- registers input
-	SIGNAL ch: BIT_VECTOR(0 TO 8); -- ch registers and optimization
+	SIGNAL chin: STD_LOGIC_VECTOR(0 TO m-1); -- registers input
+	SIGNAL ch: STD_LOGIC_VECTOR(0 TO 8); -- ch registers and optimization
   BEGIN
 	dout<= ch(0 TO m-1);
 	ch(8)<= ch(6) XOR ch(7); -- 1
@@ -1222,15 +1296,17 @@ END dch2a;
 
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dch3 IS
-PORT (clk, pe: IN BIT;
-	din: IN BIT_VECTOR(0 TO m-1);
-	dout: OUT BIT_VECTOR(0 TO m-1));
+PORT (clk, pe: IN STD_LOGIC;
+	din: IN STD_LOGIC_VECTOR(0 TO m-1);
+	dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END dch3;
 
 ARCHITECTURE dch3a OF dch3 IS
-	SIGNAL chin: BIT_VECTOR(0 TO m-1); -- registers input
-	SIGNAL ch: BIT_VECTOR(0 TO 8); -- ch registers and optimization
+	SIGNAL chin: STD_LOGIC_VECTOR(0 TO m-1); -- registers input
+	SIGNAL ch: STD_LOGIC_VECTOR(0 TO 8); -- ch registers and optimization
   BEGIN
 	dout<= ch(0 TO m-1);
 	ch(8)<= ch(5) XOR ch(6); -- 1
@@ -1256,15 +1332,17 @@ END dch3a;
 
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dch4 IS
-PORT (clk, pe: IN BIT;
-	din: IN BIT_VECTOR(0 TO m-1);
-	dout: OUT BIT_VECTOR(0 TO m-1));
+PORT (clk, pe: IN STD_LOGIC;
+	din: IN STD_LOGIC_VECTOR(0 TO m-1);
+	dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END dch4;
 
 ARCHITECTURE dch4a OF dch4 IS
-	SIGNAL chin: BIT_VECTOR(0 TO m-1); -- registers input
-	SIGNAL ch: BIT_VECTOR(0 TO 9); -- ch registers and optimization
+	SIGNAL chin: STD_LOGIC_VECTOR(0 TO m-1); -- registers input
+	SIGNAL ch: STD_LOGIC_VECTOR(0 TO 9); -- ch registers and optimization
   BEGIN
 	dout<= ch(0 TO m-1);
 	ch(8)<= ch(4) XOR ch(5); -- 1
@@ -1291,15 +1369,17 @@ END dch4a;
 
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dch5 IS
-PORT (clk, pe: IN BIT;
-	din: IN BIT_VECTOR(0 TO m-1);
-	dout: OUT BIT_VECTOR(0 TO m-1));
+PORT (clk, pe: IN STD_LOGIC;
+	din: IN STD_LOGIC_VECTOR(0 TO m-1);
+	dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END dch5;
 
 ARCHITECTURE dch5a OF dch5 IS
-	SIGNAL chin: BIT_VECTOR(0 TO m-1); -- registers input
-	SIGNAL ch: BIT_VECTOR(0 TO 10); -- ch registers and optimization
+	SIGNAL chin: STD_LOGIC_VECTOR(0 TO m-1); -- registers input
+	SIGNAL ch: STD_LOGIC_VECTOR(0 TO 10); -- ch registers and optimization
   BEGIN
 	dout<= ch(0 TO m-1);
 	ch(8)<= ch(3) XOR ch(7); -- 2
@@ -1327,15 +1407,17 @@ END dch5a;
 
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dch6 IS
-PORT (clk, pe: IN BIT;
-	din: IN BIT_VECTOR(0 TO m-1);
-	dout: OUT BIT_VECTOR(0 TO m-1));
+PORT (clk, pe: IN STD_LOGIC;
+	din: IN STD_LOGIC_VECTOR(0 TO m-1);
+	dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END dch6;
 
 ARCHITECTURE dch6a OF dch6 IS
-	SIGNAL chin: BIT_VECTOR(0 TO m-1); -- registers input
-	SIGNAL ch: BIT_VECTOR(0 TO 11); -- ch registers and optimization
+	SIGNAL chin: STD_LOGIC_VECTOR(0 TO m-1); -- registers input
+	SIGNAL ch: STD_LOGIC_VECTOR(0 TO 11); -- ch registers and optimization
   BEGIN
 	dout<= ch(0 TO m-1);
 	ch(8)<= ch(2) XOR ch(6); -- 2
@@ -1364,15 +1446,17 @@ END dch6a;
 
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dch7 IS
-PORT (clk, pe: IN BIT;
-	din: IN BIT_VECTOR(0 TO m-1);
-	dout: OUT BIT_VECTOR(0 TO m-1));
+PORT (clk, pe: IN STD_LOGIC;
+	din: IN STD_LOGIC_VECTOR(0 TO m-1);
+	dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END dch7;
 
 ARCHITECTURE dch7a OF dch7 IS
-	SIGNAL chin: BIT_VECTOR(0 TO m-1); -- registers input
-	SIGNAL ch: BIT_VECTOR(0 TO 11); -- ch registers and optimization
+	SIGNAL chin: STD_LOGIC_VECTOR(0 TO m-1); -- registers input
+	SIGNAL ch: STD_LOGIC_VECTOR(0 TO 11); -- ch registers and optimization
   BEGIN
 	dout<= ch(0 TO m-1);
 	ch(8)<= ch(1) XOR ch(5); -- 2
@@ -1401,15 +1485,17 @@ END dch7a;
 
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dch8 IS
-PORT (clk, pe: IN BIT;
-	din: IN BIT_VECTOR(0 TO m-1);
-	dout: OUT BIT_VECTOR(0 TO m-1));
+PORT (clk, pe: IN STD_LOGIC;
+	din: IN STD_LOGIC_VECTOR(0 TO m-1);
+	dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END dch8;
 
 ARCHITECTURE dch8a OF dch8 IS
-	SIGNAL chin: BIT_VECTOR(0 TO m-1); -- registers input
-	SIGNAL ch: BIT_VECTOR(0 TO 11); -- ch registers and optimization
+	SIGNAL chin: STD_LOGIC_VECTOR(0 TO m-1); -- registers input
+	SIGNAL ch: STD_LOGIC_VECTOR(0 TO 11); -- ch registers and optimization
   BEGIN
 	dout<= ch(0 TO m-1);
 	ch(8)<= ch(0) XOR ch(4); -- 2
@@ -1438,15 +1524,17 @@ END dch8a;
 
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dch9 IS
-PORT (clk, pe: IN BIT;
-	din: IN BIT_VECTOR(0 TO m-1);
-	dout: OUT BIT_VECTOR(0 TO m-1));
+PORT (clk, pe: IN STD_LOGIC;
+	din: IN STD_LOGIC_VECTOR(0 TO m-1);
+	dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END dch9;
 
 ARCHITECTURE dch9a OF dch9 IS
-	SIGNAL chin: BIT_VECTOR(0 TO m-1); -- registers input
-	SIGNAL ch: BIT_VECTOR(0 TO 11); -- ch registers and optimization
+	SIGNAL chin: STD_LOGIC_VECTOR(0 TO m-1); -- registers input
+	SIGNAL ch: STD_LOGIC_VECTOR(0 TO 11); -- ch registers and optimization
   BEGIN
 	dout<= ch(0 TO m-1);
 	ch(8)<= ch(2) XOR ch(3); -- 2
@@ -1475,15 +1563,17 @@ END dch9a;
 
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dch10 IS
-PORT (clk, pe: IN BIT;
-	din: IN BIT_VECTOR(0 TO m-1);
-	dout: OUT BIT_VECTOR(0 TO m-1));
+PORT (clk, pe: IN STD_LOGIC;
+	din: IN STD_LOGIC_VECTOR(0 TO m-1);
+	dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END dch10;
 
 ARCHITECTURE dch10a OF dch10 IS
-	SIGNAL chin: BIT_VECTOR(0 TO m-1); -- registers input
-	SIGNAL ch: BIT_VECTOR(0 TO 11); -- ch registers and optimization
+	SIGNAL chin: STD_LOGIC_VECTOR(0 TO m-1); -- registers input
+	SIGNAL ch: STD_LOGIC_VECTOR(0 TO 11); -- ch registers and optimization
   BEGIN
 	dout<= ch(0 TO m-1);
 	ch(8)<= ch(1) XOR ch(2); -- 2
@@ -1512,15 +1602,17 @@ END dch10a;
 
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dch11 IS
-PORT (clk, pe: IN BIT;
-	din: IN BIT_VECTOR(0 TO m-1);
-	dout: OUT BIT_VECTOR(0 TO m-1));
+PORT (clk, pe: IN STD_LOGIC;
+	din: IN STD_LOGIC_VECTOR(0 TO m-1);
+	dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 END dch11;
 
 ARCHITECTURE dch11a OF dch11 IS
-	SIGNAL chin: BIT_VECTOR(0 TO m-1); -- registers input
-	SIGNAL ch: BIT_VECTOR(0 TO 11); -- ch registers and optimization
+	SIGNAL chin: STD_LOGIC_VECTOR(0 TO m-1); -- registers input
+	SIGNAL ch: STD_LOGIC_VECTOR(0 TO 11); -- ch registers and optimization
   BEGIN
 	dout<= ch(0 TO m-1);
 	ch(8)<= ch(0) XOR ch(1); -- 2
@@ -1554,15 +1646,17 @@ END dch11a;
 -- counter a
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dca IS
-PORT (clk, reset: IN BIT;
-	cRes: OUT BIT; -- cRes<= countLast OR  reset
-	dout: OUT BIT_VECTOR(0 TO sizea-1)); -- count
+PORT (clk, reset: IN STD_LOGIC;
+	cRes: OUT STD_LOGIC; -- cRes<= countLast OR  reset
+	dout: OUT STD_LOGIC_VECTOR(0 TO sizea-1)); -- count
 END dca;
 
 ARCHITECTURE dcaa OF dca IS
-	SIGNAL ca, cin, cand: BIT_VECTOR(0 TO sizea-1);
-	SIGNAL CRes1, cLast: BIT;
+	SIGNAL ca, cin, cand: STD_LOGIC_VECTOR(0 TO sizea-1);
+	SIGNAL CRes1, cLast: STD_LOGIC;
   BEGIN
 	dout<= ca;
 	cRes<= cRes1;
@@ -1599,13 +1693,15 @@ END dcaa;
 -- counter b -- no. of cicles count= iteration*cb +ca
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dcb IS
-PORT (clk, ce, reset: IN BIT;
-	dout: OUT BIT_VECTOR(0 TO sizeb-1)); -- count
+PORT (clk, ce, reset: IN STD_LOGIC;
+	dout: OUT STD_LOGIC_VECTOR(0 TO sizeb-1)); -- count
 END dcb;
 
 ARCHITECTURE dcba OF dcb IS
-	SIGNAL cb, cin, cand: BIT_VECTOR(0 TO sizeb-1);
+	SIGNAL cb, cin, cand: STD_LOGIC_VECTOR(0 TO sizeb-1);
   BEGIN
 	dout<= cb;
 	cand(0)<= cb(0);
@@ -1634,15 +1730,17 @@ END dcba;
 -- l (degree of error polynomial in BMA) circuit
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dcl IS
-PORT (clk, ce, reset, bsel: IN BIT;
-	cb: BIT_VECTOR(0 TO sizeb-1);
-	dout: OUT BIT); -- dout=1 if l<= cb
+PORT (clk, ce, reset, bsel: IN STD_LOGIC;
+	cb: STD_LOGIC_VECTOR(0 TO sizeb-1);
+	dout: OUT STD_LOGIC); -- dout=1 if l<= cb
 END dcl;
 
 ARCHITECTURE dcla OF dcl IS
-	SIGNAL l, lin, lcarry, lxor, lcomp: BIT_VECTOR(0 TO sizel-1);
-	SIGNAL lce: BIT;
+	SIGNAL l, lin, lcarry, lxor, lcomp: STD_LOGIC_VECTOR(0 TO sizel-1);
+	SIGNAL lce: STD_LOGIC;
   BEGIN
 	dout<= lcomp(sizel-1);
 	-- compare --> lcomp(sizel-1)<= (cb>=l)
@@ -1686,45 +1784,47 @@ END dcla;
 -- control system and counter
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dcount IS
-PORT (clk, reset, drnzero: IN BIT;
-	bsel, bufCe, bufkCe, chpe, msmpe, snce, synpe, vdout, vdout1,c0first, cce, caLast1, cbBeg, ca3a, ca4a, ca5a: OUT BIT);
+PORT (clk, reset, drnzero: IN STD_LOGIC;
+	bsel, bufCe, bufkCe, chpe, msmpe, snce, synpe, vdout, vdout1,c0first, cce, caLast1, cbBeg, ca3a, ca4a, ca5a: OUT STD_LOGIC);
 		-- vdout - delayed by one clock vdout11
 END dcount;
 
 ARCHITECTURE dcounta OF dcount IS
 	COMPONENT drd1ce -- single register with clock enable
-		PORT ( clk, ce, din: IN BIT; dout: OUT BIT);
+		PORT ( clk, ce, din: IN STD_LOGIC; dout: OUT STD_LOGIC);
 		END COMPONENT;
 		FOR ALL: drd1ce USE ENTITY WORK.drd1ce (drd1cea);
 	COMPONENT dca  -- counter a
-		PORT (clk, reset: IN BIT; cRes: OUT BIT;
-		dout: OUT BIT_VECTOR(0 TO sizea-1));
+		PORT (clk, reset: IN STD_LOGIC; cRes: OUT STD_LOGIC;
+		dout: OUT STD_LOGIC_VECTOR(0 TO sizea-1));
 		END COMPONENT;
 		FOR ALL: dca USE ENTITY WORK.dca (dcaa);
 	COMPONENT dcb  -- counter b
-		PORT (clk, ce, reset: IN BIT;
-		dout: OUT BIT_VECTOR(0 TO sizeb-1));
+		PORT (clk, ce, reset: IN STD_LOGIC;
+		dout: OUT STD_LOGIC_VECTOR(0 TO sizeb-1));
 		END COMPONENT;
 		FOR ALL: dcb USE ENTITY WORK.dcb (dcba);
 	COMPONENT dcl -- l (degree of error polynomial in BMA) circuit
-		PORT (clk, ce, reset, bsel: IN BIT; -- dout=1 if l<= cb
-		cb: BIT_VECTOR(0 TO sizeb-1); dout: OUT BIT);
+		PORT (clk, ce, reset, bsel: IN STD_LOGIC; -- dout=1 if l<= cb
+		cb: STD_LOGIC_VECTOR(0 TO sizeb-1); dout: OUT STD_LOGIC);
 		END COMPONENT;
 		FOR ALL: dcL USE ENTITY WORK.dcL (dcLa);
-	SIGNAL cceR, cceS, cceSR, dringCe2, dringPe2: BIT;
+	SIGNAL cceR, cceS, cceSR, dringCe2, dringPe2: STD_LOGIC;
 
 	-- VHDL Template
-	SIGNAL ca: BIT_VECTOR(0 TO sizea-1); -- counter a
-	SIGNAL cb: BIT_VECTOR(0 TO sizeb-1); --  count= ca+ iteration*cb
-	SIGNAL res, bsel1, caRes, bufR, bufRa, bufRb, bufS, bufSa, bufSb, bufSR: BIT;
-	SIGNAL chpe1, chpe1a, chpe1b, synpe1,  msmpe1, cei1: BIT;
+	SIGNAL ca: STD_LOGIC_VECTOR(0 TO sizea-1); -- counter a
+	SIGNAL cb: STD_LOGIC_VECTOR(0 TO sizeb-1); --  count= ca+ iteration*cb
+	SIGNAL res, bsel1, caRes, bufR, bufRa, bufRb, bufS, bufSa, bufSb, bufSR: STD_LOGIC;
+	SIGNAL chpe1, chpe1a, chpe1b, synpe1,  msmpe1, cei1: STD_LOGIC;
 	-- cei - interleave clock enable
-	SIGNAL vdout11, vdout11a, vdout1R, vdout1Ra, vdout1Rb: BIT;
-	SIGNAL vdout1S, vdout1Sa, vdout1Sb: BIT;
-	SIGNAL ca0, caLast,caNextLast, cb0, cLast, cLasta, cLastb, lCe, lcomp: BIT;
-	SIGNAL bufkCeCe, one, vdout11Ce, vdout11In, bufCe1, bufkCe1: BIT;
-	SIGNAL noFirstVdoutIn, noFirstVdout, vdout11aDel: BIT;
+	SIGNAL vdout11, vdout11a, vdout1R, vdout1Ra, vdout1Rb: STD_LOGIC;
+	SIGNAL vdout1S, vdout1Sa, vdout1Sb: STD_LOGIC;
+	SIGNAL ca0, caLast,caNextLast, cb0, cLast, cLasta, cLastb, lCe, lcomp: STD_LOGIC;
+	SIGNAL bufkCeCe, one, vdout11Ce, vdout11In, bufCe1, bufkCe1: STD_LOGIC;
+	SIGNAL noFirstVdoutIn, noFirstVdout, vdout11aDel: STD_LOGIC;
   BEGIN
 	res<= reset OR clast;
 	a1: dca
@@ -1806,260 +1906,262 @@ END dcounta;
 -- decoder
 
 	USE WORK.const.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY dec IS
-PORT (clk, reset, din: IN BIT;
-	vdout, dout: OUT BIT);
+PORT (clk, reset, din: IN STD_LOGIC;
+	vdout, dout: OUT STD_LOGIC);
 END dec;
 
 ARCHITECTURE deca OF dec IS
 
 	COMPONENT dbuf   -- input output buffer
-		PORT (clk, bufCe, bufkCe, err, vdout1, din: IN BIT;
-			dout: OUT BIT);
+		PORT (clk, bufCe, bufkCe, err, vdout1, din: IN STD_LOGIC;
+			dout: OUT STD_LOGIC);
 		END COMPONENT;
 		FOR ALL: dbuf USE ENTITY WORK.dbuf (dbufa);
 	COMPONENT drd1ce -- single register with clock enable
-		PORT ( clk, ce, din: IN BIT; dout: OUT BIT);
+		PORT ( clk, ce, din: IN STD_LOGIC; dout: OUT STD_LOGIC);
 		END COMPONENT;
 		FOR ALL: drd1ce USE ENTITY WORK.drd1ce (drd1cea);
 	COMPONENT dmul21
-		PORT ( sel: IN BIT; d0, d1: IN BIT_VECTOR(0 TO m-1);
-			dout: OUT BIT_VECTOR(0 TO m-1));
+		PORT ( sel: IN STD_LOGIC; d0, d1: IN STD_LOGIC_VECTOR(0 TO m-1);
+			dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: dmul21 USE ENTITY WORK.dmul21 (dmul21a);
 	COMPONENT drd     -- PIPO register
-		PORT (clk: IN BIT; din: IN BIT_VECTOR(0 TO m-1);
-			dout: OUT BIT_VECTOR(0 TO m-1));
+		PORT (clk: IN STD_LOGIC; din: IN STD_LOGIC_VECTOR(0 TO m-1);
+			dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: drd USE ENTITY WORK.drd (drda);
 	COMPONENT drdce   -- PIPO register
-		PORT (clk, ce: IN BIT; din: IN BIT_VECTOR(0 TO m-1);
-			dout: OUT BIT_VECTOR(0 TO m-1));
+		PORT (clk, ce: IN STD_LOGIC; din: IN STD_LOGIC_VECTOR(0 TO m-1);
+			dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: drdce USE ENTITY WORK.drdce (drdcea);
 	COMPONENT drdcer   -- PIPO register
-		PORT (clk, ce, reset: IN BIT; din: IN BIT_VECTOR(0 TO m-1);
-			dout: OUT BIT_VECTOR(0 TO m-1));
+		PORT (clk, ce, reset: IN STD_LOGIC; din: IN STD_LOGIC_VECTOR(0 TO m-1);
+			dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: drdcer USE ENTITY WORK.drdcer (drdcera);
 	COMPONENT drdcesone   -- m registers with CE and if set='1' dout<=din0&"00.."
-		PORT ( clk, ce, set, dinone: IN BIT; din: IN BIT_VECTOR(0 TO m-1);
-			dout: OUT BIT_VECTOR(0 TO m-1));
+		PORT ( clk, ce, set, dinone: IN STD_LOGIC; din: IN STD_LOGIC_VECTOR(0 TO m-1);
+			dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: drdcesone USE ENTITY WORK.drdcesone (drdcesonea);
 	COMPONENT dpm    -- Parallel dual basis multiplier
-		PORT (din1, din2: IN BIT_VECTOR(0 TO m-1);
-			dout: OUT BIT_VECTOR(0 TO m-1));
+		PORT (din1, din2: IN STD_LOGIC_VECTOR(0 TO m-1);
+			dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: dpm USE ENTITY WORK.dpm (dpma);
 	COMPONENT dxorm	    -- dout<= din1 xor din0; opt.1
-		PORT (din0, din1: IN BIT_VECTOR(0 TO m-1);
-			dout: OUT BIT_VECTOR(0 TO m-1));
+		PORT (din0, din1: IN STD_LOGIC_VECTOR(0 TO m-1);
+			dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: dxorm USE ENTITY WORK.dxorm (dxorma);
 
 
 		-- OPTION 3
 	COMPONENT dshr   -- shift register with reset and serial XOR, opt.3
-		PORT (clk, ce, reset, din: IN BIT;
-			dout: OUT BIT_VECTOR(0 TO m-1));
+		PORT (clk, ce, reset, din: IN STD_LOGIC;
+			dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: dshr USE ENTITY WORK.dshr (dshra);
 	COMPONENT dshpe   -- shift register with parallel in and serial XOR, opt.3
-		PORT (clk, ce, pe: IN BIT; din: IN BIT_VECTOR(0 TO m-1);
-			dout: OUT BIT_VECTOR(0 TO m-1));
+		PORT (clk, ce, pe: IN STD_LOGIC; din: IN STD_LOGIC_VECTOR(0 TO m-1);
+			dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: dshpe USE ENTITY WORK.dshpe (dshpea);
 	COMPONENT dsdbm -- serial dual basis multiplier without ring, opt.3
-		PORT (dbin, sbin: IN BIT_VECTOR(0 TO m-1); dout: OUT BIT);
+		PORT (dbin, sbin: IN STD_LOGIC_VECTOR(0 TO m-1); dout: OUT STD_LOGIC);
 		END COMPONENT;
 		FOR ALL: dsdbm USE ENTITY WORK.dsdbm (dsdbma);
 	COMPONENT  dsdbmRing  -- serial dual basis multiplier ring, opt.3
-		PORT (clk, pe: IN BIT;   -- pe- parallel enable
-			din: IN BIT_VECTOR(0 TO m-1);
-			dout: OUT BIT_VECTOR(0 TO m-1));
+		PORT (clk, pe: IN STD_LOGIC;   -- pe- parallel enable
+			din: IN STD_LOGIC_VECTOR(0 TO m-1);
+			dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: dsdbmRing USE ENTITY WORK.dsdbmRing (dsdbmRinga);
 	COMPONENT dssbm   -- serial standard basis multiplier ring, opt3
-		PORT (clk, ce, pe: IN BIT; din: IN BIT_VECTOR(0 TO m-1);
-			dout: OUT BIT_VECTOR(0 TO m-1));
+		PORT (clk, ce, pe: IN STD_LOGIC; din: IN STD_LOGIC_VECTOR(0 TO m-1);
+			dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: dssbm USE ENTITY WORK.dssbm (dssbma);
 	COMPONENT dmli  -- multiply by alpha^i (1 + x^i + x^m; for m!=8), opt.3
-		PORT (din: IN BIT_VECTOR(0 TO m-1);
-			dout: OUT BIT_VECTOR(0 TO m-1));
+		PORT (din: IN STD_LOGIC_VECTOR(0 TO m-1);
+			dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: dmli USE ENTITY WORK.dmli (dmlia);
 	COMPONENT dinv  -- inverter
-		PORT (clk, cbBeg, bsel, caLast, cce, drnzero, snce, synpe: IN BIT;  -- pe- parallel enable - if dr!=0;
-			din: IN BIT_VECTOR(0 TO m-1);
-			dout: OUT BIT_VECTOR(0 TO m-1));
+		PORT (clk, cbBeg, bsel, caLast, cce, drnzero, snce, synpe: IN STD_LOGIC;  -- pe- parallel enable - if dr!=0;
+			din: IN STD_LOGIC_VECTOR(0 TO m-1);
+			dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: dinv USE ENTITY WORK.dinv (dinva);
 	COMPONENT dandm  -- dout<= din AND en
-		PORT (en: IN BIT; din: IN BIT_VECTOR(0 TO m-1);
-		dout: OUT BIT_VECTOR(0 TO m-1));
+		PORT (en: IN STD_LOGIC; din: IN STD_LOGIC_VECTOR(0 TO m-1);
+		dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: dandm USE ENTITY WORK.dandm (dandma);
 
 		-- common
 	COMPONENT dxort		       -- (t-1) * XOR
-		PORT (din0, din1, din2, din3, din4, din5, din6, din7, din8, din9, din10, din11: IN BIT; dout: OUT BIT);
+		PORT (din0, din1, din2, din3, din4, din5, din6, din7, din8, din9, din10, din11: IN STD_LOGIC; dout: OUT STD_LOGIC);
 		END COMPONENT;
 		FOR ALL: dxort USE ENTITY WORK.dxort (dxorta);
 	COMPONENT dcheq   -- check if Chien search circuit is zero
-		PORT (din1, din2, din3, din4, din5, din6, din7, din8, din9, din10, din11: IN BIT_VECTOR(0 TO m-1);
-			dout: OUT BIT); -- dout=1 if an error occur
+		PORT (din1, din2, din3, din4, din5, din6, din7, din8, din9, din10, din11: IN STD_LOGIC_VECTOR(0 TO m-1);
+			dout: OUT STD_LOGIC); -- dout=1 if an error occur
 		END COMPONENT;
 		FOR ALL: dcheq USE ENTITY WORK.dcheq (dcheqa);
 
 	-- SYNDROMES & CHIEN SEARCH
 	COMPONENT dsyn1
-		PORT (clk, pe, din: IN BIT;
-		dout1, dout2, dout4, dout8, dout16: OUT BIT_VECTOR(0 TO m-1));
+		PORT (clk, pe, din: IN STD_LOGIC;
+		dout1, dout2, dout4, dout8, dout16: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: dsyn1 USE ENTITY WORK.dsyn1 (dsyn1a);
 	COMPONENT dsyn3
-		PORT (clk, pe, din: IN BIT;
-		dout3, dout6, dout12: OUT BIT_VECTOR(0 TO m-1));
+		PORT (clk, pe, din: IN STD_LOGIC;
+		dout3, dout6, dout12: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: dsyn3 USE ENTITY WORK.dsyn3 (dsyn3a);
 	COMPONENT dsyn5
-		PORT (clk, pe, din: IN BIT;
-		dout5, dout10, dout20: OUT BIT_VECTOR(0 TO m-1));
+		PORT (clk, pe, din: IN STD_LOGIC;
+		dout5, dout10, dout20: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: dsyn5 USE ENTITY WORK.dsyn5 (dsyn5a);
 	COMPONENT dsyn7
-		PORT (clk, pe, din: IN BIT;
-		dout7, dout14: OUT BIT_VECTOR(0 TO m-1));
+		PORT (clk, pe, din: IN STD_LOGIC;
+		dout7, dout14: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: dsyn7 USE ENTITY WORK.dsyn7 (dsyn7a);
 	COMPONENT dsyn9
-		PORT (clk, pe, din: IN BIT;
-		dout9, dout18: OUT BIT_VECTOR(0 TO m-1));
+		PORT (clk, pe, din: IN STD_LOGIC;
+		dout9, dout18: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: dsyn9 USE ENTITY WORK.dsyn9 (dsyn9a);
 	COMPONENT dsyn11
-		PORT (clk, pe, din: IN BIT;
-		dout11: OUT BIT_VECTOR(0 TO m-1));
+		PORT (clk, pe, din: IN STD_LOGIC;
+		dout11: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: dsyn11 USE ENTITY WORK.dsyn11 (dsyn11a);
 	COMPONENT dsyn13
-		PORT (clk, pe, din: IN BIT;
-		dout13: OUT BIT_VECTOR(0 TO m-1));
+		PORT (clk, pe, din: IN STD_LOGIC;
+		dout13: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: dsyn13 USE ENTITY WORK.dsyn13 (dsyn13a);
 	COMPONENT dsyn15
-		PORT (clk, pe, din: IN BIT;
-		dout15: OUT BIT_VECTOR(0 TO m-1));
+		PORT (clk, pe, din: IN STD_LOGIC;
+		dout15: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: dsyn15 USE ENTITY WORK.dsyn15 (dsyn15a);
 	COMPONENT dsyn17
-		PORT (clk, pe, din: IN BIT;
-		dout17: OUT BIT_VECTOR(0 TO m-1));
+		PORT (clk, pe, din: IN STD_LOGIC;
+		dout17: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: dsyn17 USE ENTITY WORK.dsyn17 (dsyn17a);
 	COMPONENT dsyn19
-		PORT (clk, pe, din: IN BIT;
-		dout19: OUT BIT_VECTOR(0 TO m-1));
+		PORT (clk, pe, din: IN STD_LOGIC;
+		dout19: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: dsyn19 USE ENTITY WORK.dsyn19 (dsyn19a);
 	COMPONENT dsyn21
-		PORT (clk, pe, din: IN BIT;
-		dout21: OUT BIT_VECTOR(0 TO m-1));
+		PORT (clk, pe, din: IN STD_LOGIC;
+		dout21: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: dsyn21 USE ENTITY WORK.dsyn21 (dsyn21a);
 	COMPONENT dch1
-		PORT (clk, pe: IN BIT; din: IN BIT_VECTOR(0 TO m-1);
-			dout: OUT BIT_VECTOR(0 TO m-1));
+		PORT (clk, pe: IN STD_LOGIC; din: IN STD_LOGIC_VECTOR(0 TO m-1);
+			dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: dch1 USE ENTITY WORK.dch1 (dch1a);
 	COMPONENT dch2
-		PORT (clk, pe: IN BIT; din: IN BIT_VECTOR(0 TO m-1);
-			dout: OUT BIT_VECTOR(0 TO m-1));
+		PORT (clk, pe: IN STD_LOGIC; din: IN STD_LOGIC_VECTOR(0 TO m-1);
+			dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: dch2 USE ENTITY WORK.dch2 (dch2a);
 	COMPONENT dch3
-		PORT (clk, pe: IN BIT; din: IN BIT_VECTOR(0 TO m-1);
-			dout: OUT BIT_VECTOR(0 TO m-1));
+		PORT (clk, pe: IN STD_LOGIC; din: IN STD_LOGIC_VECTOR(0 TO m-1);
+			dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: dch3 USE ENTITY WORK.dch3 (dch3a);
 	COMPONENT dch4
-		PORT (clk, pe: IN BIT; din: IN BIT_VECTOR(0 TO m-1);
-			dout: OUT BIT_VECTOR(0 TO m-1));
+		PORT (clk, pe: IN STD_LOGIC; din: IN STD_LOGIC_VECTOR(0 TO m-1);
+			dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: dch4 USE ENTITY WORK.dch4 (dch4a);
 	COMPONENT dch5
-		PORT (clk, pe: IN BIT; din: IN BIT_VECTOR(0 TO m-1);
-			dout: OUT BIT_VECTOR(0 TO m-1));
+		PORT (clk, pe: IN STD_LOGIC; din: IN STD_LOGIC_VECTOR(0 TO m-1);
+			dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: dch5 USE ENTITY WORK.dch5 (dch5a);
 	COMPONENT dch6
-		PORT (clk, pe: IN BIT; din: IN BIT_VECTOR(0 TO m-1);
-			dout: OUT BIT_VECTOR(0 TO m-1));
+		PORT (clk, pe: IN STD_LOGIC; din: IN STD_LOGIC_VECTOR(0 TO m-1);
+			dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: dch6 USE ENTITY WORK.dch6 (dch6a);
 	COMPONENT dch7
-		PORT (clk, pe: IN BIT; din: IN BIT_VECTOR(0 TO m-1);
-			dout: OUT BIT_VECTOR(0 TO m-1));
+		PORT (clk, pe: IN STD_LOGIC; din: IN STD_LOGIC_VECTOR(0 TO m-1);
+			dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: dch7 USE ENTITY WORK.dch7 (dch7a);
 	COMPONENT dch8
-		PORT (clk, pe: IN BIT; din: IN BIT_VECTOR(0 TO m-1);
-			dout: OUT BIT_VECTOR(0 TO m-1));
+		PORT (clk, pe: IN STD_LOGIC; din: IN STD_LOGIC_VECTOR(0 TO m-1);
+			dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: dch8 USE ENTITY WORK.dch8 (dch8a);
 	COMPONENT dch9
-		PORT (clk, pe: IN BIT; din: IN BIT_VECTOR(0 TO m-1);
-			dout: OUT BIT_VECTOR(0 TO m-1));
+		PORT (clk, pe: IN STD_LOGIC; din: IN STD_LOGIC_VECTOR(0 TO m-1);
+			dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: dch9 USE ENTITY WORK.dch9 (dch9a);
 	COMPONENT dch10
-		PORT (clk, pe: IN BIT; din: IN BIT_VECTOR(0 TO m-1);
-			dout: OUT BIT_VECTOR(0 TO m-1));
+		PORT (clk, pe: IN STD_LOGIC; din: IN STD_LOGIC_VECTOR(0 TO m-1);
+			dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: dch10 USE ENTITY WORK.dch10 (dch10a);
 	COMPONENT dch11
-		PORT (clk, pe: IN BIT; din: IN BIT_VECTOR(0 TO m-1);
-			dout: OUT BIT_VECTOR(0 TO m-1));
+		PORT (clk, pe: IN STD_LOGIC; din: IN STD_LOGIC_VECTOR(0 TO m-1);
+			dout: OUT STD_LOGIC_VECTOR(0 TO m-1));
 		END COMPONENT;
 		FOR ALL: dch11 USE ENTITY WORK.dch11 (dch11a);
 
 	-- common signals generated by C program
-	SIGNAL syn1, syn2, syn3, syn4, syn5, syn6, syn7, syn8, syn9, syn10, syn11, syn12, syn13, syn14, syn15, syn16, syn17, syn18, syn19, syn20, syn21: BIT_VECTOR(0 TO m-1);
-	SIGNAL sn0out, sn1out, sn2out, sn3out, sn4out, sn5out, sn6out, sn7out, sn8out, sn9out, sn10out, sn11out, sn12out, sn13out, sn14out, sn15out, sn16out, sn17out, sn18out, sn19out, sn20out: BIT_VECTOR(0 TO m-1);
-	SIGNAL sn0in, sn1in, sn2in, sn3in, sn4in, sn5in, sn6in, sn7in, sn8in, sn9in, sn10in, sn11in, sn12in, sn13in, sn14in, sn15in, sn16in, sn17in, sn18in, sn19in, sn20in: BIT_VECTOR(0 TO m-1);
-	SIGNAL c1out, c2out, c3out, c4out, c5out, c6out, c7out, c8out, c9out, c10out, c11out: BIT_VECTOR(0 TO m-1);
-	SIGNAL b3out, b4out, b5out, b6out, b7out, b8out, b9out, b10out, b11out: BIT_VECTOR(0 TO m-1);
-	SIGNAL ch1out, ch2out, ch3out, ch4out, ch5out, ch6out, ch7out, ch8out, ch9out, ch10out, ch11out: BIT_VECTOR(0 TO m-1);
+	SIGNAL syn1, syn2, syn3, syn4, syn5, syn6, syn7, syn8, syn9, syn10, syn11, syn12, syn13, syn14, syn15, syn16, syn17, syn18, syn19, syn20, syn21: STD_LOGIC_VECTOR(0 TO m-1);
+	SIGNAL sn0out, sn1out, sn2out, sn3out, sn4out, sn5out, sn6out, sn7out, sn8out, sn9out, sn10out, sn11out, sn12out, sn13out, sn14out, sn15out, sn16out, sn17out, sn18out, sn19out, sn20out: STD_LOGIC_VECTOR(0 TO m-1);
+	SIGNAL sn0in, sn1in, sn2in, sn3in, sn4in, sn5in, sn6in, sn7in, sn8in, sn9in, sn10in, sn11in, sn12in, sn13in, sn14in, sn15in, sn16in, sn17in, sn18in, sn19in, sn20in: STD_LOGIC_VECTOR(0 TO m-1);
+	SIGNAL c1out, c2out, c3out, c4out, c5out, c6out, c7out, c8out, c9out, c10out, c11out: STD_LOGIC_VECTOR(0 TO m-1);
+	SIGNAL b3out, b4out, b5out, b6out, b7out, b8out, b9out, b10out, b11out: STD_LOGIC_VECTOR(0 TO m-1);
+	SIGNAL ch1out, ch2out, ch3out, ch4out, ch5out, ch6out, ch7out, ch8out, ch9out, ch10out, ch11out: STD_LOGIC_VECTOR(0 TO m-1);
 
 	-- for different option by C program
-	SIGNAL b4set, b4sIn: BIT;
-	SIGNAL sn0en, sn1en, sn2en, sn3en, sn4en, sn5en, sn6en, sn7en, sn8en, sn9en, sn10en, sn11en: BIT_VECTOR(0 TO m-1);
-	SIGNAL cc2out, cc3out, cc4out, cc5out, cc6out, cc7out, cc8out, cc9out: BIT_VECTOR(0 TO m-1);
-	SIGNAL b5in, b6in, b7in, b8in, b9in, b10in, b11in: BIT_VECTOR(0 TO m-1);
+	SIGNAL b4set, b4sIn: STD_LOGIC;
+	SIGNAL sn0en, sn1en, sn2en, sn3en, sn4en, sn5en, sn6en, sn7en, sn8en, sn9en, sn10en, sn11en: STD_LOGIC_VECTOR(0 TO m-1);
+	SIGNAL cc2out, cc3out, cc4out, cc5out, cc6out, cc7out, cc8out, cc9out: STD_LOGIC_VECTOR(0 TO m-1);
+	SIGNAL b5in, b6in, b7in, b8in, b9in, b10in, b11in: STD_LOGIC_VECTOR(0 TO m-1);
 	COMPONENT dcount --counter
-		PORT (clk, reset, drnzero: IN BIT;
-		bsel, bufCe, bufkCe, chpe, msmpe, snce, synpe, vdout, vdout1, c0first, cce, caLast1, cbBeg, ca3a, ca4a, ca5a: OUT BIT);
+		PORT (clk, reset, drnzero: IN STD_LOGIC;
+		bsel, bufCe, bufkCe, chpe, msmpe, snce, synpe, vdout, vdout1, c0first, cce, caLast1, cbBeg, ca3a, ca4a, ca5a: OUT STD_LOGIC);
 		END COMPONENT;
 		FOR ALL: dcount USE ENTITY WORK.dcount (dcounta);
 
 	--  option 3 VHDL template
-	SIGNAL  chpe, msmPe, msmCe, snce, synpe, vdout1, caLast: BIT;
-	SIGNAL  cce, cbBeg: BIT;
+	SIGNAL  chpe, msmPe, msmCe, snce, synpe, vdout1, caLast: STD_LOGIC;
+	SIGNAL  cce, cbBeg: STD_LOGIC;
 		-- from counter - control signals
-	SIGNAL err, bsel, bufCe, bufkCe: BIT;
-	SIGNAL b3set, b3sIn, b2out, b2ce, b3ce, xbsel: BIT;
+	SIGNAL err, bsel, bufCe, bufkCe: STD_LOGIC;
+	SIGNAL b3set, b3sIn, b2out, b2ce, b3ce, xbsel: STD_LOGIC;
 		-- bsel=1 - Br+1<- Br*x^2
-	SIGNAL drnzero, dringPe, ccCe, qdr_or, qdr_orCe: BIT;
-	SIGNAL one, c0first: BIT;
-	SIGNAL c1in, cs, dr, dra, dr_or: BIT_VECTOR(0 TO m-1);
-	SIGNAL drpd, qd, dli, dmIn, dm: BIT_VECTOR(0 TO m-1);
-	SIGNAL cin: BIT_VECTOR(2 TO t);
+	SIGNAL drnzero, dringPe, ccCe, qdr_or, qdr_orCe: STD_LOGIC;
+	SIGNAL one, c0first: STD_LOGIC;
+	SIGNAL c1in, cs, dr, dra, dr_or: STD_LOGIC_VECTOR(0 TO m-1);
+	SIGNAL drpd, qd, dli, dmIn, dm: STD_LOGIC_VECTOR(0 TO m-1);
+	SIGNAL cin: STD_LOGIC_VECTOR(2 TO t);
 	-- only for m=8
-	SIGNAL xdaOut, xdbOut, xdcOut, xddOut, xdeOut: BIT_VECTOR(0 TO 7);
-	SIGNAL d1L, d2L, d2La, d3L, dm1l, dxOut: BIT_VECTOR(0 TO 7);
-	SIGNAL ca3, ca4, ca5, ca45: BIT;
+	SIGNAL xdaOut, xdbOut, xdcOut, xddOut, xdeOut: STD_LOGIC_VECTOR(0 TO 7);
+	SIGNAL d1L, d2L, d2La, d3L, dm1l, dxOut: STD_LOGIC_VECTOR(0 TO 7);
+	SIGNAL ca3, ca4, ca5, ca45: STD_LOGIC;
   BEGIN
 	b2: drd1ce
 		PORT MAP (clk, b2ce, bsel, b2out);
